@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Malaysia Freelancer Tax Calculator 2026 (YA2025) | CP500 Instalment & LHDN Bracket Estimator</title>
-<meta name="description" content="Free Malaysia freelancer tax calculator for YA2025/2026. Estimate net business profit, LHDN progressive tax brackets, reliefs, and your CP500 instalment schedule (6 payments/year) instantly.">
-<meta name="keywords" content="malaysia freelancer tax, CP500 calculator, LHDN tax calculator 2026, freelance income tax malaysia, YA2025 tax bracket, self employed tax malaysia, CP500 instalment schedule, business income tax malaysia">
+<meta name="description" content="Free Malaysia freelancer tax calculator for YA2025/2026. Estimate net business profit, LHDN progressive tax brackets, reliefs, and your CP500 instalment schedule (6 payments/year) instantly. Available in English, Chinese and Bahasa Malaysia.">
+<meta name="keywords" content="malaysia freelancer tax, CP500 calculator, LHDN tax calculator 2026, freelance income tax malaysia, YA2025 tax bracket, self employed tax malaysia, CP500 instalment schedule, business income tax malaysia, kalkulator cukai freelancer malaysia, 马来西亚自由职业者税务计算器">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Malaysia Freelancer Tax Calculator">
-<link rel="canonical" href="https://mytaxmalaysia.com">
+<link rel="canonical" href="https://mytaxmalaysia.com/">
 <meta name="theme-color" content="#0B1F33">
 
 <meta property="og:type" content="website">
@@ -95,9 +95,13 @@
 
   .ladder-seg { transition: flex-basis .35s ease, opacity .35s ease; }
   .ladder-marker { transition: left .35s cubic-bezier(.2,.8,.2,1); }
+  #donutChart { transition: background .35s ease; }
+
+  .lang-btn { color: rgba(250,248,243,0.55); }
+  .lang-btn.active { background: #B8863B; color: #0B1F33; }
 
   @media (prefers-reduced-motion: reduce) {
-    .ladder-seg, .ladder-marker, html { transition: none !important; scroll-behavior: auto; }
+    .ladder-seg, .ladder-marker, #donutChart, html { transition: none !important; scroll-behavior: auto; }
   }
 
   ::selection { background: #E8D5B0; color: #0B1F33; }
@@ -120,14 +124,19 @@
     </a>
 
     <nav class="hidden md:flex items-center gap-6 text-sm text-paper/75">
-      <a href="index.html" class="text-brasssoft font-medium">Home</a>
-      <a href="about.html" class="hover:text-brasssoft transition-colors">About Us</a>
-      <a href="privacy.html" class="hover:text-brasssoft transition-colors">Privacy Policy</a>
-      <a href="contact.html" class="hover:text-brasssoft transition-colors">Contact Us</a>
+      <a href="index.html" data-i18n="nav_home" class="text-brasssoft font-medium">Home</a>
+      <a href="about.html" data-i18n="nav_about" class="hover:text-brasssoft transition-colors">About Us</a>
+      <a href="privacy.html" data-i18n="nav_privacy" class="hover:text-brasssoft transition-colors">Privacy Policy</a>
+      <a href="contact.html" data-i18n="nav_contact" class="hover:text-brasssoft transition-colors">Contact Us</a>
+      <div class="flex items-center gap-1 bg-paper/10 rounded-full p-1 ml-1">
+        <button type="button" data-lang="en" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">EN</button>
+        <button type="button" data-lang="zh" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">中文</button>
+        <button type="button" data-lang="ms" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">BM</button>
+      </div>
     </nav>
 
     <div class="flex items-center gap-2 shrink-0">
-      <a href="#estimator" class="hidden sm:inline-block text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-4 py-2 rounded-full transition-colors">
+      <a href="#estimator" data-i18n="nav_cta" class="hidden sm:inline-block text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-4 py-2 rounded-full transition-colors">
         Start Estimate ↓
       </a>
       <button id="mobileMenuBtn" class="md:hidden text-paper/90 p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false">
@@ -140,11 +149,16 @@
 
   <!-- Mobile nav dropdown -->
   <div id="mobileMenu" class="hidden md:hidden border-t border-brass/20 bg-ink px-5 py-4 space-y-3 text-sm text-paper/85">
-    <a href="index.html" class="block text-brasssoft font-medium">Home</a>
-    <a href="about.html" class="block">About Us</a>
-    <a href="privacy.html" class="block">Privacy Policy</a>
-    <a href="contact.html" class="block">Contact Us</a>
-    <a href="#estimator" class="block text-brass font-medium pt-1">Start Estimate ↓</a>
+    <div class="flex items-center gap-1 bg-paper/10 rounded-full p-1 w-max mb-1">
+      <button type="button" data-lang="en" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">EN</button>
+      <button type="button" data-lang="zh" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">中文</button>
+      <button type="button" data-lang="ms" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">BM</button>
+    </div>
+    <a href="index.html" data-i18n="nav_home" class="block text-brasssoft font-medium">Home</a>
+    <a href="about.html" data-i18n="nav_about" class="block">About Us</a>
+    <a href="privacy.html" data-i18n="nav_privacy" class="block">Privacy Policy</a>
+    <a href="contact.html" data-i18n="nav_contact" class="block">Contact Us</a>
+    <a href="#estimator" data-i18n="nav_cta" class="block text-brass font-medium pt-1">Start Estimate ↓</a>
   </div>
 </header>
 
@@ -152,16 +166,16 @@
 <section class="relative overflow-hidden bg-ink text-paper">
   <div class="absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image:repeating-linear-gradient(45deg,#B8863B 0,#B8863B 1px,transparent 1px,transparent 14px);"></div>
   <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24 relative">
-    <p class="text-brasssoft uppercase text-xs tracking-[0.25em] mb-4">CP500 &middot; Form B &middot; Business Income Tax</p>
-    <h1 class="font-display text-3xl sm:text-5xl leading-[1.15] max-w-2xl">
+    <p data-i18n="hero_eyebrow" class="text-brasssoft uppercase text-xs tracking-[0.25em] mb-4">CP500 &middot; Form B &middot; Business Income Tax</p>
+    <h1 data-i18n="hero_title" class="font-display text-3xl sm:text-5xl leading-[1.15] max-w-2xl">
       Know your quarter-by-quarter tax bill before LHDN tells you.
     </h1>
-    <p class="mt-5 max-w-xl text-[15px] sm:text-base text-paper/75 leading-relaxed">
+    <p data-i18n="hero_desc" class="mt-5 max-w-xl text-[15px] sm:text-base text-paper/75 leading-relaxed">
       Built for Malaysian freelancers, consultants, and sole proprietors. Enter your income and expenses once, and watch your taxable income, annual tax, and 6-instalment CP500 schedule update live — based on the official LHDN progressive tax bands.
     </p>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href="#estimator" class="bg-brass hover:bg-brasssoft text-ink font-semibold text-sm px-6 py-3 rounded-full transition-colors">Calculate my tax →</a>
-      <a href="#guide" class="border border-paper/25 hover:border-paper/50 text-paper/90 text-sm px-6 py-3 rounded-full transition-colors">Read the full guide</a>
+      <a href="#estimator" data-i18n="hero_cta1" class="bg-brass hover:bg-brasssoft text-ink font-semibold text-sm px-6 py-3 rounded-full transition-colors">Calculate my tax →</a>
+      <a href="#guide" data-i18n="hero_cta2" class="border border-paper/25 hover:border-paper/50 text-paper/90 text-sm px-6 py-3 rounded-full transition-colors">Read the full guide</a>
     </div>
   </div>
 </section>
@@ -175,13 +189,13 @@
     <div class="lg:col-span-3 space-y-6">
 
       <div class="bg-panel border border-slate/10 rounded-2xl p-6 sm:p-7 shadow-sm">
-        <h2 class="font-display text-xl text-ink mb-1">1. Business income &amp; expenses</h2>
-        <p class="text-xs text-slatesoft mb-6">Net profit = total freelance income − allowable business expenses (wholly &amp; exclusively incurred).</p>
+        <h2 data-i18n="step1_title" class="font-display text-xl text-ink mb-1">1. Business income &amp; expenses</h2>
+        <p data-i18n="step1_desc" class="text-xs text-slatesoft mb-6">Net profit = total freelance income − allowable business expenses (wholly &amp; exclusively incurred).</p>
 
         <!-- Income -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-2">
-            <label for="income" class="text-sm font-medium text-slate">Total annual freelance income</label>
+            <label for="income" data-i18n="income_label" class="text-sm font-medium text-slate">Total annual freelance income</label>
             <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
               <span class="text-xs text-slatesoft">RM</span>
               <input id="incomeNum" type="number" min="0" max="2000000" step="100" value="72000"
@@ -195,7 +209,7 @@
         <!-- Expenses -->
         <div class="mb-2">
           <div class="flex items-center justify-between mb-2">
-            <label for="expenses" class="text-sm font-medium text-slate">Allowable business expenses</label>
+            <label for="expenses" data-i18n="expenses_label" class="text-sm font-medium text-slate">Allowable business expenses</label>
             <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
               <span class="text-xs text-slatesoft">RM</span>
               <input id="expensesNum" type="number" min="0" max="2000000" step="100" value="15000"
@@ -203,18 +217,18 @@
             </div>
           </div>
           <input id="expenses" type="range" min="0" max="300000" step="500" value="15000">
-          <p class="text-[11px] text-slatesoft mt-1">e.g. software subscriptions, co-working rent, equipment, travel for client work, professional fees.</p>
+          <p data-i18n="expenses_caption" class="text-[11px] text-slatesoft mt-1">e.g. software subscriptions, co-working rent, equipment, travel for client work, professional fees.</p>
         </div>
       </div>
 
       <div class="bg-panel border border-slate/10 rounded-2xl p-6 sm:p-7 shadow-sm">
-        <h2 class="font-display text-xl text-ink mb-1">2. Tax reliefs (YA2025 rates)</h2>
-        <p class="text-xs text-slatesoft mb-6">Reliefs reduce chargeable income before the LHDN bands are applied.</p>
+        <h2 data-i18n="step2_title" class="font-display text-xl text-ink mb-1">2. Tax reliefs (YA2025 rates)</h2>
+        <p data-i18n="step2_desc" class="text-xs text-slatesoft mb-6">Reliefs reduce chargeable income before the LHDN bands are applied.</p>
 
         <div class="flex items-center justify-between p-3 rounded-xl bg-tealsoft mb-5">
           <div>
-            <p class="text-sm font-medium text-teal">Individual relief</p>
-            <p class="text-[11px] text-teal/70">Automatic for every resident taxpayer</p>
+            <p data-i18n="individual_relief_label" class="text-sm font-medium text-teal">Individual relief</p>
+            <p data-i18n="individual_relief_caption" class="text-[11px] text-teal/70">Automatic for every resident taxpayer</p>
           </div>
           <p class="font-display text-lg text-teal">RM9,000</p>
         </div>
@@ -222,7 +236,7 @@
         <!-- Parent relief -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-2">
-            <label for="parent" class="text-sm font-medium text-slate">Parent relief / parental medical care</label>
+            <label for="parent" data-i18n="parent_label" class="text-sm font-medium text-slate">Parent relief / parental medical care</label>
             <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
               <span class="text-xs text-slatesoft">RM</span>
               <input id="parentNum" type="number" min="0" max="8000" step="100" value="3000"
@@ -230,13 +244,13 @@
             </div>
           </div>
           <input id="parent" type="range" min="0" max="8000" step="100" value="3000">
-          <p class="text-[11px] text-slatesoft mt-1">Capped at RM8,000 combined (parental medical treatment, care &amp; support).</p>
+          <p data-i18n="parent_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM8,000 combined (parental medical treatment, care &amp; support).</p>
         </div>
 
         <!-- Education relief -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-2">
-            <label for="education" class="text-sm font-medium text-slate">Education fees (self)</label>
+            <label for="education" data-i18n="education_label" class="text-sm font-medium text-slate">Education fees (self)</label>
             <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
               <span class="text-xs text-slatesoft">RM</span>
               <input id="educationNum" type="number" min="0" max="7000" step="100" value="2000"
@@ -244,13 +258,13 @@
             </div>
           </div>
           <input id="education" type="range" min="0" max="7000" step="100" value="2000">
-          <p class="text-[11px] text-slatesoft mt-1">Capped at RM7,000 — courses, professional certifications, postgraduate fees.</p>
+          <p data-i18n="education_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM7,000 — courses, professional certifications, postgraduate fees.</p>
         </div>
 
         <!-- Lifestyle relief -->
         <div>
           <div class="flex items-center justify-between mb-2">
-            <label for="lifestyle" class="text-sm font-medium text-slate">Lifestyle relief</label>
+            <label for="lifestyle" data-i18n="lifestyle_label" class="text-sm font-medium text-slate">Lifestyle relief</label>
             <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
               <span class="text-xs text-slatesoft">RM</span>
               <input id="lifestyleNum" type="number" min="0" max="2500" step="50" value="1500"
@@ -258,13 +272,19 @@
             </div>
           </div>
           <input id="lifestyle" type="range" min="0" max="2500" step="50" value="1500">
-          <p class="text-[11px] text-slatesoft mt-1">Capped at RM2,500 — books, gadgets, internet, gym, sports equipment.</p>
+          <p data-i18n="lifestyle_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM2,500 — books, gadgets, internet, gym, sports equipment.</p>
         </div>
       </div>
 
-      <button id="resetBtn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">
-        Reset to default example
-      </button>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <button id="resetBtn" data-i18n="reset_btn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">
+          Reset to default example
+        </button>
+        <button id="clearDataBtn" data-i18n="clear_data_btn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">
+          Clear saved data
+        </button>
+        <span data-i18n="save_note" class="text-[11px] text-slatesoft/70">✓ Your inputs are saved automatically in this browser</span>
+      </div>
     </div>
 
     <!-- ---------- RESULTS PANEL ---------- -->
@@ -272,14 +292,14 @@
       <div class="lg:sticky lg:top-24 space-y-5">
 
         <div class="bg-ink text-paper rounded-2xl p-6 sm:p-7 shadow-lg">
-          <p class="text-brasssoft text-xs uppercase tracking-[0.2em] mb-4">Your estimate</p>
+          <p data-i18n="results_eyebrow" class="text-brasssoft text-xs uppercase tracking-[0.2em] mb-4">Your estimate</p>
 
           <div class="space-y-3 text-sm">
-            <div class="flex justify-between"><span class="text-paper/70">Net business profit</span><span id="outNetProfit" class="font-mono font-semibold">RM0</span></div>
-            <div class="flex justify-between"><span class="text-paper/70">Total reliefs claimed</span><span id="outReliefs" class="font-mono font-semibold">RM0</span></div>
+            <div class="flex justify-between"><span data-i18n="net_profit_label" class="text-paper/70">Net business profit</span><span id="outNetProfit" class="font-mono font-semibold">RM0</span></div>
+            <div class="flex justify-between"><span data-i18n="total_reliefs_label" class="text-paper/70">Total reliefs claimed</span><span id="outReliefs" class="font-mono font-semibold">RM0</span></div>
             <div class="h-px bg-paper/15 my-1"></div>
             <div class="flex justify-between items-baseline">
-              <span class="text-paper/90 font-medium">Chargeable income</span>
+              <span data-i18n="chargeable_income_label" class="text-paper/90 font-medium">Chargeable income</span>
               <span id="outChargeable" class="font-display text-2xl text-brasssoft">RM0</span>
             </div>
           </div>
@@ -287,7 +307,7 @@
           <!-- Bracket ladder — signature element -->
           <div class="mt-6">
             <div class="flex justify-between text-[10px] text-paper/50 mb-1.5">
-              <span>0%</span><span>Progressive LHDN bands</span><span>30%</span>
+              <span>0%</span><span data-i18n="ladder_caption">Progressive LHDN bands</span><span>30%</span>
             </div>
             <div id="ladder" class="relative flex w-full h-3 rounded-full overflow-hidden bg-paper/10">
               <!-- segments injected by JS -->
@@ -295,35 +315,62 @@
             <div class="relative h-4">
               <div id="ladderMarker" class="ladder-marker absolute -top-1 w-0.5 h-5 bg-paper" style="left:0%"></div>
             </div>
-            <p class="text-[11px] text-paper/60 mt-1">Marginal band: <span id="outMarginalRate" class="text-brasssoft font-medium">0%</span></p>
+            <p class="text-[11px] text-paper/60 mt-1"><span data-i18n="marginal_band_label">Marginal band:</span> <span id="outMarginalRate" class="text-brasssoft font-medium">0%</span></p>
           </div>
 
           <div class="h-px bg-paper/15 my-5"></div>
 
           <div class="flex justify-between items-baseline mb-1">
-            <span class="text-paper/90 font-medium text-sm">Estimated annual tax payable</span>
+            <span data-i18n="annual_tax_label" class="text-paper/90 font-medium text-sm">Estimated annual tax payable</span>
             <span id="outAnnualTax" class="font-display text-3xl text-brass">RM0</span>
           </div>
-          <p class="text-[11px] text-paper/50">After RM400 rebate where chargeable income ≤ RM35,000. Effective rate: <span id="outEffectiveRate">0%</span></p>
+          <p class="text-[11px] text-paper/50"><span data-i18n="rebate_note">After RM400 rebate where chargeable income ≤ RM35,000.</span> <span data-i18n="effective_rate_label">Effective rate:</span> <span id="outEffectiveRate">0%</span></p>
         </div>
 
         <!-- CP500 schedule -->
         <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
           <div class="flex items-center justify-between mb-1">
-            <h3 class="font-display text-lg text-ink">CP500 instalment schedule</h3>
-            <span class="text-[10px] bg-rustsoft text-rust px-2 py-0.5 rounded-full font-medium">6 payments/yr</span>
+            <h3 data-i18n="cp500_title" class="font-display text-lg text-ink">CP500 instalment schedule</h3>
+            <span data-i18n="cp500_badge" class="text-[10px] bg-rustsoft text-rust px-2 py-0.5 rounded-full font-medium">6 payments/yr</span>
           </div>
-          <p class="text-[11px] text-slatesoft mb-4">LHDN issues CP500 in 6 bi-monthly instalments — often called "quarterly" colloquially, but paid every two months: Jan, Mar, May, Jul, Sep, Nov.</p>
+          <p data-i18n="cp500_desc" class="text-[11px] text-slatesoft mb-4">LHDN issues CP500 in 6 bi-monthly instalments — often called "quarterly" colloquially, but paid every two months: Jan, Mar, May, Jul, Sep, Nov.</p>
           <div class="space-y-1.5" id="instalmentTable"><!-- injected by JS --></div>
           <div class="flex justify-between pt-3 mt-2 border-t border-slate/10 text-sm">
-            <span class="font-medium text-slate">Total (6 instalments)</span>
+            <span data-i18n="cp500_total_label" class="font-medium text-slate">Total (6 instalments)</span>
             <span id="outTotalInstalment" class="font-mono font-semibold text-ink">RM0</span>
+          </div>
+        </div>
+
+        <!-- Data visualization: income allocation donut chart -->
+        <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
+          <h3 data-i18n="chart_title" class="font-display text-lg text-ink mb-4">Where Your Income Goes</h3>
+          <div class="flex items-center gap-6">
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
+              <div id="donutChart" class="w-full h-full rounded-full"></div>
+              <div class="absolute inset-0 m-auto w-[62%] h-[62%] rounded-full bg-panel flex items-center justify-center">
+                <span id="donutCenter" class="font-display text-sm sm:text-base text-ink">0%</span>
+              </div>
+            </div>
+            <div class="flex-1 space-y-2.5 text-[12px]">
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#B8863B"></span><span data-i18n="chart_expenses_legend">Business Expenses</span></span>
+                <span id="chartExpensesPct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#B0442F"></span><span data-i18n="chart_tax_legend">Tax Payable</span></span>
+                <span id="chartTaxPct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#1F6F63"></span><span data-i18n="chart_takehome_legend">Net Take-Home</span></span>
+                <span id="chartTakehomePct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Saving tips -->
         <div class="bg-tealsoft rounded-2xl p-6">
-          <h3 class="font-display text-base text-teal mb-3">Saving tips for you</h3>
+          <h3 data-i18n="tips_title" class="font-display text-base text-teal mb-3">Saving tips for you</h3>
           <ul id="tipsList" class="space-y-2 text-[13px] text-teal/90 leading-snug"></ul>
         </div>
 
@@ -335,63 +382,63 @@
 <!-- ============ TRUST / DISCLAIMER STRIP ============ -->
 <section class="bg-inksoft text-paper/80">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6 text-[12px] leading-relaxed grid sm:grid-cols-3 gap-4">
-    <p><span class="text-brasssoft font-medium">Rates used:</span> YA2025 resident individual progressive bands (unchanged for YA2026 filing), per LHDN.</p>
-    <p><span class="text-brasssoft font-medium">Not a filing tool:</span> this is an estimator for planning purposes — always confirm final figures via MyTax e-Filing.</p>
-    <p><span class="text-brasssoft font-medium">Not tax advice:</span> for complex situations (multiple income sources, partnerships), consult a licensed tax agent.</p>
+    <p><span data-i18n="trust_rates_label" class="text-brasssoft font-medium">Rates used:</span> <span data-i18n="trust_rates_text">YA2025 resident individual progressive bands (unchanged for YA2026 filing), per LHDN.</span></p>
+    <p><span data-i18n="trust_notfiling_label" class="text-brasssoft font-medium">Not a filing tool:</span> <span data-i18n="trust_notfiling_text">this is an estimator for planning purposes — always confirm final figures via MyTax e-Filing.</span></p>
+    <p><span data-i18n="trust_notadvice_label" class="text-brasssoft font-medium">Not tax advice:</span> <span data-i18n="trust_notadvice_text">for complex situations (multiple income sources, partnerships), consult a licensed tax agent.</span></p>
   </div>
 </section>
 
 <!-- ============ GUIDE ============ -->
 <section id="guide" class="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
-  <p class="text-brass uppercase text-xs tracking-[0.2em] mb-3">Freelancer Tax Guide</p>
-  <h2 class="font-display text-2xl sm:text-3xl text-ink mb-3">The Complete Guide to CP500 &amp; Freelance Tax in Malaysia (YA2025/2026)</h2>
-  <p class="text-sm text-slatesoft mb-10">Everything a Malaysian freelancer, consultant, and sole proprietor needs to know about business income tax, CP500 instalments, LHDN deadlines, and legal ways to reduce your bill.</p>
+  <p data-i18n="guide_eyebrow" class="text-brass uppercase text-xs tracking-[0.2em] mb-3">Freelancer Tax Guide</p>
+  <h2 data-i18n="guide_title" class="font-display text-2xl sm:text-3xl text-ink mb-3">The Complete Guide to CP500 &amp; Freelance Tax in Malaysia (YA2025/2026)</h2>
+  <p data-i18n="guide_intro" class="text-sm text-slatesoft mb-10">Everything a Malaysian freelancer, consultant, and sole proprietor needs to know about business income tax, CP500 instalments, LHDN deadlines, and legal ways to reduce your bill.</p>
 
   <article class="space-y-9 text-[15px] leading-relaxed text-slate/85">
 
-    <p>Freelance and gig work has grown quickly across Malaysia, from remote consultants and content creators to Grab drivers and e-commerce sellers. Unlike salaried employees, whose employers deduct Potongan Cukai Bulanan (PCB) every month, self-employed Malaysians are responsible for estimating and prepaying their own income tax through a scheme called CP500. Understanding how this works — and how it interacts with your annual Form B filing — is essential to avoiding penalties and legally minimising what you owe.</p>
+    <p data-i18n="guide_opening">Freelance and gig work has grown quickly across Malaysia, from remote consultants and content creators to Grab drivers and e-commerce sellers. Unlike salaried employees, whose employers deduct Potongan Cukai Bulanan (PCB) every month, self-employed Malaysians are responsible for estimating and prepaying their own income tax through a scheme called CP500. Understanding how this works — and how it interacts with your annual Form B filing — is essential to avoiding penalties and legally minimising what you owe.</p>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">What is CP500?</h3>
-      <p>CP500 is the Lembaga Hasil Dalam Negeri Malaysia (LHDN) instalment scheme for individuals with business, rental, or other non-employment income — the exact category most Malaysian freelancers, consultants, and sole proprietors fall under. Because freelance income has no employer to withhold tax at source, LHDN instead issues a CP500 notice, usually in February or March, estimating your tax for the current year based on your most recent Form B assessment.</p>
-      <p class="mt-3">That estimate is then split into six bi-monthly instalments due in January, March, May, July, September, and November. If your income has genuinely dropped, you can apply to revise the estimate downward using Form CP502 within 30 days of the notice date. You may also revise it upward voluntarily if your freelance income has grown, which reduces the lump-sum balance due later.</p>
+      <h3 data-i18n="guide_h1" class="font-display text-xl text-ink mb-3">What is CP500?</h3>
+      <p data-i18n="guide_h1_p1">CP500 is the Lembaga Hasil Dalam Negeri Malaysia (LHDN) instalment scheme for individuals with business, rental, or other non-employment income — the exact category most Malaysian freelancers, consultants, and sole proprietors fall under. Because freelance income has no employer to withhold tax at source, LHDN instead issues a CP500 notice, usually in February or March, estimating your tax for the current year based on your most recent Form B assessment.</p>
+      <p class="mt-3" data-i18n="guide_h1_p2">That estimate is then split into six bi-monthly instalments due in January, March, May, July, September, and November. If your income has genuinely dropped, you can apply to revise the estimate downward using Form CP502 within 30 days of the notice date. You may also revise it upward voluntarily if your freelance income has grown, which reduces the lump-sum balance due later.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">Who Must Pay CP500?</h3>
-      <p>CP500 applies to individuals earning business income under Section 4(a) of the Income Tax Act 1967 — this covers freelance work, consulting fees, sole proprietorships, and partnerships reported through Form B rather than Form BE. Rental income and certain other non-employment sources can also trigger a notice.</p>
-      <p class="mt-3">First-year freelancers typically will not receive a CP500 notice immediately, since LHDN bases the estimate on a prior year's filed return. However, once your first Form B assessment is processed, a notice for the following year usually follows. This does not mean first-year freelancers are tax-free: the full amount is still owed when Form B is filed, so it is wise to set aside a percentage of every invoice from day one. Freelancers who also hold a salaried job must combine both income streams on Form B and remain liable for CP500 if their business income is significant.</p>
+      <h3 data-i18n="guide_h2" class="font-display text-xl text-ink mb-3">Who Must Pay CP500?</h3>
+      <p data-i18n="guide_h2_p1">CP500 applies to individuals earning business income under Section 4(a) of the Income Tax Act 1967 — this covers freelance work, consulting fees, sole proprietorships, and partnerships reported through Form B rather than Form BE. Rental income and certain other non-employment sources can also trigger a notice.</p>
+      <p class="mt-3" data-i18n="guide_h2_p2">First-year freelancers typically will not receive a CP500 notice immediately, since LHDN bases the estimate on a prior year's filed return. However, once your first Form B assessment is processed, a notice for the following year usually follows. This does not mean first-year freelancers are tax-free: the full amount is still owed when Form B is filed, so it is wise to set aside a percentage of every invoice from day one. Freelancers who also hold a salaried job must combine both income streams on Form B and remain liable for CP500 if their business income is significant.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">CP500 vs Form B Final Tax</h3>
-      <p>It is important to understand that CP500 instalments are only an estimate — not your final tax bill. Your actual liability is calculated when you file Form B, due 30 June each year (extended to mid-July for e-Filing), reconciling your real net profit, claimed reliefs, and total income against what LHDN had estimated.</p>
-      <p class="mt-3">Three outcomes are possible once your return is processed. If your CP500 payments exceeded your assessed tax, LHDN refunds the difference. If your instalments fell short — common when freelance income grows mid-year — you must settle the shortfall, known as baki cukai, by the filing deadline. If the two figures are close, no further action is needed. Because Form B arrives months after the last CP500 instalment, freelancers with irregular income should re-check their estimate periodically throughout the year, using a calculator like the one above, rather than waiting until June to discover a large balance.</p>
+      <h3 data-i18n="guide_h3" class="font-display text-xl text-ink mb-3">CP500 vs Form B Final Tax</h3>
+      <p data-i18n="guide_h3_p1">It is important to understand that CP500 instalments are only an estimate — not your final tax bill. Your actual liability is calculated when you file Form B, due 30 June each year (extended to mid-July for e-Filing), reconciling your real net profit, claimed reliefs, and total income against what LHDN had estimated.</p>
+      <p class="mt-3" data-i18n="guide_h3_p2">Three outcomes are possible once your return is processed. If your CP500 payments exceeded your assessed tax, LHDN refunds the difference. If your instalments fell short — common when freelance income grows mid-year — you must settle the shortfall, known as baki cukai, by the filing deadline. If the two figures are close, no further action is needed. Because Form B arrives months after the last CP500 instalment, freelancers with irregular income should re-check their estimate periodically throughout the year, using a calculator like the one above, rather than waiting until June to discover a large balance.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">Late Payment Penalties</h3>
-      <p>Missing or underpaying a CP500 instalment triggers an automatic 10% penalty on the outstanding instalment amount once the due date passes without payment or an approved revision. This penalty is separate from — and stacks with — the penalties tied to Form B itself.</p>
-      <p class="mt-3">Filing Form B late attracts a 10% penalty on the tax payable, which increases further if the return remains unfiled beyond 12 months. Any unpaid balance identified after your final assessment is also subject to an additional late payment charge, typically 5%, if not settled within 30 days of the notice of assessment. Because instalment penalties, filing penalties, and balance penalties can each apply independently, the safest approach is to pay every CP500 instalment on time even when the estimate feels imprecise, and correct any difference later at Form B filing rather than skipping instalments outright.</p>
+      <h3 data-i18n="guide_h4" class="font-display text-xl text-ink mb-3">Late Payment Penalties</h3>
+      <p data-i18n="guide_h4_p1">Missing or underpaying a CP500 instalment triggers an automatic 10% penalty on the outstanding instalment amount once the due date passes without payment or an approved revision. This penalty is separate from — and stacks with — the penalties tied to Form B itself.</p>
+      <p class="mt-3" data-i18n="guide_h4_p2">Filing Form B late attracts a 10% penalty on the tax payable, which increases further if the return remains unfiled beyond 12 months. Any unpaid balance identified after your final assessment is also subject to an additional late payment charge, typically 5%, if not settled within 30 days of the notice of assessment. Because instalment penalties, filing penalties, and balance penalties can each apply independently, the safest approach is to pay every CP500 instalment on time even when the estimate feels imprecise, and correct any difference later at Form B filing rather than skipping instalments outright.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">Legal Tax Relief Strategies for Freelancers</h3>
-      <p>Malaysian freelancers can lawfully reduce both their CP500 estimate and their final Form B liability in two ways: lowering net business profit through allowable expenses, and lowering chargeable income through personal tax reliefs.</p>
-      <p class="mt-3">On the expense side, LHDN permits deductions for anything incurred wholly and exclusively in producing your freelance income — software subscriptions, co-working space rental, business-related travel, professional indemnity insurance, and continuing education directly tied to your trade. Keep digital receipts for at least seven years, since expense records are typically the first documents requested in an audit.</p>
-      <p class="mt-3">On the relief side, every resident taxpayer automatically receives RM9,000 in individual relief. Beyond that baseline, self-employed Malaysians frequently under-claim lifestyle relief (up to RM2,500 for books, personal computers, and internet subscriptions), education fees for approved courses or certifications (up to RM7,000), and parent relief for a qualifying parent's medical treatment and care (up to RM8,000 combined). Voluntary EPF contributions and approved life insurance premiums add further reliefs that many freelancers overlook simply because there is no employer prompting them at year-end.</p>
-      <p class="mt-3">Combining disciplined expense tracking with full use of every available relief is the only lawful way to bring down your CP500 estimate and Form B bill — and it is worth revisiting each time your income or circumstances change during the year.</p>
+      <h3 data-i18n="guide_h5" class="font-display text-xl text-ink mb-3">Legal Tax Relief Strategies for Freelancers</h3>
+      <p data-i18n="guide_h5_p1">Malaysian freelancers can lawfully reduce both their CP500 estimate and their final Form B liability in two ways: lowering net business profit through allowable expenses, and lowering chargeable income through personal tax reliefs.</p>
+      <p class="mt-3" data-i18n="guide_h5_p2">On the expense side, LHDN permits deductions for anything incurred wholly and exclusively in producing your freelance income — software subscriptions, co-working space rental, business-related travel, professional indemnity insurance, and continuing education directly tied to your trade. Keep digital receipts for at least seven years, since expense records are typically the first documents requested in an audit.</p>
+      <p class="mt-3" data-i18n="guide_h5_p3">On the relief side, every resident taxpayer automatically receives RM9,000 in individual relief. Beyond that baseline, self-employed Malaysians frequently under-claim lifestyle relief (up to RM2,500 for books, personal computers, and internet subscriptions), education fees for approved courses or certifications (up to RM7,000), and parent relief for a qualifying parent's medical treatment and care (up to RM8,000 combined). Voluntary EPF contributions and approved life insurance premiums add further reliefs that many freelancers overlook simply because there is no employer prompting them at year-end.</p>
+      <p class="mt-3" data-i18n="guide_h5_p4">Combining disciplined expense tracking with full use of every available relief is the only lawful way to bring down your CP500 estimate and Form B bill — and it is worth revisiting each time your income or circumstances change during the year.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">Planning Your CP500 Payments Throughout the Year</h3>
-      <p>Because CP500 is based on last year's figures, it rarely matches this year's reality perfectly — especially for freelancers in Malaysia whose income shifts with client volume, seasonal projects, or new contracts. Rather than treating each bi-monthly instalment as a fixed obligation, it helps to re-estimate your annual tax whenever your income changes meaningfully, and compare that figure against what LHDN has scheduled.</p>
-      <p class="mt-3">A simple habit many self-employed Malaysians adopt is setting aside a fixed percentage of every invoice — commonly 15% to 25% depending on income level — into a separate savings account earmarked purely for tax. This turns CP500 from a source of year-end stress into a routine bi-monthly transfer, and ensures that any top-up owed at Form B filing time is never a surprise.</p>
+      <h3 data-i18n="guide_h6" class="font-display text-xl text-ink mb-3">Planning Your CP500 Payments Throughout the Year</h3>
+      <p data-i18n="guide_h6_p1">Because CP500 is based on last year's figures, it rarely matches this year's reality perfectly — especially for freelancers in Malaysia whose income shifts with client volume, seasonal projects, or new contracts. Rather than treating each bi-monthly instalment as a fixed obligation, it helps to re-estimate your annual tax whenever your income changes meaningfully, and compare that figure against what LHDN has scheduled.</p>
+      <p class="mt-3" data-i18n="guide_h6_p2">A simple habit many self-employed Malaysians adopt is setting aside a fixed percentage of every invoice — commonly 15% to 25% depending on income level — into a separate savings account earmarked purely for tax. This turns CP500 from a source of year-end stress into a routine bi-monthly transfer, and ensures that any top-up owed at Form B filing time is never a surprise.</p>
     </div>
 
     <div>
-      <h3 class="font-display text-xl text-ink mb-3">Getting Started</h3>
-      <p>Whether you are a first-year freelancer waiting for your initial CP500 notice, or an established consultant reconciling several years of instalments, the fundamentals stay the same: track your business income and allowable expenses accurately, claim every relief you are entitled to, and pay each instalment on time to avoid stacking penalties. Use the calculator above to model different income and expense scenarios, see where your chargeable income lands on the LHDN progressive bands, and estimate what each of your six CP500 instalments will look like for YA2025/2026 — before LHDN's own notice arrives.</p>
+      <h3 data-i18n="guide_h7" class="font-display text-xl text-ink mb-3">Getting Started</h3>
+      <p data-i18n="guide_h7_p1">Whether you are a first-year freelancer waiting for your initial CP500 notice, or an established consultant reconciling several years of instalments, the fundamentals stay the same: track your business income and allowable expenses accurately, claim every relief you are entitled to, and pay each instalment on time to avoid stacking penalties. Use the calculator above to model different income and expense scenarios, see where your chargeable income lands on the LHDN progressive bands, and estimate what each of your six CP500 instalments will look like for YA2025/2026 — before LHDN's own notice arrives.</p>
     </div>
 
   </article>
@@ -401,14 +448,14 @@
 <footer class="border-t border-slate/10">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col gap-5">
     <nav class="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-slate/70">
-      <a href="index.html" class="hover:text-ink transition-colors">Home</a>
-      <a href="about.html" class="hover:text-ink transition-colors">About Us</a>
-      <a href="privacy.html" class="hover:text-ink transition-colors">Privacy Policy</a>
-      <a href="contact.html" class="hover:text-ink transition-colors">Contact Us</a>
+      <a href="index.html" data-i18n="nav_home" class="hover:text-ink transition-colors">Home</a>
+      <a href="about.html" data-i18n="nav_about" class="hover:text-ink transition-colors">About Us</a>
+      <a href="privacy.html" data-i18n="nav_privacy" class="hover:text-ink transition-colors">Privacy Policy</a>
+      <a href="contact.html" data-i18n="nav_contact" class="hover:text-ink transition-colors">Contact Us</a>
     </nav>
     <div class="flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-slatesoft border-t border-slate/10 pt-5">
-      <p>&copy; 2026 Freelancer CP500 Calculator. Estimates only — not affiliated with LHDN.</p>
-      <p>Built for Malaysian freelancers, consultants &amp; sole proprietors.</p>
+      <p data-i18n="footer_copyright">&copy; 2026 Freelancer CP500 Calculator. Estimates only — not affiliated with LHDN.</p>
+      <p data-i18n="footer_built">Built for Malaysian freelancers, consultants &amp; sole proprietors.</p>
     </div>
   </div>
 </footer>
@@ -427,9 +474,284 @@
   }
 })();
 </script>
+
 <script>
 (function(){
   "use strict";
+
+  // ================= I18N =================
+  var I18N = {
+    en: {
+      nav_home:"Home", nav_about:"About Us", nav_privacy:"Privacy Policy", nav_contact:"Contact Us", nav_cta:"Start Estimate ↓",
+      hero_eyebrow:"CP500 &middot; Form B &middot; Business Income Tax",
+      hero_title:"Know your quarter-by-quarter tax bill before LHDN tells you.",
+      hero_desc:"Built for Malaysian freelancers, consultants, and sole proprietors. Enter your income and expenses once, and watch your taxable income, annual tax, and 6-instalment CP500 schedule update live — based on the official LHDN progressive tax bands.",
+      hero_cta1:"Calculate my tax →", hero_cta2:"Read the full guide",
+      step1_title:"1. Business income &amp; expenses",
+      step1_desc:"Net profit = total freelance income − allowable business expenses (wholly &amp; exclusively incurred).",
+      income_label:"Total annual freelance income",
+      expenses_label:"Allowable business expenses",
+      expenses_caption:"e.g. software subscriptions, co-working rent, equipment, travel for client work, professional fees.",
+      step2_title:"2. Tax reliefs (YA2025 rates)",
+      step2_desc:"Reliefs reduce chargeable income before the LHDN bands are applied.",
+      individual_relief_label:"Individual relief",
+      individual_relief_caption:"Automatic for every resident taxpayer",
+      parent_label:"Parent relief / parental medical care",
+      parent_caption:"Capped at RM8,000 combined (parental medical treatment, care &amp; support).",
+      education_label:"Education fees (self)",
+      education_caption:"Capped at RM7,000 — courses, professional certifications, postgraduate fees.",
+      lifestyle_label:"Lifestyle relief",
+      lifestyle_caption:"Capped at RM2,500 — books, gadgets, internet, gym, sports equipment.",
+      reset_btn:"Reset to default example",
+      clear_data_btn:"Clear saved data",
+      save_note:"✓ Your inputs are saved automatically in this browser",
+      results_eyebrow:"Your estimate",
+      net_profit_label:"Net business profit",
+      total_reliefs_label:"Total reliefs claimed",
+      chargeable_income_label:"Chargeable income",
+      ladder_caption:"Progressive LHDN bands",
+      marginal_band_label:"Marginal band:",
+      annual_tax_label:"Estimated annual tax payable",
+      rebate_note:"After RM400 rebate where chargeable income ≤ RM35,000.",
+      effective_rate_label:"Effective rate:",
+      cp500_title:"CP500 instalment schedule",
+      cp500_badge:"6 payments/yr",
+      cp500_desc:'LHDN issues CP500 in 6 bi-monthly instalments — often called "quarterly" colloquially, but paid every two months: Jan, Mar, May, Jul, Sep, Nov.',
+      cp500_total_label:"Total (6 instalments)",
+      chart_title:"Where Your Income Goes",
+      chart_expenses_legend:"Business Expenses",
+      chart_tax_legend:"Tax Payable",
+      chart_takehome_legend:"Net Take-Home",
+      tips_title:"Saving tips for you",
+      trust_rates_label:"Rates used:",
+      trust_rates_text:"YA2025 resident individual progressive bands (unchanged for YA2026 filing), per LHDN.",
+      trust_notfiling_label:"Not a filing tool:",
+      trust_notfiling_text:"this is an estimator for planning purposes — always confirm final figures via MyTax e-Filing.",
+      trust_notadvice_label:"Not tax advice:",
+      trust_notadvice_text:"for complex situations (multiple income sources, partnerships), consult a licensed tax agent.",
+      guide_eyebrow:"Freelancer Tax Guide",
+      guide_title:"The Complete Guide to CP500 &amp; Freelance Tax in Malaysia (YA2025/2026)",
+      guide_intro:"Everything a Malaysian freelancer, consultant, and sole proprietor needs to know about business income tax, CP500 instalments, LHDN deadlines, and legal ways to reduce your bill.",
+      guide_opening:"Freelance and gig work has grown quickly across Malaysia, from remote consultants and content creators to Grab drivers and e-commerce sellers. Unlike salaried employees, whose employers deduct Potongan Cukai Bulanan (PCB) every month, self-employed Malaysians are responsible for estimating and prepaying their own income tax through a scheme called CP500. Understanding how this works — and how it interacts with your annual Form B filing — is essential to avoiding penalties and legally minimising what you owe.",
+      guide_h1:"What is CP500?",
+      guide_h1_p1:"CP500 is the Lembaga Hasil Dalam Negeri Malaysia (LHDN) instalment scheme for individuals with business, rental, or other non-employment income — the exact category most Malaysian freelancers, consultants, and sole proprietors fall under. Because freelance income has no employer to withhold tax at source, LHDN instead issues a CP500 notice, usually in February or March, estimating your tax for the current year based on your most recent Form B assessment.",
+      guide_h1_p2:"That estimate is then split into six bi-monthly instalments due in January, March, May, July, September, and November. If your income has genuinely dropped, you can apply to revise the estimate downward using Form CP502 within 30 days of the notice date. You may also revise it upward voluntarily if your freelance income has grown, which reduces the lump-sum balance due later.",
+      guide_h2:"Who Must Pay CP500?",
+      guide_h2_p1:"CP500 applies to individuals earning business income under Section 4(a) of the Income Tax Act 1967 — this covers freelance work, consulting fees, sole proprietorships, and partnerships reported through Form B rather than Form BE. Rental income and certain other non-employment sources can also trigger a notice.",
+      guide_h2_p2:"First-year freelancers typically will not receive a CP500 notice immediately, since LHDN bases the estimate on a prior year's filed return. However, once your first Form B assessment is processed, a notice for the following year usually follows. This does not mean first-year freelancers are tax-free: the full amount is still owed when Form B is filed, so it is wise to set aside a percentage of every invoice from day one. Freelancers who also hold a salaried job must combine both income streams on Form B and remain liable for CP500 if their business income is significant.",
+      guide_h3:"CP500 vs Form B Final Tax",
+      guide_h3_p1:"It is important to understand that CP500 instalments are only an estimate — not your final tax bill. Your actual liability is calculated when you file Form B, due 30 June each year (extended to mid-July for e-Filing), reconciling your real net profit, claimed reliefs, and total income against what LHDN had estimated.",
+      guide_h3_p2:"Three outcomes are possible once your return is processed. If your CP500 payments exceeded your assessed tax, LHDN refunds the difference. If your instalments fell short — common when freelance income grows mid-year — you must settle the shortfall, known as baki cukai, by the filing deadline. If the two figures are close, no further action is needed. Because Form B arrives months after the last CP500 instalment, freelancers with irregular income should re-check their estimate periodically throughout the year, using a calculator like the one above, rather than waiting until June to discover a large balance.",
+      guide_h4:"Late Payment Penalties",
+      guide_h4_p1:"Missing or underpaying a CP500 instalment triggers an automatic 10% penalty on the outstanding instalment amount once the due date passes without payment or an approved revision. This penalty is separate from — and stacks with — the penalties tied to Form B itself.",
+      guide_h4_p2:"Filing Form B late attracts a 10% penalty on the tax payable, which increases further if the return remains unfiled beyond 12 months. Any unpaid balance identified after your final assessment is also subject to an additional late payment charge, typically 5%, if not settled within 30 days of the notice of assessment. Because instalment penalties, filing penalties, and balance penalties can each apply independently, the safest approach is to pay every CP500 instalment on time even when the estimate feels imprecise, and correct any difference later at Form B filing rather than skipping instalments outright.",
+      guide_h5:"Legal Tax Relief Strategies for Freelancers",
+      guide_h5_p1:"Malaysian freelancers can lawfully reduce both their CP500 estimate and their final Form B liability in two ways: lowering net business profit through allowable expenses, and lowering chargeable income through personal tax reliefs.",
+      guide_h5_p2:"On the expense side, LHDN permits deductions for anything incurred wholly and exclusively in producing your freelance income — software subscriptions, co-working space rental, business-related travel, professional indemnity insurance, and continuing education directly tied to your trade. Keep digital receipts for at least seven years, since expense records are typically the first documents requested in an audit.",
+      guide_h5_p3:"On the relief side, every resident taxpayer automatically receives RM9,000 in individual relief. Beyond that baseline, self-employed Malaysians frequently under-claim lifestyle relief (up to RM2,500 for books, personal computers, and internet subscriptions), education fees for approved courses or certifications (up to RM7,000), and parent relief for a qualifying parent's medical treatment and care (up to RM8,000 combined). Voluntary EPF contributions and approved life insurance premiums add further reliefs that many freelancers overlook simply because there is no employer prompting them at year-end.",
+      guide_h5_p4:"Combining disciplined expense tracking with full use of every available relief is the only lawful way to bring down your CP500 estimate and Form B bill — and it is worth revisiting each time your income or circumstances change during the year.",
+      guide_h6:"Planning Your CP500 Payments Throughout the Year",
+      guide_h6_p1:"Because CP500 is based on last year's figures, it rarely matches this year's reality perfectly — especially for freelancers in Malaysia whose income shifts with client volume, seasonal projects, or new contracts. Rather than treating each bi-monthly instalment as a fixed obligation, it helps to re-estimate your annual tax whenever your income changes meaningfully, and compare that figure against what LHDN has scheduled.",
+      guide_h6_p2:"A simple habit many self-employed Malaysians adopt is setting aside a fixed percentage of every invoice — commonly 15% to 25% depending on income level — into a separate savings account earmarked purely for tax. This turns CP500 from a source of year-end stress into a routine bi-monthly transfer, and ensures that any top-up owed at Form B filing time is never a surprise.",
+      guide_h7:"Getting Started",
+      guide_h7_p1:"Whether you are a first-year freelancer waiting for your initial CP500 notice, or an established consultant reconciling several years of instalments, the fundamentals stay the same: track your business income and allowable expenses accurately, claim every relief you are entitled to, and pay each instalment on time to avoid stacking penalties. Use the calculator above to model different income and expense scenarios, see where your chargeable income lands on the LHDN progressive bands, and estimate what each of your six CP500 instalments will look like for YA2025/2026 — before LHDN's own notice arrives.",
+      footer_copyright:"&copy; 2026 Freelancer CP500 Calculator. Estimates only — not affiliated with LHDN.",
+      footer_built:"Built for Malaysian freelancers, consultants &amp; sole proprietors."
+    },
+    zh: {
+      nav_home:"首页", nav_about:"关于我们", nav_privacy:"隐私政策", nav_contact:"联系我们", nav_cta:"开始计算 ↓",
+      hero_eyebrow:"CP500 · B表格 · 商业收入税",
+      hero_title:"在 LHDN 通知你之前，先算清楚你的分期税款。",
+      hero_desc:"专为马来西亚自由职业者、顾问和个体经营者打造。只需输入一次收入和支出，即可实时查看应课税收入、年度税款，以及6期CP500分期计划——完全依据 LHDN 官方累进税率表计算。",
+      hero_cta1:"计算我的税款 →", hero_cta2:"阅读完整指南",
+      step1_title:"1. 营业收入与支出",
+      step1_desc:"净利润 = 自由职业总收入 − 可扣除的营业费用（须为完全且专为业务发生的支出）。",
+      income_label:"年度自由职业总收入",
+      expenses_label:"可扣除的营业费用",
+      expenses_caption:"例如：软件订阅、共享办公室租金、设备、因客户工作产生的差旅费、专业服务费。",
+      step2_title:"2. 税务减免（YA2025 标准）",
+      step2_desc:"减免额会在套用 LHDN 税率级距之前，先从净利润中扣除。",
+      individual_relief_label:"个人减免",
+      individual_relief_caption:"每位居民纳税人自动获得",
+      parent_label:"父母减免 / 父母医疗照护",
+      parent_caption:"合计上限 RM8,000（父母医疗、照护及支持费用）。",
+      education_label:"教育费用（本人）",
+      education_caption:"上限 RM7,000——课程、专业认证、研究生学费。",
+      lifestyle_label:"生活方式减免",
+      lifestyle_caption:"上限 RM2,500——书籍、电子产品、网络、健身、运动器材。",
+      reset_btn:"重置为默认示例",
+      clear_data_btn:"清除已保存的数据",
+      save_note:"✓ 你的输入内容已自动保存在此浏览器中",
+      results_eyebrow:"你的估算结果",
+      net_profit_label:"净营业利润",
+      total_reliefs_label:"已申请减免总额",
+      chargeable_income_label:"应课税收入",
+      ladder_caption:"LHDN 累进税率级距",
+      marginal_band_label:"边际税率级距：",
+      annual_tax_label:"预估年度应缴税款",
+      rebate_note:"已扣除 RM400 回扣（适用于应课税收入 ≤ RM35,000）。",
+      effective_rate_label:"有效税率：",
+      cp500_title:"CP500 分期缴税计划",
+      cp500_badge:"每年6期",
+      cp500_desc:"LHDN 将 CP500 分为6期，每两个月缴纳一次——民间常称为\u201c季度\u201d分期，但实际是双月缴纳：1月、3月、5月、7月、9月、11月。",
+      cp500_total_label:"合计（6期）",
+      chart_title:"你的收入去向",
+      chart_expenses_legend:"营业支出",
+      chart_tax_legend:"应缴税款",
+      chart_takehome_legend:"净到手收入",
+      tips_title:"为你推荐的省税建议",
+      trust_rates_label:"所用税率：",
+      trust_rates_text:"YA2025 居民个人累进税率级距（YA2026 申报沿用不变），依据 LHDN 官方数据。",
+      trust_notfiling_label:"非申报工具：",
+      trust_notfiling_text:"本工具仅供规划参考——最终数字请务必通过 MyTax 电子报税系统确认。",
+      trust_notadvice_label:"非税务建议：",
+      trust_notadvice_text:"如涉及复杂情况（多重收入来源、合伙经营），请咨询持牌税务代理。",
+      guide_eyebrow:"自由职业者税务指南",
+      guide_title:"马来西亚自由职业者 CP500 与税务完整指南（YA2025/2026）",
+      guide_intro:"马来西亚自由职业者、顾问和个体经营者需要了解的营业所得税、CP500分期、LHDN截止日期，以及合法减税方法，都在这里。",
+      guide_opening:"马来西亚的自由职业和零工经济近年来快速增长，从远程顾问、内容创作者到 Grab 司机和电商卖家皆在其中。与每月由雇主自动扣缴 PCB（月度预扣税）的受薪人士不同，自雇人士必须通过 CP500 制度自行估算并预缴所得税。理解这一制度如何运作，以及它与每年 B 表格申报之间的关系，是避免罚款并合法降低税负的关键。",
+      guide_h1:"什么是 CP500？",
+      guide_h1_p1:"CP500 是马来西亚内陆税收局（LHDN）针对有营业、租赁或其他非受雇收入人士设立的分期缴税制度——这正是绝大多数马来西亚自由职业者、顾问和个体经营者所属的类别。由于自由职业收入没有雇主在源头代扣税款，LHDN 会在每年2月或3月发出 CP500 通知，根据你最近一次的 B 表格评估结果，估算当年应缴税款。",
+      guide_h1_p2:"该估算金额会被拆分为6期，每两个月缴纳一次：1月、3月、5月、7月、9月、11月。如果你的收入确实下降，可在通知日期起30天内，通过 CP502 表格申请下调估算额；若收入增长，你也可以主动申请上调，以减少日后需要一次性补缴的余额。",
+      guide_h2:"谁必须缴纳 CP500？",
+      guide_h2_p1:"CP500 适用于根据《1967年所得税法》第4(a)条赚取营业收入的个人——涵盖自由职业、顾问费、独资经营及合伙企业，需通过 B 表格（而非 BE 表格）申报。租赁收入及某些其他非受雇收入来源，同样可能触发 CP500 通知。",
+      guide_h2_p2:"第一年从事自由职业的人士通常不会立即收到 CP500 通知，因为 LHDN 是根据上一年度已申报的报税记录来估算的。但一旦你的首份 B 表格评估完成，次年的通知通常随之而来。这并不代表首年自由职业者可以免税——申报 B 表格时仍须缴纳全额税款，因此从第一天起就应预留一定比例的每笔收入作为税款储备。若你同时拥有受薪工作，须在 B 表格中合并两项收入申报，只要营业收入达到一定规模，同样须缴纳 CP500。",
+      guide_h3:"CP500 与 B 表格最终税款的区别",
+      guide_h3_p1:"务必理解，CP500 分期只是一个估算值——并非你的最终税单。真正的税务责任要等到你申报 B 表格时才会确定（每年截止日为6月30日，电子报税可延至7月中），届时会将你的实际净利润、已申请减免及总收入，与 LHDN 此前的估算进行核对。",
+      guide_h3_p2:"报税处理完成后可能出现三种结果：若你已缴纳的 CP500 超过实际评估税款，LHDN 会退还差额；若分期金额不足——这在自由职业收入年中增长时很常见——你须在申报截止日前补缴差额（即\u201cbaki cukai\u201d）；若两者相近，则无需额外处理。由于 B 表格申报日期在最后一期 CP500 之后数月才到来，收入不稳定的自由职业者应在全年内定期使用类似本页的计算器重新核实估算，而非等到6月才发现巨额补缴。",
+      guide_h4:"逾期缴款的罚款",
+      guide_h4_p1:"CP500 分期若逾期未缴或缴纳不足，一旦超过缴款期限且未获批准调整，将自动产生相当于欠缴金额10%的罚款。此项罚款与 B 表格本身的罚款是分开计算、可同时叠加的。",
+      guide_h4_p2:"B 表格逾期申报会对应缴税款处以10%的罚款，若超过12个月仍未申报，罚款比例还会进一步提高。最终评估后若发现有未缴余额，且未在评估通知发出30天内结清，通常还须缴纳额外5%的逾期罚款。由于分期罚款、申报罚款与余额罚款可各自独立生效，最稳妥的做法是即使估算并不精确，也按时缴纳每一期 CP500，再于 B 表格申报时更正差额，而不是干脆跳过某一期分期。",
+      guide_h5:"自由职业者的合法节税策略",
+      guide_h5_p1:"马来西亚自由职业者可以通过两种合法方式，同时降低 CP500 估算额与最终 B 表格税款：一是通过可扣除费用降低净营业利润，二是通过个人税务减免降低应课税收入。",
+      guide_h5_p2:"在费用方面，LHDN 允许扣除一切为产生自由职业收入而完全且专门发生的支出——软件订阅、共享办公空间租金、与业务相关的差旅、专业弥偿保险，以及与本行业直接相关的进修费用。请至少保留电子收据7年，因为费用记录通常是税务稽查中首先被要求提供的文件。",
+      guide_h5_p3:"在减免方面，每位居民纳税人都会自动获得 RM9,000 个人减免。除此之外，自雇人士常常未充分利用生活方式减免（书籍、个人电脑、网络订阅，上限 RM2,500）、经批准课程或专业认证的教育费减免（上限 RM7,000），以及符合条件父母的医疗与照护减免（合计上限 RM8,000）。自愿性公积金供款及经批准的人寿保险保费，也能提供许多自雇人士因缺乏雇主提醒而在年末忽略的额外减免。",
+      guide_h5_p4:"严谨记录费用，并充分利用每一项可用减免，是合法降低 CP500 估算与 B 表格税款的唯一途径——每当你的收入或情况发生变化时，都值得重新检视一遍。",
+      guide_h6:"全年规划你的 CP500 缴款",
+      guide_h6_p1:"由于 CP500 是根据上一年度数据计算的，它很少能完全贴合本年度的实际情况——尤其对于收入随客户量、季节性项目或新合约波动的马来西亚自由职业者而言。与其把每一期双月分期视为固定不变的义务，不如在收入出现明显变化时重新估算年度税款，并与 LHDN 已排定的金额进行比较。",
+      guide_h6_p2:"许多自雇的马来西亚人会养成一个简单习惯：将每笔发票收入的固定比例（通常为15%至25%，视收入水平而定）另存入一个专门用于缴税的储蓄账户。这能把 CP500 从年终的压力来源，转变为例行的双月转账，也能确保 B 表格申报时若需补缴，也不会是一个意外。",
+      guide_h7:"开始行动",
+      guide_h7_p1:"无论你是正在等待第一份 CP500 通知的新晋自由职业者，还是正在核对多年分期记录的资深顾问，基本原则都是一致的：准确记录营业收入与可扣除费用、充分申请你有权享有的每一项减免，并按时缴纳每一期分期以避免罚款叠加。使用上方的计算器模拟不同的收入与支出情境，查看你的应课税收入落在 LHDN 累进税率的哪一级距，并预估你在 YA2025/2026 年度的每一期 CP500 分期金额——抢先一步，在 LHDN 通知送达之前。",
+      footer_copyright:"&copy; 2026 自由职业者 CP500 计算器。仅供估算参考——与 LHDN 无关联。",
+      footer_built:"为马来西亚自由职业者、顾问及个体经营者而设计。"
+    },
+    ms: {
+      nav_home:"Laman Utama", nav_about:"Tentang Kami", nav_privacy:"Dasar Privasi", nav_contact:"Hubungi Kami", nav_cta:"Mula Anggaran ↓",
+      hero_eyebrow:"CP500 &middot; Borang B &middot; Cukai Pendapatan Perniagaan",
+      hero_title:"Ketahui bil cukai dwibulanan anda sebelum LHDN memberitahu anda.",
+      hero_desc:"Direka untuk pekerja bebas (freelancer), perunding, dan pemilik tunggal di Malaysia. Masukkan pendapatan dan perbelanjaan anda sekali sahaja, dan lihat pendapatan bercukai, cukai tahunan, serta jadual ansuran CP500 (6 kali) dikemas kini secara langsung — berdasarkan jadual cukai progresif rasmi LHDN.",
+      hero_cta1:"Kira Cukai Saya →", hero_cta2:"Baca Panduan Penuh",
+      step1_title:"1. Pendapatan &amp; Perbelanjaan Perniagaan",
+      step1_desc:"Untung bersih = jumlah pendapatan freelance − perbelanjaan perniagaan yang dibenarkan (dibelanjakan sepenuhnya &amp; semata-mata untuk perniagaan).",
+      income_label:"Jumlah Pendapatan Freelance Tahunan",
+      expenses_label:"Perbelanjaan Perniagaan Yang Dibenarkan",
+      expenses_caption:"contohnya: langganan perisian, sewa ruang kerja bersama, peralatan, perjalanan untuk kerja klien, yuran profesional.",
+      step2_title:"2. Pelepasan Cukai (Kadar YA2025)",
+      step2_desc:"Pelepasan mengurangkan pendapatan bercukai sebelum jadual LHDN digunakan.",
+      individual_relief_label:"Pelepasan Individu",
+      individual_relief_caption:"Automatik untuk setiap pembayar cukai pemastautin",
+      parent_label:"Pelepasan Ibu Bapa / Rawatan Perubatan Ibu Bapa",
+      parent_caption:"Had gabungan RM8,000 (rawatan perubatan, penjagaan &amp; sokongan ibu bapa).",
+      education_label:"Yuran Pendidikan (Diri Sendiri)",
+      education_caption:"Had RM7,000 — kursus, sijil profesional, yuran pengajian lepasan ijazah.",
+      lifestyle_label:"Pelepasan Gaya Hidup",
+      lifestyle_caption:"Had RM2,500 — buku, gajet, internet, gimnasium, peralatan sukan.",
+      reset_btn:"Set Semula ke Contoh Lalai",
+      clear_data_btn:"Padam Data Tersimpan",
+      save_note:"✓ Input anda disimpan secara automatik dalam pelayar ini",
+      results_eyebrow:"Anggaran Anda",
+      net_profit_label:"Untung Bersih Perniagaan",
+      total_reliefs_label:"Jumlah Pelepasan Dituntut",
+      chargeable_income_label:"Pendapatan Bercukai",
+      ladder_caption:"Jadual Progresif LHDN",
+      marginal_band_label:"Kadar Marginal:",
+      annual_tax_label:"Anggaran Cukai Tahunan Kena Bayar",
+      rebate_note:"Selepas rebat RM400 untuk pendapatan bercukai ≤ RM35,000.",
+      effective_rate_label:"Kadar Efektif:",
+      cp500_title:"Jadual Ansuran CP500",
+      cp500_badge:"6 bayaran/tahun",
+      cp500_desc:'LHDN mengeluarkan CP500 dalam 6 ansuran dwibulanan — sering dipanggil "suku tahun" secara umum, tetapi sebenarnya dibayar setiap dua bulan: Jan, Mac, Mei, Jul, Sep, Nov.',
+      cp500_total_label:"Jumlah (6 Ansuran)",
+      chart_title:"Ke Mana Perginya Pendapatan Anda",
+      chart_expenses_legend:"Perbelanjaan Perniagaan",
+      chart_tax_legend:"Cukai Kena Bayar",
+      chart_takehome_legend:"Bawa Pulang Bersih",
+      tips_title:"Tip Penjimatan Untuk Anda",
+      trust_rates_label:"Kadar digunakan:",
+      trust_rates_text:"Jadual progresif individu pemastautin YA2025 (tidak berubah untuk penfailan YA2026), mengikut LHDN.",
+      trust_notfiling_label:"Bukan alat penfailan:",
+      trust_notfiling_text:"ini adalah anggaran untuk tujuan perancangan — sentiasa sahkan angka akhir melalui e-Filing MyTax.",
+      trust_notadvice_label:"Bukan nasihat cukai:",
+      trust_notadvice_text:"untuk situasi kompleks (pelbagai sumber pendapatan, perkongsian), rujuk ejen cukai bertauliah.",
+      guide_eyebrow:"Panduan Cukai Freelancer",
+      guide_title:"Panduan Lengkap CP500 &amp; Cukai Freelance di Malaysia (YA2025/2026)",
+      guide_intro:"Semua yang perlu diketahui oleh freelancer, perunding, dan pemilik tunggal Malaysia tentang cukai pendapatan perniagaan, ansuran CP500, tarikh akhir LHDN, dan cara sah untuk mengurangkan bil cukai anda.",
+      guide_opening:"Kerja freelance dan gig telah berkembang pesat di Malaysia, daripada perunding jarak jauh dan pencipta kandungan kepada pemandu Grab dan penjual e-dagang. Berbeza dengan pekerja bergaji yang majikannya memotong Potongan Cukai Bulanan (PCB) setiap bulan, individu bekerja sendiri bertanggungjawab menganggar dan membayar pendahuluan cukai pendapatan mereka sendiri melalui skim CP500. Memahami cara ia berfungsi — dan bagaimana ia berkait dengan penfailan Borang B tahunan anda — adalah penting untuk mengelakkan penalti dan mengurangkan cukai secara sah.",
+      guide_h1:"Apakah CP500?",
+      guide_h1_p1:"CP500 ialah skim ansuran Lembaga Hasil Dalam Negeri Malaysia (LHDN) untuk individu yang mempunyai pendapatan perniagaan, sewa, atau pendapatan bukan penggajian lain — kategori yang meliputi kebanyakan freelancer, perunding, dan pemilik tunggal di Malaysia. Oleh sebab pendapatan freelance tiada majikan untuk memotong cukai pada sumber, LHDN sebaliknya mengeluarkan notis CP500, biasanya pada Februari atau Mac, menganggar cukai anda untuk tahun semasa berdasarkan taksiran Borang B terkini anda.",
+      guide_h1_p2:"Anggaran itu kemudian dipecahkan kepada enam ansuran dwibulanan yang perlu dibayar pada Januari, Mac, Mei, Julai, September, dan November. Jika pendapatan anda benar-benar menurun, anda boleh memohon untuk menyemak semula anggaran tersebut ke bawah menggunakan Borang CP502 dalam tempoh 30 hari dari tarikh notis. Anda juga boleh menyemak semula ke atas secara sukarela jika pendapatan freelance anda meningkat, yang akan mengurangkan baki sekaligus yang perlu dibayar kemudian.",
+      guide_h2:"Siapa Perlu Membayar CP500?",
+      guide_h2_p1:"CP500 terpakai kepada individu yang memperoleh pendapatan perniagaan di bawah Seksyen 4(a) Akta Cukai Pendapatan 1967 — ini merangkumi kerja freelance, yuran perundingan, pemilikan tunggal, dan perkongsian yang dilaporkan melalui Borang B dan bukan Borang BE. Pendapatan sewa dan sumber bukan penggajian tertentu yang lain juga boleh mencetuskan notis.",
+      guide_h2_p2:"Freelancer tahun pertama biasanya tidak akan menerima notis CP500 dengan segera, kerana LHDN mengasaskan anggaran berdasarkan pulangan yang difailkan pada tahun sebelumnya. Namun, sebaik sahaja taksiran Borang B pertama anda diproses, notis untuk tahun berikutnya biasanya menyusul. Ini tidak bermakna freelancer tahun pertama bebas cukai: jumlah penuh masih perlu dibayar semasa Borang B difailkan, jadi adalah bijak untuk menyisihkan peratusan setiap invois dari hari pertama. Freelancer yang turut memegang pekerjaan bergaji perlu menggabungkan kedua-dua aliran pendapatan pada Borang B dan tetap bertanggungjawab terhadap CP500 jika pendapatan perniagaan mereka ketara.",
+      guide_h3:"CP500 Berbanding Cukai Muktamad Borang B",
+      guide_h3_p1:"Penting untuk memahami bahawa ansuran CP500 hanyalah anggaran — bukan bil cukai muktamad anda. Liabiliti sebenar anda dikira apabila anda memfailkan Borang B, yang perlu dibayar sebelum 30 Jun setiap tahun (dilanjutkan hingga pertengahan Julai untuk e-Filing), yang menyesuaikan untung bersih sebenar, pelepasan yang dituntut, dan jumlah pendapatan anda berbanding anggaran LHDN sebelum ini.",
+      guide_h3_p2:"Tiga hasil mungkin berlaku sebaik sahaja pulangan anda diproses. Jika bayaran CP500 anda melebihi cukai yang ditaksir, LHDN akan memulangkan lebihan tersebut. Jika ansuran anda tidak mencukupi — lazim apabila pendapatan freelance meningkat pada pertengahan tahun — anda perlu menjelaskan baki (baki cukai) sebelum tarikh akhir penfailan. Jika kedua-dua angka hampir sama, tiada tindakan lanjut diperlukan. Oleh sebab Borang B tiba beberapa bulan selepas ansuran CP500 terakhir, freelancer dengan pendapatan tidak menentu harus menyemak semula anggaran mereka secara berkala sepanjang tahun, menggunakan kalkulator seperti di atas, dan bukannya menunggu sehingga Jun untuk mendapati baki yang besar.",
+      guide_h4:"Penalti Bayaran Lewat",
+      guide_h4_p1:"Kegagalan atau kekurangan membayar ansuran CP500 mencetuskan penalti automatik sebanyak 10% ke atas jumlah ansuran tertunggak sebaik sahaja tarikh akhir berlalu tanpa bayaran atau semakan yang diluluskan. Penalti ini berasingan daripada — dan boleh berhimpun dengan — penalti yang berkaitan dengan Borang B itu sendiri.",
+      guide_h4_p2:"Penfailan Borang B secara lewat dikenakan penalti 10% ke atas cukai kena bayar, yang meningkat lagi jika pulangan masih tidak difailkan selepas 12 bulan. Sebarang baki tidak berbayar yang dikenal pasti selepas taksiran akhir anda juga tertakluk kepada caj bayaran lewat tambahan, biasanya 5%, jika tidak diselesaikan dalam tempoh 30 hari dari notis taksiran. Oleh sebab penalti ansuran, penalti penfailan, dan penalti baki masing-masing boleh terpakai secara berasingan, pendekatan paling selamat adalah membayar setiap ansuran CP500 tepat pada masanya walaupun anggaran terasa tidak tepat, dan membetulkan sebarang perbezaan kemudian semasa penfailan Borang B, bukannya melangkau ansuran sepenuhnya.",
+      guide_h5:"Strategi Pelepasan Cukai Sah Untuk Freelancer",
+      guide_h5_p1:"Freelancer Malaysia boleh mengurangkan secara sah kedua-dua anggaran CP500 dan liabiliti muktamad Borang B mereka dengan dua cara: menurunkan untung bersih perniagaan melalui perbelanjaan yang dibenarkan, dan menurunkan pendapatan bercukai melalui pelepasan cukai peribadi.",
+      guide_h5_p2:"Dari segi perbelanjaan, LHDN membenarkan potongan untuk apa-apa yang dibelanjakan sepenuhnya dan semata-mata untuk menghasilkan pendapatan freelance anda — langganan perisian, sewa ruang kerja bersama, perjalanan berkaitan perniagaan, insurans indemniti profesional, dan pendidikan berterusan yang berkait terus dengan bidang anda. Simpan resit digital sekurang-kurangnya tujuh tahun, kerana rekod perbelanjaan biasanya dokumen pertama yang diminta semasa audit.",
+      guide_h5_p3:"Dari segi pelepasan, setiap pembayar cukai pemastautin menerima pelepasan individu RM9,000 secara automatik. Selain asas itu, individu bekerja sendiri sering kurang menuntut pelepasan gaya hidup (sehingga RM2,500 untuk buku, komputer peribadi, dan langganan internet), yuran pendidikan untuk kursus atau sijil yang diluluskan (sehingga RM7,000), dan pelepasan ibu bapa untuk rawatan perubatan dan penjagaan ibu bapa yang layak (sehingga RM8,000 gabungan). Caruman KWSP secara sukarela dan premium insurans hayat yang diluluskan menambah pelepasan lanjut yang sering diabaikan freelancer kerana tiada majikan yang mengingatkan mereka pada penghujung tahun.",
+      guide_h5_p4:"Menggabungkan penjejakan perbelanjaan yang disiplin dengan penggunaan penuh setiap pelepasan yang tersedia adalah satu-satunya cara sah untuk menurunkan anggaran CP500 dan bil Borang B anda — dan ia berbaloi disemak semula setiap kali pendapatan atau keadaan anda berubah sepanjang tahun.",
+      guide_h6:"Merancang Bayaran CP500 Anda Sepanjang Tahun",
+      guide_h6_p1:"Oleh sebab CP500 berdasarkan angka tahun lepas, ia jarang sepadan sepenuhnya dengan realiti tahun ini — terutamanya bagi freelancer di Malaysia yang pendapatannya berubah mengikut jumlah klien, projek bermusim, atau kontrak baharu. Daripada menganggap setiap ansuran dwibulanan sebagai kewajipan tetap, adalah lebih baik untuk menganggar semula cukai tahunan anda apabila pendapatan anda berubah dengan ketara, dan membandingkan angka itu dengan apa yang telah dijadualkan oleh LHDN.",
+      guide_h6_p2:"Satu tabiat mudah yang diamalkan oleh ramai individu bekerja sendiri di Malaysia ialah menyisihkan peratusan tetap daripada setiap invois — lazimnya 15% hingga 25% bergantung pada tahap pendapatan — ke dalam akaun simpanan berasingan yang dikhususkan semata-mata untuk cukai. Ini menukar CP500 daripada punca tekanan akhir tahun kepada pemindahan dwibulanan rutin, dan memastikan sebarang tambahan yang perlu dibayar semasa penfailan Borang B tidak lagi menjadi kejutan.",
+      guide_h7:"Bermula",
+      guide_h7_p1:"Sama ada anda seorang freelancer tahun pertama yang menunggu notis CP500 pertama anda, atau perunding berpengalaman yang menyesuaikan beberapa tahun ansuran, asasnya kekal sama: jejaki pendapatan perniagaan dan perbelanjaan yang dibenarkan dengan tepat, tuntut setiap pelepasan yang anda layak terima, dan bayar setiap ansuran tepat pada masanya untuk mengelakkan penalti berhimpun. Gunakan kalkulator di atas untuk memodelkan senario pendapatan dan perbelanjaan yang berbeza, lihat di mana pendapatan bercukai anda berada pada jadual progresif LHDN, dan anggarkan bagaimana rupa setiap satu daripada enam ansuran CP500 anda untuk YA2025/2026 — sebelum notis rasmi LHDN tiba.",
+      footer_copyright:"&copy; 2026 Kalkulator CP500 Freelancer. Anggaran sahaja — tiada kaitan dengan LHDN.",
+      footer_built:"Direka untuk freelancer, perunding &amp; pemilik tunggal Malaysia."
+    }
+  };
+
+  var MONTHS = {
+    en: ['January','March','May','July','September','November'],
+    zh: ['1月','3月','5月','7月','9月','11月'],
+    ms: ['Januari','Mac','Mei','Julai','September','November']
+  };
+
+  var TIPS = {
+    en: {
+      lifestyle: function(r){ return 'You have RM' + r.toLocaleString('en-MY') + ' of unused lifestyle relief — eligible spend on books, gadgets or internet bills reduces tax directly.'; },
+      education: function(r){ return 'Upskilling course or certification fees this year could unlock up to RM' + r.toLocaleString('en-MY') + ' more in education relief.'; },
+      expenseRatio: 'Your claimed expenses are under 15% of income — double-check for missed deductibles like software, co-working rent, or business travel.',
+      rebateThreshold: 'You are just above the RM35,000 rebate threshold — a small increase in reliefs could unlock the RM400 rebate.',
+      setAside: function(a){ return 'Set aside RM' + a.toLocaleString('en-MY') + ' every 2 months so each CP500 instalment is already covered when it is due.'; },
+      wellOptimised: 'Your reliefs are well optimised for the inputs provided. Revisit this estimate whenever income or expenses change.'
+    },
+    zh: {
+      lifestyle: function(r){ return '你还有 RM' + r.toLocaleString('en-MY') + ' 的生活方式减免额度未使用——购买书籍、电子产品或缴付网络费都能直接减税。'; },
+      education: function(r){ return '今年报读进修课程或考取专业认证，最多可再获得 RM' + r.toLocaleString('en-MY') + ' 的教育费减免。'; },
+      expenseRatio: '你申报的支出低于收入的15%——请检查是否遗漏了软件、共享办公室租金或商务差旅等可扣除项目。',
+      rebateThreshold: '你的收入刚超过 RM35,000 回扣门槛——稍微增加减免额度即可获得 RM400 回扣。',
+      setAside: function(a){ return '建议每两个月预留 RM' + a.toLocaleString('en-MY') + '，这样每期 CP500 到期时都已经准备妥当。'; },
+      wellOptimised: '根据目前输入的数据，你的减免已充分利用。收入或支出变动时，记得重新查看此估算。'
+    },
+    ms: {
+      lifestyle: function(r){ return 'Anda mempunyai RM' + r.toLocaleString('en-MY') + ' pelepasan gaya hidup yang belum digunakan — perbelanjaan layak seperti buku, gajet atau bil internet mengurangkan cukai secara langsung.'; },
+      education: function(r){ return 'Yuran kursus peningkatan kemahiran atau sijil tahun ini boleh membuka sehingga RM' + r.toLocaleString('en-MY') + ' lagi pelepasan pendidikan.'; },
+      expenseRatio: 'Perbelanjaan yang anda tuntut kurang daripada 15% pendapatan — semak semula sekiranya ada perbelanjaan seperti perisian, sewa ruang kerja bersama, atau perjalanan perniagaan yang tertinggal.',
+      rebateThreshold: 'Anda sedikit melebihi ambang rebat RM35,000 — peningkatan kecil dalam pelepasan boleh membuka rebat RM400.',
+      setAside: function(a){ return 'Sisihkan RM' + a.toLocaleString('en-MY') + ' setiap 2 bulan supaya setiap ansuran CP500 sudah tersedia apabila tiba masanya.'; },
+      wellOptimised: 'Pelepasan anda sudah dioptimumkan dengan baik berdasarkan input yang diberikan. Semak semula anggaran ini apabila pendapatan atau perbelanjaan berubah.'
+    }
+  };
+
+  var currentLang = 'en';
+  try {
+    var savedLang = localStorage.getItem('cp500_lang');
+    if (savedLang && I18N[savedLang]) currentLang = savedLang;
+  } catch(e){}
 
   // ---------- LHDN YA2025 resident progressive bands ----------
   var BANDS = [
@@ -522,18 +844,19 @@
     ladderEl.appendChild(seg);
   });
 
-  // ---------- instalment table build ----------
-  var months = ['January','March','May','July','September','November'];
+  // ---------- instalment table build (rebuilt whenever language changes) ----------
   var instalEl = document.getElementById('instalmentTable');
-  months.forEach(function(m, i){
-    var row = document.createElement('div');
-    row.className = 'flex justify-between items-center text-[13px] py-1';
-    row.innerHTML =
-      '<span class="text-slatesoft">' + (i+1) + '. ' + m + '</span>' +
-      '<span class="font-mono font-medium text-ink instalment-amt">RM0</span>';
-    instalEl.appendChild(row);
-  });
-  var instalmentAmountEls = document.querySelectorAll('.instalment-amt');
+  function buildInstalmentTable(lang){
+    instalEl.innerHTML = '';
+    MONTHS[lang].forEach(function(m, i){
+      var row = document.createElement('div');
+      row.className = 'flex justify-between items-center text-[13px] py-1';
+      row.innerHTML =
+        '<span class="text-slatesoft">' + (i+1) + '. ' + m + '</span>' +
+        '<span class="font-mono font-medium text-ink instalment-amt">RM0</span>';
+      instalEl.appendChild(row);
+    });
+  }
 
   // ---------- tips ----------
   var tipsListEl = document.getElementById('tipsList');
@@ -542,6 +865,27 @@
     li.className = 'flex gap-2';
     li.innerHTML = '<span class="text-teal">&#9656;</span><span>' + text + '</span>';
     return li;
+  }
+
+  // ---------- localStorage: saved calculator inputs ----------
+  function saveInputs(){
+    try {
+      localStorage.setItem('cp500_inputs', JSON.stringify({
+        income: el.income.value, expenses: el.expenses.value,
+        parent: el.parent.value, education: el.education.value, lifestyle: el.lifestyle.value
+      }));
+    } catch(e){ /* localStorage unavailable — fail silently */ }
+  }
+  function loadSavedInputs(){
+    try {
+      var raw = localStorage.getItem('cp500_inputs');
+      if (!raw) return false;
+      var data = JSON.parse(raw);
+      ['income','expenses','parent','education','lifestyle'].forEach(function(k){
+        if (data[k] !== undefined){ el[k].value = data[k]; el[k+'Num'].value = data[k]; }
+      });
+      return true;
+    } catch(e){ return false; }
   }
 
   function recalc(){
@@ -569,29 +913,39 @@
     document.getElementById('outMarginalRate').textContent = (result.marginalRate*100).toFixed(0) + '%';
     document.getElementById('outTotalInstalment').textContent = fmt(result.netTax);
 
-    instalmentAmountEls.forEach(function(node){ node.textContent = fmt(perInstalment); });
+    document.querySelectorAll('.instalment-amt').forEach(function(node){ node.textContent = fmt(perInstalment); });
 
     var markerPct = Math.max(0, Math.min(100, (chargeable / LADDER_SCALE) * 100));
     document.getElementById('ladderMarker').style.left = markerPct + '%';
 
+    // ---- data visualization: income allocation donut ----
+    var expPct = income > 0 ? Math.min(100, (expenses / income) * 100) : 0;
+    var taxPct = income > 0 ? Math.min(100 - expPct, (result.netTax / income) * 100) : 0;
+    var takePct = Math.max(0, 100 - expPct - taxPct);
+    var b1 = expPct, b2 = expPct + taxPct;
+    document.getElementById('donutChart').style.background =
+      'conic-gradient(#B8863B 0% ' + b1.toFixed(2) + '%, #B0442F ' + b1.toFixed(2) + '% ' + b2.toFixed(2) + '%, #1F6F63 ' + b2.toFixed(2) + '% 100%)';
+    document.getElementById('donutCenter').textContent = takePct.toFixed(0) + '%';
+    document.getElementById('chartExpensesPct').textContent = expPct.toFixed(1) + '%';
+    document.getElementById('chartTaxPct').textContent = taxPct.toFixed(1) + '%';
+    document.getElementById('chartTakehomePct').textContent = takePct.toFixed(1) + '%';
+
     // ---- tips ----
+    var T = TIPS[currentLang];
     tipsListEl.innerHTML = '';
     var tips = [];
-    if (lifestyle < 2500) tips.push('You have RM' + (2500-lifestyle).toLocaleString('en-MY') + ' of unused lifestyle relief — eligible spend on books, gadgets or internet bills reduces tax directly.');
-    if (education < 7000) tips.push('Upskilling course or certification fees this year could unlock up to RM' + (7000-education).toLocaleString('en-MY') + ' more in education relief.');
-    if (expenses < income * 0.15) tips.push('Your claimed expenses are under 15% of income — double-check for missed deductibles like software, co-working rent, or business travel.');
-    if (chargeable > 35000 && chargeable - totalReliefs < 40000) tips.push('You are just above the RM35,000 rebate threshold — a small increase in reliefs could unlock the RM400 rebate.');
-    if (result.netTax > 0) tips.push('Set aside RM' + Math.ceil(perInstalment).toLocaleString('en-MY') + ' every 2 months so each CP500 instalment is already covered when it is due.');
-    if (tips.length === 0) tips.push('Your reliefs are well optimised for the inputs provided. Revisit this estimate whenever income or expenses change.');
+    if (lifestyle < 2500) tips.push(T.lifestyle(2500 - lifestyle));
+    if (education < 7000) tips.push(T.education(7000 - education));
+    if (expenses < income * 0.15) tips.push(T.expenseRatio);
+    if (chargeable > 35000 && chargeable - totalReliefs < 40000) tips.push(T.rebateThreshold);
+    if (result.netTax > 0) tips.push(T.setAside(Math.ceil(perInstalment)));
+    if (tips.length === 0) tips.push(T.wellOptimised);
     tips.forEach(function(t){ tipsListEl.appendChild(bullet(t)); });
+
+    saveInputs();
   }
 
-  // init fills + first calc
-  [el.income, el.expenses, el.parent, el.education, el.lifestyle].forEach(updateFill);
-  recalc();
-
-  // reset
-  document.getElementById('resetBtn').addEventListener('click', function(){
+  function resetToDefaults(){
     var defaults = { income:72000, expenses:15000, parent:3000, education:2000, lifestyle:1500 };
     Object.keys(defaults).forEach(function(k){
       el[k].value = defaults[k];
@@ -599,7 +953,46 @@
       updateFill(el[k]);
     });
     recalc();
+  }
+
+  // ---------- language switching ----------
+  function updateLangButtons(lang){
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  function applyLanguage(lang){
+    if (!I18N[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(node){
+      var key = node.getAttribute('data-i18n');
+      if (I18N[lang][key] !== undefined) node.innerHTML = I18N[lang][key];
+    });
+    try { localStorage.setItem('cp500_lang', lang); } catch(e){}
+    updateLangButtons(lang);
+    buildInstalmentTable(lang);
+    recalc();
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ applyLanguage(btn.getAttribute('data-lang')); });
   });
+
+  // ---------- reset / clear ----------
+  document.getElementById('resetBtn').addEventListener('click', resetToDefaults);
+  document.getElementById('clearDataBtn').addEventListener('click', function(){
+    try { localStorage.removeItem('cp500_inputs'); } catch(e){}
+    resetToDefaults();
+  });
+
+  // ---------- init ----------
+  loadSavedInputs();
+  [el.income, el.expenses, el.parent, el.education, el.lifestyle].forEach(updateFill);
+  buildInstalmentTable(currentLang);
+  applyLanguage(currentLang);
 
 })();
 </script>
