@@ -276,6 +276,83 @@
         </div>
       </div>
 
+      <!-- ============ NEW: additional official LHDN reliefs (EPF, insurance, SSPN, annuity) ============ -->
+      <!-- Reuses the exact slider+number-input markup pattern from Step 2 above; no changes to tax band, CP500, or chart code. -->
+      <div class="bg-panel border border-slate/10 rounded-2xl p-6 sm:p-7 shadow-sm">
+        <h2 data-i18n="step3_title" class="font-display text-xl text-ink mb-1">3. Additional reliefs</h2>
+        <p data-i18n="step3_desc" class="text-xs text-slatesoft mb-6">Other official LHDN reliefs available to freelancers who contribute to retirement, insurance, or education savings schemes.</p>
+
+        <!-- EPF (self-contribution) -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="epf" data-i18n="epf_label" class="text-sm font-medium text-slate">EPF (self-contribution)</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="epfNum" type="number" min="0" max="4000" step="100" value="0"
+                class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="epf" type="range" min="0" max="4000" step="100" value="0">
+          <p data-i18n="epf_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM4,000 — self-employed voluntary EPF (i-Saraan) contributions.</p>
+        </div>
+
+        <!-- Life insurance -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="lifeinsurance" data-i18n="lifeinsurance_label" class="text-sm font-medium text-slate">Life insurance premiums</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="lifeinsuranceNum" type="number" min="0" max="3000" step="100" value="0"
+                class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="lifeinsurance" type="range" min="0" max="3000" step="100" value="0">
+          <p data-i18n="lifeinsurance_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM3,000 — approved life insurance / family takaful premiums.</p>
+        </div>
+
+        <!-- Education & medical insurance -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="medicalinsurance" data-i18n="medicalinsurance_label" class="text-sm font-medium text-slate">Education &amp; medical insurance</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="medicalinsuranceNum" type="number" min="0" max="3000" step="100" value="0"
+                class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="medicalinsurance" type="range" min="0" max="3000" step="100" value="0">
+          <p data-i18n="medicalinsurance_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM3,000 — education and medical insurance premiums (self, spouse, child).</p>
+        </div>
+
+        <!-- SSPN net deposit -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="sspn" data-i18n="sspn_label" class="text-sm font-medium text-slate">SSPN net deposit</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="sspnNum" type="number" min="0" max="8000" step="100" value="0"
+                class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="sspn" type="range" min="0" max="8000" step="100" value="0">
+          <p data-i18n="sspn_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM8,000 — net annual deposit into a child's SSPN education savings account.</p>
+        </div>
+
+        <!-- Private Retirement Scheme / deferred annuity -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="annuity" data-i18n="annuity_label" class="text-sm font-medium text-slate">PRS / deferred annuity</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="annuityNum" type="number" min="0" max="3000" step="100" value="0"
+                class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="annuity" type="range" min="0" max="3000" step="100" value="0">
+          <p data-i18n="annuity_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM3,000 — Private Retirement Scheme (PRS) contributions or deferred annuity premiums.</p>
+        </div>
+      </div>
+
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <button id="resetBtn" data-i18n="reset_btn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">
           Reset to default example
@@ -502,6 +579,18 @@
       education_caption:"Capped at RM7,000 — courses, professional certifications, postgraduate fees.",
       lifestyle_label:"Lifestyle relief",
       lifestyle_caption:"Capped at RM2,500 — books, gadgets, internet, gym, sports equipment.",
+      step3_title:"3. Additional reliefs",
+      step3_desc:"Other official LHDN reliefs available to freelancers who contribute to retirement, insurance, or education savings schemes.",
+      epf_label:"EPF (self-contribution)",
+      epf_caption:"Capped at RM4,000 — self-employed voluntary EPF (i-Saraan) contributions.",
+      lifeinsurance_label:"Life insurance premiums",
+      lifeinsurance_caption:"Capped at RM3,000 — approved life insurance / family takaful premiums.",
+      medicalinsurance_label:"Education &amp; medical insurance",
+      medicalinsurance_caption:"Capped at RM3,000 — education and medical insurance premiums (self, spouse, child).",
+      sspn_label:"SSPN net deposit",
+      sspn_caption:"Capped at RM8,000 — net annual deposit into a child's SSPN education savings account.",
+      annuity_label:"PRS / deferred annuity",
+      annuity_caption:"Capped at RM3,000 — Private Retirement Scheme (PRS) contributions or deferred annuity premiums.",
       reset_btn:"Reset to default example",
       clear_data_btn:"Clear saved data",
       save_note:"✓ Your inputs are saved automatically in this browser",
@@ -579,6 +668,18 @@
       education_caption:"上限 RM7,000——课程、专业认证、研究生学费。",
       lifestyle_label:"生活方式减免",
       lifestyle_caption:"上限 RM2,500——书籍、电子产品、网络、健身、运动器材。",
+      step3_title:"3. 其他官方减免",
+      step3_desc:"适用于有供款退休金、保险或教育储蓄计划的自由职业者的其他官方 LHDN 减免项目。",
+      epf_label:"公积金（自愿供款）",
+      epf_caption:"上限 RM4,000——自雇人士通过 i-Saraan 计划自愿供款至公积金。",
+      lifeinsurance_label:"人寿保险保费",
+      lifeinsurance_caption:"上限 RM3,000——已缴付的经批准人寿保险或家庭伊斯兰保险保费。",
+      medicalinsurance_label:"教育与医疗保险",
+      medicalinsurance_caption:"上限 RM3,000——本人、配偶或子女的教育及医疗保险保费。",
+      sspn_label:"SSPN 净存款",
+      sspn_caption:"上限 RM8,000——存入子女 SSPN 教育储蓄账户的年度净存款。",
+      annuity_label:"PRS / 延期年金",
+      annuity_caption:"上限 RM3,000——私人退休计划（PRS）供款或延期年金保费。",
       reset_btn:"重置为默认示例",
       clear_data_btn:"清除已保存的数据",
       save_note:"✓ 你的输入内容已自动保存在此浏览器中",
@@ -656,6 +757,18 @@
       education_caption:"Had RM7,000 — kursus, sijil profesional, yuran pengajian lepasan ijazah.",
       lifestyle_label:"Pelepasan Gaya Hidup",
       lifestyle_caption:"Had RM2,500 — buku, gajet, internet, gimnasium, peralatan sukan.",
+      step3_title:"3. Pelepasan Tambahan",
+      step3_desc:"Pelepasan rasmi LHDN lain yang tersedia untuk freelancer yang menyumbang kepada skim persaraan, insurans, atau simpanan pendidikan.",
+      epf_label:"KWSP (caruman sendiri)",
+      epf_caption:"Had RM4,000 — caruman KWSP sukarela (i-Saraan) untuk individu bekerja sendiri.",
+      lifeinsurance_label:"Premium insurans hayat",
+      lifeinsurance_caption:"Had RM3,000 — premium insurans hayat atau takaful keluarga yang diluluskan.",
+      medicalinsurance_label:"Insurans pendidikan &amp; perubatan",
+      medicalinsurance_caption:"Had RM3,000 — premium insurans pendidikan dan perubatan (diri sendiri, pasangan, anak).",
+      sspn_label:"Deposit bersih SSPN",
+      sspn_caption:"Had RM8,000 — deposit bersih tahunan ke dalam akaun simpanan pendidikan SSPN anak.",
+      annuity_label:"PRS / anuiti tertunda",
+      annuity_caption:"Had RM3,000 — caruman Skim Persaraan Swasta (PRS) atau premium anuiti tertunda.",
       reset_btn:"Set Semula ke Contoh Lalai",
       clear_data_btn:"Padam Data Tersimpan",
       save_note:"✓ Input anda disimpan secara automatik dalam pelayar ini",
@@ -793,7 +906,7 @@
 
   // ---------- element refs ----------
   var el = {};
-  ['income','expenses','parent','education','lifestyle'].forEach(function(k){
+  ['income','expenses','parent','education','lifestyle','epf','lifeinsurance','medicalinsurance','sspn','annuity'].forEach(function(k){
     el[k] = document.getElementById(k);
     el[k+'Num'] = document.getElementById(k+'Num');
   });
@@ -828,6 +941,12 @@
   syncPair(el.parent, el.parentNum, 0, 8000);
   syncPair(el.education, el.educationNum, 0, 7000);
   syncPair(el.lifestyle, el.lifestyleNum, 0, 2500);
+  // ---- new official reliefs: same syncPair helper, same validation/debounce behaviour ----
+  syncPair(el.epf, el.epfNum, 0, 4000);
+  syncPair(el.lifeinsurance, el.lifeinsuranceNum, 0, 3000);
+  syncPair(el.medicalinsurance, el.medicalinsuranceNum, 0, 3000);
+  syncPair(el.sspn, el.sspnNum, 0, 8000);
+  syncPair(el.annuity, el.annuityNum, 0, 3000);
 
   // ---------- ladder build (once) ----------
   var ladderEl = document.getElementById('ladder');
@@ -872,7 +991,9 @@
     try {
       localStorage.setItem('cp500_inputs', JSON.stringify({
         income: el.income.value, expenses: el.expenses.value,
-        parent: el.parent.value, education: el.education.value, lifestyle: el.lifestyle.value
+        parent: el.parent.value, education: el.education.value, lifestyle: el.lifestyle.value,
+        epf: el.epf.value, lifeinsurance: el.lifeinsurance.value, medicalinsurance: el.medicalinsurance.value,
+        sspn: el.sspn.value, annuity: el.annuity.value
       }));
     } catch(e){ /* localStorage unavailable — fail silently */ }
   }
@@ -881,7 +1002,7 @@
       var raw = localStorage.getItem('cp500_inputs');
       if (!raw) return false;
       var data = JSON.parse(raw);
-      ['income','expenses','parent','education','lifestyle'].forEach(function(k){
+      ['income','expenses','parent','education','lifestyle','epf','lifeinsurance','medicalinsurance','sspn','annuity'].forEach(function(k){
         if (data[k] !== undefined){ el[k].value = data[k]; el[k+'Num'].value = data[k]; }
       });
       return true;
@@ -894,11 +1015,17 @@
     var parent = parseFloat(el.parent.value) || 0;
     var education = parseFloat(el.education.value) || 0;
     var lifestyle = parseFloat(el.lifestyle.value) || 0;
+    // ---- new official reliefs (added to the sum only — calcTax()/ladder/CP500/donut below are unchanged) ----
+    var epf = parseFloat(el.epf.value) || 0;
+    var lifeinsurance = parseFloat(el.lifeinsurance.value) || 0;
+    var medicalinsurance = parseFloat(el.medicalinsurance.value) || 0;
+    var sspn = parseFloat(el.sspn.value) || 0;
+    var annuity = parseFloat(el.annuity.value) || 0;
 
     if (expenses > income) { expenses = income; el.expenses.value = expenses; el.expensesNum.value = expenses; updateFill(el.expenses); }
 
     var netProfit = Math.max(0, income - expenses);
-    var totalReliefs = INDIVIDUAL_RELIEF + parent + education + lifestyle;
+    var totalReliefs = INDIVIDUAL_RELIEF + parent + education + lifestyle + epf + lifeinsurance + medicalinsurance + sspn + annuity;
     var chargeable = Math.max(0, netProfit - totalReliefs);
 
     var result = calcTax(chargeable);
@@ -946,7 +1073,8 @@
   }
 
   function resetToDefaults(){
-    var defaults = { income:72000, expenses:15000, parent:3000, education:2000, lifestyle:1500 };
+    var defaults = { income:72000, expenses:15000, parent:3000, education:2000, lifestyle:1500,
+      epf:0, lifeinsurance:0, medicalinsurance:0, sspn:0, annuity:0 };
     Object.keys(defaults).forEach(function(k){
       el[k].value = defaults[k];
       el[k+'Num'].value = defaults[k];
@@ -990,7 +1118,8 @@
 
   // ---------- init ----------
   loadSavedInputs();
-  [el.income, el.expenses, el.parent, el.education, el.lifestyle].forEach(updateFill);
+  [el.income, el.expenses, el.parent, el.education, el.lifestyle,
+   el.epf, el.lifeinsurance, el.medicalinsurance, el.sspn, el.annuity].forEach(updateFill);
   buildInstalmentTable(currentLang);
   applyLanguage(currentLang);
 
