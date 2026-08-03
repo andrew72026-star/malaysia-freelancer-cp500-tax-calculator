@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malaysia Freelancer CP500 Calculator (YA2026) | LHDN Tax Relief & Self-Employed Income Tax</title>
+<meta name="description" content="Free Malaysia freelancer CP500 calculator for YA2025/2026. Itemise business expense deductions and official LHDN YA2026 tax reliefs to get your Form B chargeable income, total tax and CP500 instalments instantly.">
+<meta name="keywords" content="malaysia freelancer cp500 calculator, LHDN YA2026 tax relief, self-employed income tax malaysia, form b tax calculation, business expense deduction malaysia, freelance tax relief malaysia, i-saraan epf relief, capital allowance malaysia freelancer">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Malaysia Freelancer Tax Calculator">
+<link rel="canonical" href="https://mytaxmalaysia.com/">
+<meta name="theme-color" content="#0B1F33">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Malaysia Freelancer CP500 Calculator (YA2026) | LHDN Tax Relief Estimator">
+<meta property="og:description" content="Itemise business expenses and LHDN reliefs to calculate your net profit, chargeable income, total tax and CP500 instalments — instantly, free, no signup.">
+<meta property="og:locale" content="en_MY">
+<meta property="og:site_name" content="MY Freelancer Tax Calculator">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Malaysia Freelancer CP500 Calculator (YA2026)">
+<meta name="twitter:description" content="Estimate your CP500 instalments, LHDN tax bracket, business expenses and reliefs as a Malaysian freelancer in seconds.">
+
+<script>
+  window.tailwind = window.tailwind || {};
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:        '#0B1F33',
+          inksoft:    '#16324A',
+          paper:      '#FAF8F3',
+          panel:      '#FFFFFF',
+          brass:      '#B8863B',
+          brasssoft:  '#E8D5B0',
+          teal:       '#1F6F63',
+          tealsoft:   '#E4EFEC',
+          rust:       '#B0442F',
+          rustsoft:   '#F6E4DF',
+          slate:      '#2A2E35',
+          slatesoft:  '#6B7280',
+        },
+        fontFamily: {
+          display: ['Iowan Old Style', 'Palatino Linotype', 'Georgia', 'serif'],
+          body:    ['-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica Neue','Arial','sans-serif'],
+          mono:    ['ui-monospace','SFMono-Regular','Menlo','Consolas','monospace'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; }
+  .font-display { font-family: 'Iowan Old Style','Palatino Linotype',Georgia,serif; }
+
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px;
+    background: linear-gradient(to right, #1F6F63 var(--fill,0%), #E7E2D6 var(--fill,0%));
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #B8863B;
+    border: 3px solid #FAF8F3; box-shadow: 0 0 0 1px #B8863B, 0 2px 6px rgba(11,31,51,0.35); cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%; background: #B8863B;
+    border: 3px solid #FAF8F3; box-shadow: 0 0 0 1px #B8863B, 0 2px 6px rgba(11,31,51,0.35); cursor: pointer;
+  }
+  input[type="range"]::-moz-range-track { background: transparent; }
+  input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .num-input { font-variant-numeric: tabular-nums; }
+  .ladder-seg { transition: flex-basis .35s ease, opacity .35s ease; }
+  .ladder-marker { transition: left .35s cubic-bezier(.2,.8,.2,1); }
+  #donutChart { transition: background .35s ease; }
+  .lang-btn { color: rgba(250,248,243,0.55); }
+  .lang-btn.active { background: #B8863B; color: #0B1F33; }
+  .accent-teal { accent-color: #1F6F63; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ladder-seg, .ladder-marker, #donutChart, html { transition: none !important; scroll-behavior: auto; }
+  }
+  ::selection { background: #E8D5B0; color: #0B1F33; }
+
+  /* Print / "Save as PDF" — native browser print, no external library.
+     Hides nav, inputs, and interactive chrome; keeps only the summary
+     numbers and CP500 schedule as a clean single-column report. */
+  @media print {
+    header, footer, #mobileMenu, #guidanceBanner, #firstResultToast, .no-print,
+    input[type="range"], .lang-btn, #resetBtn, #clearDataBtn { display: none !important; }
+    body { background: #fff !important; }
+    section#estimator { grid-template-columns: 1fr !important; }
+  }
+  .scenario-row:nth-child(even) { background: rgba(31,111,99,0.05); }
+</style>
+</head>
+
+<body class="bg-paper text-slate font-body antialiased">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-40 bg-ink/95 backdrop-blur border-b border-brass/30">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3.5 flex items-center justify-between gap-4">
+    <a href="index.html" class="flex items-center gap-2.5 shrink-0">
+      <div class="w-9 h-9 rounded-full bg-brass/15 border border-brass/50 grid place-items-center">
+        <span class="font-display text-brass text-sm">RM</span>
+      </div>
+      <div class="leading-tight">
+        <p class="text-paper font-display text-[15px] sm:text-base tracking-wide">Freelancer CP500 Calculator</p>
+        <p class="text-brasssoft/70 text-[10px] sm:text-[11px] uppercase tracking-[0.15em]">Malaysia &middot; YA2025 / 2026</p>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm text-paper/75">
+      <a href="index.html" data-i18n="nav_home" class="text-brasssoft font-medium">Home</a>
+      <a href="#guide" data-i18n="nav_guide" class="hover:text-brasssoft transition-colors">Guide</a>
+      <a href="about.html" data-i18n="nav_about" class="hover:text-brasssoft transition-colors">About Us</a>
+      <a href="privacy.html" data-i18n="nav_privacy" class="hover:text-brasssoft transition-colors">Privacy Policy</a>
+      <a href="contact.html" data-i18n="nav_contact" class="hover:text-brasssoft transition-colors">Contact Us</a>
+      <div class="flex items-center gap-1 bg-paper/10 rounded-full p-1 ml-1">
+        <button type="button" data-lang="en" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">EN</button>
+        <button type="button" data-lang="zh" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">中文</button>
+        <button type="button" data-lang="ms" class="lang-btn px-2.5 py-1 rounded-full text-xs font-medium transition-colors">BM</button>
+      </div>
+    </nav>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="#estimator" data-i18n="nav_cta" class="hidden sm:inline-block text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-4 py-2 rounded-full transition-colors">Start Estimate ↓</a>
+      <button id="mobileMenuBtn" class="md:hidden text-paper/90 p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="hidden md:hidden border-t border-brass/20 bg-ink px-5 py-4 space-y-3 text-sm text-paper/85">
+    <div class="flex items-center gap-1 bg-paper/10 rounded-full p-1 w-max mb-1">
+      <button type="button" data-lang="en" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">EN</button>
+      <button type="button" data-lang="zh" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">中文</button>
+      <button type="button" data-lang="ms" class="lang-btn px-3 py-1 rounded-full text-xs font-medium transition-colors">BM</button>
+    </div>
+    <a href="index.html" data-i18n="nav_home" class="block text-brasssoft font-medium">Home</a>
+    <a href="#guide" data-i18n="nav_guide" class="block">Guide</a>
+    <a href="about.html" data-i18n="nav_about" class="block">About Us</a>
+    <a href="privacy.html" data-i18n="nav_privacy" class="block">Privacy Policy</a>
+    <a href="contact.html" data-i18n="nav_contact" class="block">Contact Us</a>
+    <a href="#estimator" data-i18n="nav_cta" class="block text-brass font-medium pt-1">Start Estimate ↓</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden bg-ink text-paper">
+  <div class="absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image:repeating-linear-gradient(45deg,#B8863B 0,#B8863B 1px,transparent 1px,transparent 14px);"></div>
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24 relative">
+    <p data-i18n="hero_eyebrow" class="text-brasssoft uppercase text-xs tracking-[0.25em] mb-4">CP500 &middot; Form B &middot; Section 33 Business Deductions</p>
+    <h1 data-i18n="hero_title" class="font-display text-3xl sm:text-5xl leading-[1.15] max-w-2xl">Itemise every deduction. Know your CP500 bill before LHDN does.</h1>
+    <p data-i18n="hero_desc" class="mt-5 max-w-xl text-[15px] sm:text-base text-paper/75 leading-relaxed">Built for Malaysian freelancers, consultants, and sole proprietors. Tick off your real business expenses and personal reliefs, and watch your net profit, chargeable income, total YA2026 tax, and 6-instalment CP500 schedule update live.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#estimator" data-i18n="hero_cta1" class="bg-brass hover:bg-brasssoft text-ink font-semibold text-sm px-6 py-3 rounded-full transition-colors">Calculate my tax →</a>
+      <a href="#guide" data-i18n="hero_cta2" class="border border-paper/25 hover:border-paper/50 text-paper/90 text-sm px-6 py-3 rounded-full transition-colors">Read the full guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESTIMATOR ============ -->
+<section id="estimator" class="max-w-6xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
+  <div class="grid lg:grid-cols-5 gap-8">
+
+    <!-- ---------- LEFT: SECTION 1 + 2 ---------- -->
+    <div class="lg:col-span-3 space-y-6">
+
+      <!-- SECTION 1: Income + Business Expenses -->
+      <div class="bg-panel border border-slate/10 rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p data-i18n="section1_tag" class="text-brass text-xs uppercase tracking-[0.2em] mb-2">Section 1</p>
+        <h2 data-i18n="step1_title" class="font-display text-xl text-ink mb-1">Business Income &amp; Deductible Expenses</h2>
+        <p data-i18n="step1_desc" class="text-xs text-slatesoft mb-6">Net profit = total freelance income − allowable business expenses (Section 33, Income Tax Act 1967).</p>
+
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="income" data-i18n="income_label" class="text-sm font-medium text-slate">Total annual freelance income</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="incomeNum" type="number" min="0" max="2000000" step="100" value="72000" class="num-input w-24 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="income" type="range" min="0" max="300000" step="500" value="72000">
+          <div class="flex justify-between text-[10px] text-slatesoft mt-1"><span>RM0</span><span>RM150,000</span><span>RM300,000+</span></div>
+        </div>
+
+        <div class="h-px bg-slate/10 my-6"></div>
+        <div class="flex items-center gap-2 mb-3">
+          <p data-i18n="expenses_heading" class="text-sm font-semibold text-ink">Deductible Business Expenses</p>
+          <a href="#guide-expenses" data-i18n="expenses_guide_link" title="See worked examples in the guide" class="text-[11px] text-teal underline underline-offset-2 hover:text-teal/70">What counts? →</a>
+        </div>
+
+        <div class="space-y-3">
+
+          <!-- COGS -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_cogs_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_cogs_num" data-i18n="exp_cogs_label" class="text-sm font-medium text-slate">Cost of Goods Sold (COGS)</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_cogs_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_cogs_caption" class="text-[11px] text-slatesoft mt-0.5">Raw materials, stock or components used directly to deliver your service.</p>
+            </div>
+          </div>
+
+          <!-- Platform fees -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_platform_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_platform_num" data-i18n="exp_platform_label" class="text-sm font-medium text-slate">Platform &amp; Transaction Fees</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_platform_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_platform_caption" class="text-[11px] text-slatesoft mt-0.5">E-commerce platform commissions, PayPal and payment gateway charges.</p>
+            </div>
+          </div>
+
+          <!-- Home office -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_homeoffice_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_homeoffice_num" data-i18n="exp_homeoffice_label" class="text-sm font-medium text-slate">Home-Office Expenses</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_homeoffice_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_homeoffice_caption" class="text-[11px] text-slatesoft mt-0.5">Rent, electricity, internet and water — enter only the business-use portion.</p>
+            </div>
+          </div>
+
+          <!-- Devices depreciation -->
+          <div class="p-3 rounded-xl border border-slate/10">
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="exp_devices_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+              <div class="flex-1 min-w-0">
+                <label data-i18n="exp_devices_label" class="text-sm font-medium text-slate">Devices &amp; Equipment Depreciation</label>
+                <p data-i18n="exp_devices_caption" class="text-[11px] text-slatesoft mt-0.5 mb-3">Laptop, mobile, monitor, printer. Items ≤ RM2,000 are written off fully this year; items over RM2,000 follow capital allowance rules.</p>
+
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <label for="exp_devices_small_num" data-i18n="exp_devices_small_label" class="text-[11px] text-slatesoft">Items ≤ RM2,000 (full deduction)</label>
+                    <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 mt-1">
+                      <span class="text-xs text-slatesoft">RM</span>
+                      <input id="exp_devices_small_num" type="number" min="0" step="50" value="0" class="num-input w-full bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                    </div>
+                  </div>
+                  <div>
+                    <label for="exp_devices_large_num" data-i18n="exp_devices_large_label" class="text-[11px] text-slatesoft">Items &gt; RM2,000 (total cost)</label>
+                    <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 mt-1">
+                      <span class="text-xs text-slatesoft">RM</span>
+                      <input id="exp_devices_large_num" type="number" min="0" step="50" value="0" class="num-input w-full bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3">
+                  <label class="flex items-center gap-1.5 text-[11px] text-slatesoft">
+                    <input type="radio" name="devicesYear" id="devicesYearFirst" value="first" checked class="accent-teal">
+                    <span data-i18n="exp_devices_first">First year of use (60% allowance)</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 text-[11px] text-slatesoft">
+                    <input type="radio" name="devicesYear" id="devicesYearSubsequent" value="subsequent" class="accent-teal">
+                    <span data-i18n="exp_devices_subsequent">Subsequent year (20% allowance)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Software -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_software_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_software_num" data-i18n="exp_software_label" class="text-sm font-medium text-slate">Software &amp; Subscriptions</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_software_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_software_caption" class="text-[11px] text-slatesoft mt-0.5">Adobe, Microsoft 365, domain &amp; hosting, accounting tools.</p>
+            </div>
+          </div>
+
+          <!-- Marketing -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_marketing_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_marketing_num" data-i18n="exp_marketing_label" class="text-sm font-medium text-slate">Marketing Costs</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_marketing_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_marketing_caption" class="text-[11px] text-slatesoft mt-0.5">Facebook Ads, Google Ads, flyers and promotional material.</p>
+            </div>
+          </div>
+
+          <!-- Travel -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_travel_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_travel_num" data-i18n="exp_travel_label" class="text-sm font-medium text-slate">Travel-Related Costs</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_travel_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_travel_caption" class="text-[11px] text-slatesoft mt-0.5">Toll, petrol, and the business-use share of vehicle insurance.</p>
+            </div>
+          </div>
+
+          <!-- Professional fees -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_proffees_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_proffees_num" data-i18n="exp_proffees_label" class="text-sm font-medium text-slate">Professional Fees</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_proffees_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_proffees_caption" class="text-[11px] text-slatesoft mt-0.5">Accountant charges and short-term vocational training fees.</p>
+            </div>
+          </div>
+
+          <!-- Business communication fees -->
+          <div class="flex items-start gap-3 p-3 rounded-xl border border-slate/10">
+            <input type="checkbox" id="exp_comm_chk" class="mt-1 w-4 h-4 accent-teal shrink-0" checked>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <label for="exp_comm_num" data-i18n="exp_comm_label" class="text-sm font-medium text-slate">Business Communication Fees</label>
+                <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2 py-1 shrink-0">
+                  <span class="text-xs text-slatesoft">RM</span>
+                  <input id="exp_comm_num" type="number" min="0" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+                </div>
+              </div>
+              <p data-i18n="exp_comm_caption" class="text-[11px] text-slatesoft mt-0.5">Mobile phone plan, business line, or dedicated communication costs used for client work.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION 2: Personal Tax Reliefs -->
+      <div class="bg-panel border border-slate/10 rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p data-i18n="section2_tag" class="text-brass text-xs uppercase tracking-[0.2em] mb-2">Section 2</p>
+        <div class="flex items-center gap-2 mb-1">
+          <h2 data-i18n="step2_title" class="font-display text-xl text-ink">Personal Tax Reliefs (YA2026)</h2>
+          <a href="#guide-reliefs" data-i18n="reliefs_guide_link" title="See full relief list in the guide" class="text-[11px] text-teal underline underline-offset-2 hover:text-teal/70">What qualifies? →</a>
+        </div>
+        <p data-i18n="step2_desc" class="text-xs text-slatesoft mb-6">Reliefs reduce chargeable income after net business profit — separate from business expenses above.</p>
+
+        <div class="flex items-center justify-between p-3 rounded-xl bg-tealsoft mb-3">
+          <div>
+            <p data-i18n="individual_relief_label" class="text-sm font-medium text-teal">Individual Self-Relief</p>
+            <p data-i18n="individual_relief_caption" class="text-[11px] text-teal/70">Automatic for every resident taxpayer</p>
+          </div>
+          <p class="font-display text-lg text-teal">RM9,000</p>
+        </div>
+
+        <!-- Disabled relief -->
+        <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate/10 mb-3">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="rel_disabled_chk" class="w-4 h-4 accent-teal shrink-0">
+            <div>
+              <p data-i18n="rel_disabled_label" class="text-sm font-medium text-slate">Disabled Taxpayer Relief</p>
+              <p data-i18n="rel_disabled_caption" class="text-[11px] text-slatesoft">Registered with the Department of Social Welfare (JKM)</p>
+            </div>
+          </div>
+          <p class="font-display text-base text-ink shrink-0">RM6,000</p>
+        </div>
+
+        <!-- Spouse relief -->
+        <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate/10 mb-6">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="rel_spouse_chk" class="w-4 h-4 accent-teal shrink-0">
+            <div>
+              <p data-i18n="rel_spouse_label" class="text-sm font-medium text-slate">Spouse Relief</p>
+              <p data-i18n="rel_spouse_caption" class="text-[11px] text-slatesoft">Only if spouse has no income and is not separately assessed</p>
+            </div>
+          </div>
+          <p class="font-display text-base text-ink shrink-0">RM4,000</p>
+        </div>
+
+        <!-- Parent relief: father -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_parent_father" data-i18n="rel_parent_father_label" class="text-sm font-medium text-slate">Parent Relief — Father</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_parent_fatherNum" type="number" min="0" max="1500" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_parent_father" type="range" min="0" max="1500" step="50" value="0">
+        </div>
+
+        <!-- Parent relief: mother -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_parent_mother" data-i18n="rel_parent_mother_label" class="text-sm font-medium text-slate">Parent Relief — Mother</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_parent_motherNum" type="number" min="0" max="1500" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_parent_mother" type="range" min="0" max="1500" step="50" value="0">
+          <p data-i18n="rel_parent_caption" class="text-[11px] text-slatesoft mt-1">Combined cap RM3,000 for both parents (each must meet LHDN's age &amp; income conditions).</p>
+        </div>
+
+        <!-- Child relief -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_child_num" data-i18n="rel_child_label" class="text-sm font-medium text-slate">Number of Children (max 4)</label>
+            <input id="rel_child_num" type="number" min="0" max="4" step="1" value="0" class="num-input w-16 bg-paper border border-slate/15 rounded-lg px-2 py-1 text-sm font-semibold text-ink text-right outline-none">
+          </div>
+          <p data-i18n="rel_child_caption" class="text-[11px] text-slatesoft">RM2,000 per child under this basic category, capped at 4 children.</p>
+        </div>
+
+        <!-- Medical general -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_medical_general" data-i18n="rel_medical_general_label" class="text-sm font-medium text-slate">Medical Relief (Serious Illness / Fertility / Parental Care)</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_medical_generalNum" type="number" min="0" max="10000" step="100" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_medical_general" type="range" min="0" max="10000" step="100" value="0">
+        </div>
+
+        <!-- Medical screening -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_medical_screening" data-i18n="rel_medical_screening_label" class="text-sm font-medium text-slate">Full Medical Check-Up &amp; Vaccination</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_medical_screeningNum" type="number" min="0" max="1000" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_medical_screening" type="range" min="0" max="1000" step="50" value="0">
+          <p data-i18n="rel_medical_caption" class="text-[11px] text-slatesoft mt-1">Overall medical ceiling RM10,000; the RM1,000 check-up sub-limit sits inside this ceiling, not on top of it.</p>
+        </div>
+
+        <!-- i-Saraan -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_isaraan" data-i18n="rel_isaraan_label" class="text-sm font-medium text-slate">i-Saraan (Voluntary EPF for Self-Employed)</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_isaraanNum" type="number" min="0" max="4000" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_isaraan" type="range" min="0" max="4000" step="50" value="0">
+          <p data-i18n="rel_isaraan_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM4,000 — a relief many freelancers miss without an employer's automatic EPF deduction.</p>
+        </div>
+
+        <!-- Insurance & PRS -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_insurance" data-i18n="rel_insurance_label" class="text-sm font-medium text-slate">Insurance &amp; PRS Relief</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_insuranceNum" type="number" min="0" max="3000" step="50" value="0" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_insurance" type="range" min="0" max="3000" step="50" value="0">
+          <p data-i18n="rel_insurance_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM3,000 — life insurance/takaful premiums combined with Private Retirement Scheme (PRS) contributions.</p>
+        </div>
+
+        <!-- Lifestyle -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_lifestyle" data-i18n="lifestyle_label" class="text-sm font-medium text-slate">Lifestyle Relief</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_lifestyleNum" type="number" min="0" max="2500" step="50" value="1500" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_lifestyle" type="range" min="0" max="2500" step="50" value="1500">
+          <p data-i18n="lifestyle_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM2,500 — books, smartphone/laptop, gym membership, online courses.</p>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="rel_education" data-i18n="education_label" class="text-sm font-medium text-slate">Education Fees (Self)</label>
+            <div class="flex items-center gap-1 bg-paper border border-slate/15 rounded-lg px-2.5 py-1">
+              <span class="text-xs text-slatesoft">RM</span>
+              <input id="rel_educationNum" type="number" min="0" max="7000" step="100" value="2000" class="num-input w-20 bg-transparent text-right text-sm font-semibold text-ink outline-none">
+            </div>
+          </div>
+          <input id="rel_education" type="range" min="0" max="7000" step="100" value="2000">
+          <p data-i18n="education_caption" class="text-[11px] text-slatesoft mt-1">Capped at RM7,000 — professional certificate courses and approved qualifications.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <button id="resetBtn" data-i18n="reset_btn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">Reset to default example</button>
+        <button id="clearDataBtn" data-i18n="clear_data_btn" class="text-xs text-slatesoft hover:text-rust underline underline-offset-2 transition-colors">Clear saved data</button>
+        <span data-i18n="save_note" class="text-[11px] text-slatesoft/70">✓ Your inputs are saved automatically in this browser</span>
+      </div>
+    </div>
+
+    <!-- ---------- RIGHT: SECTION 3 (RESULTS) ---------- -->
+    <div class="lg:col-span-2">
+      <div class="lg:sticky lg:top-24 space-y-5">
+
+        <!-- Progressive guidance banner: appears once the visitor has entered
+             enough data to get a meaningful result, nudging them toward the
+             guide article instead of leaving immediately after calculating. -->
+        <div id="guidanceBanner" class="hidden bg-brasssoft/40 border border-brass/40 rounded-2xl p-4 flex items-start gap-3">
+          <span class="text-brass text-base leading-none">💡</span>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] text-ink leading-snug" data-i18n="guidance_banner_text">Your numbers are calculated. Want to legally reduce your tax further? See which reliefs and expenses freelancers commonly miss.</p>
+            <a href="#guide-saving" class="inline-block text-xs font-semibold text-brass hover:text-ink mt-1.5" data-i18n="guidance_banner_cta">Read the saving strategies guide →</a>
+          </div>
+          <button id="guidanceBannerClose" type="button" class="text-ink/50 hover:text-ink text-sm leading-none shrink-0" aria-label="Dismiss">✕</button>
+        </div>
+
+        <div class="bg-ink text-paper rounded-2xl p-6 sm:p-7 shadow-lg">
+          <p data-i18n="section3_tag" class="text-brass text-xs uppercase tracking-[0.2em] mb-1">Section 3</p>
+          <p data-i18n="results_eyebrow" class="text-brasssoft text-xs uppercase tracking-[0.2em] mb-4">Your Real-Time Results</p>
+
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between"><span data-i18n="total_income_label" class="text-paper/70">Total freelance income</span><span id="outIncome" class="font-mono font-semibold">RM0</span></div>
+            <div class="flex justify-between"><span data-i18n="total_expenses_label" class="text-paper/70">Total business expenses</span><span id="outExpenses" class="font-mono font-semibold">RM0</span></div>
+            <div class="flex justify-between"><span data-i18n="net_profit_label" class="text-paper/70">Net business profit</span><span id="outNetProfit" class="font-mono font-semibold">RM0</span></div>
+            <div class="flex justify-between"><span data-i18n="total_reliefs_label" class="text-paper/70">Total reliefs claimed</span><span id="outReliefs" class="font-mono font-semibold">RM0</span></div>
+            <div class="h-px bg-paper/15 my-1"></div>
+            <div class="flex justify-between items-baseline">
+              <span data-i18n="chargeable_income_label" class="text-paper/90 font-medium">Chargeable income</span>
+              <span id="outChargeable" class="font-display text-2xl text-brasssoft">RM0</span>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <div class="flex justify-between text-[10px] text-paper/50 mb-1.5">
+              <span>0%</span><span data-i18n="ladder_caption">Progressive LHDN bands</span><span>30%</span>
+            </div>
+            <div id="ladder" class="relative flex w-full h-3 rounded-full overflow-hidden bg-paper/10"></div>
+            <div class="relative h-4">
+              <div id="ladderMarker" class="ladder-marker absolute -top-1 w-0.5 h-5 bg-paper" style="left:0%"></div>
+            </div>
+            <p class="text-[11px] text-paper/60 mt-1"><span data-i18n="marginal_band_label">Marginal band:</span> <span id="outMarginalRate" class="text-brasssoft font-medium">0%</span></p>
+          </div>
+
+          <div class="h-px bg-paper/15 my-5"></div>
+
+          <div class="flex justify-between items-baseline mb-1">
+            <span data-i18n="annual_tax_label" class="text-paper/90 font-medium text-sm">Estimated annual tax payable</span>
+            <span id="outAnnualTax" class="font-display text-3xl text-brass">RM0</span>
+          </div>
+          <p class="text-[11px] text-paper/50"><span data-i18n="rebate_note">After RM400 rebate where chargeable income ≤ RM35,000.</span> <span data-i18n="effective_rate_label">Effective rate:</span> <span id="outEffectiveRate">0%</span></p>
+        </div>
+
+        <!-- CP500 schedule -->
+        <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-1">
+            <h3 data-i18n="cp500_title" class="font-display text-lg text-ink">CP500 instalment schedule</h3>
+            <span data-i18n="cp500_badge" class="text-[10px] bg-rustsoft text-rust px-2 py-0.5 rounded-full font-medium">6 payments/yr</span>
+          </div>
+          <p data-i18n="cp500_desc" class="text-[11px] text-slatesoft mb-4">LHDN issues CP500 in 6 bi-monthly instalments — often called "quarterly" colloquially, but paid every two months: Jan, Mar, May, Jul, Sep, Nov.</p>
+          <div class="space-y-1.5" id="instalmentTable"></div>
+          <div class="flex justify-between pt-3 mt-2 border-t border-slate/10 text-sm">
+            <span data-i18n="cp500_total_label" class="font-medium text-slate">Total (6 instalments)</span>
+            <span id="outTotalInstalment" class="font-mono font-semibold text-ink">RM0</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate/10 no-print">
+            <button id="printReportBtn" type="button" class="flex-1 min-w-[140px] text-xs font-medium text-ink bg-brasssoft hover:bg-brass px-3 py-2.5 rounded-full transition-colors">
+              <span data-i18n="print_report_btn">🖨️ Print / Save as PDF</span>
+            </button>
+            <button id="downloadIcsBtn" type="button" class="flex-1 min-w-[140px] text-xs font-medium text-teal border border-teal/30 hover:bg-tealsoft px-3 py-2.5 rounded-full transition-colors">
+              <span data-i18n="ics_download_btn">📅 Add Payment Reminders</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Late penalty warning -->
+        <div class="bg-rustsoft border border-rust/20 rounded-2xl p-4 flex gap-3 items-start">
+          <span class="text-rust text-lg leading-none">⚠</span>
+          <p data-i18n="penalty_warning" class="text-[12px] text-rust/90 leading-relaxed">Late or short CP500 instalments may incur penalties ranging from 10% to 20% under LHDN rules, depending on how long the payment is overdue.</p>
+        </div>
+
+        <!-- Data visualization: income allocation donut chart -->
+        <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
+          <h3 data-i18n="chart_title" class="font-display text-lg text-ink mb-4">Where Your Income Goes</h3>
+          <div class="flex items-center gap-6">
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
+              <div id="donutChart" class="w-full h-full rounded-full"></div>
+              <div class="absolute inset-0 m-auto w-[62%] h-[62%] rounded-full bg-panel flex items-center justify-center">
+                <span id="donutCenter" class="font-display text-sm sm:text-base text-ink">0%</span>
+              </div>
+            </div>
+            <div class="flex-1 space-y-2.5 text-[12px]">
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#B8863B"></span><span data-i18n="chart_expenses_legend">Business Expenses</span></span>
+                <span id="chartExpensesPct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#B0442F"></span><span data-i18n="chart_tax_legend">Tax Payable</span></span>
+                <span id="chartTaxPct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="flex items-center gap-1.5 text-slate/80"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#1F6F63"></span><span data-i18n="chart_takehome_legend">Net Take-Home</span></span>
+                <span id="chartTakehomePct" class="font-mono font-medium text-ink">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saving tips (enhanced: persona selector + checklist + progress) -->
+        <div class="bg-tealsoft rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
+            <h3 data-i18n="tips_title" class="font-display text-base text-teal">Saving tips for you</h3>
+            <select id="personaSelect" class="text-[11px] bg-panel border border-teal/25 rounded-full px-2.5 py-1 text-teal outline-none">
+              <option value="" data-i18n="persona_default">I am a...</option>
+              <option value="designer" data-i18n="persona_designer">Freelance Designer/Consultant</option>
+              <option value="creator" data-i18n="persona_creator">Content Creator</option>
+              <option value="ecommerce" data-i18n="persona_ecommerce">E-commerce/Dropshipper</option>
+              <option value="gig" data-i18n="persona_gig">Gig/Ride-hailing Driver</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <div class="flex justify-between text-[11px] text-teal/70 mb-1">
+              <span data-i18n="tips_progress_label">Reliefs optimised</span>
+              <span id="tipsProgressLabel">0/0</span>
+            </div>
+            <div class="h-1.5 bg-teal/15 rounded-full overflow-hidden">
+              <div id="tipsProgressBar" class="h-full bg-teal transition-all" style="width:0%"></div>
+            </div>
+          </div>
+          <ul id="tipsList" class="space-y-2.5 text-[13px] text-teal/90 leading-snug"></ul>
+        </div>
+
+        <!-- Scenario snapshots: save & compare -->
+        <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
+          <h3 data-i18n="scenario_title" class="font-display text-lg text-ink mb-1">Save &amp; Compare Scenarios</h3>
+          <p data-i18n="scenario_desc" class="text-[11px] text-slatesoft mb-3">Snapshot your current numbers to compare "what if" situations later — stored only in this browser.</p>
+          <div class="flex gap-2 mb-3">
+            <input id="scenarioNameInput" type="text" maxlength="40" data-i18n-placeholder="scenario_name_placeholder" placeholder="Scenario name (e.g. New laptop bought)" class="flex-1 min-w-0 text-xs bg-paper border border-slate/15 rounded-lg px-3 py-2 outline-none">
+            <button id="scenarioSaveBtn" type="button" class="text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-3 py-2 rounded-lg shrink-0" data-i18n="scenario_save_btn">Save</button>
+          </div>
+          <div id="scenarioList" class="space-y-2"></div>
+          <p id="scenarioEmpty" data-i18n="scenario_empty" class="text-[11px] text-slatesoft">No saved scenarios yet — save your current numbers above to start comparing.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST / DISCLAIMER STRIP ============ -->
+<section class="bg-inksoft text-paper/80">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6 text-[12px] leading-relaxed grid sm:grid-cols-3 gap-4">
+    <p><span data-i18n="trust_rates_label" class="text-brasssoft font-medium">Rates used:</span> <span data-i18n="trust_rates_text">YA2025 resident individual progressive bands (unchanged for YA2026 filing), per LHDN.</span></p>
+    <p><span data-i18n="trust_notfiling_label" class="text-brasssoft font-medium">Not a filing tool:</span> <span data-i18n="trust_notfiling_text">this is an estimator for planning purposes — always confirm final figures via MyTax e-Filing.</span></p>
+    <p><span data-i18n="trust_notadvice_label" class="text-brasssoft font-medium">Not tax advice:</span> <span data-i18n="trust_notadvice_text">for complex situations (multiple income sources, partnerships), consult a licensed tax agent.</span></p>
+  </div>
+</section>
+
+<!-- ============ GUIDE ============ -->
+<section id="guide" class="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+  <p data-i18n="guide_eyebrow" class="text-brass uppercase text-xs tracking-[0.2em] mb-3">Malaysia Self-Employed Tax Guide</p>
+  <h2 data-i18n="guide_title" class="font-display text-2xl sm:text-3xl text-ink mb-3">CP500 Instalments, LHDN YA2026 Tax Relief, and Allowable Business Expenses: A Complete Guide for Malaysian Freelancers</h2>
+  <p data-i18n="guide_intro" class="text-sm text-slatesoft mb-10">A CP500 calculator only produces a figure. This guide explains the LHDN rules behind that figure — the difference between allowable business expenses and personal tax relief, Form B filing obligations, and CP500 late payment penalties under YA2026.</p>
+
+  <article class="space-y-9 text-[15px] leading-relaxed text-slate/85">
+
+    <p data-i18n="guide_opening">This Malaysia self-employed tax guide is written for freelancers, consultants, content creators, dropshippers, and gig economy workers who report income through Form B rather than Form BE. Accurately calculating chargeable income — and understanding how the CP500 instalment scheme operates under YA2026 rules — is central to compliant and efficient tax planning. Use the CP500 calculator above to model your own figures, then refer to this guide for the LHDN reasoning behind every result it produces.</p>
+
+    <div id="guide-cp500">
+      <h3 data-i18n="guide_s1" class="font-display text-xl text-ink mb-3">Understanding CP500 Under LHDN YA2026</h3>
+      <p data-i18n="guide_s1_p1">CP500 is the statutory tax instalment scheme issued by Lembaga Hasil Dalam Negeri Malaysia (LHDN) to individuals with business, rental, or other non-employment income under Section 4(a) of the Income Tax Act 1967. Because self-employed Malaysians have no employer to withhold Potongan Cukai Bulanan (PCB) at source, LHDN instead estimates the current Year of Assessment's tax liability from the taxpayer's most recent Form B assessment and issues a CP500 notice, typically in February or March.</p>
+      <p class="mt-3" data-i18n="guide_s1_p2">Under YA2026 rules, that estimate is divided into six bi-monthly instalments — commonly referred to in everyday terms as a quarterly tax instalment schedule, although payments are in fact due every two months: January, March, May, July, September and November. A taxpayer who determines that the CP500 estimate no longer reflects actual business income may apply to revise it using Form CP502.</p>
+    </div>
+
+    <div id="guide-expense-vs-relief">
+      <h3 data-i18n="guide_s2" class="font-display text-xl text-ink mb-3">Allowable Business Expenses vs Personal Tax Relief: The Core Distinction</h3>
+      <p data-i18n="guide_s2_p1">Malaysian freelancers frequently conflate allowable business expenses with personal tax relief, yet LHDN treats these as two distinct deductions applied in a strict sequence. Allowable business expenses are deducted first, directly against gross freelance income, to arrive at net business profit. This category of deduction falls under Section 33 of the Income Tax Act 1967, which permits any outgoing or expense incurred wholly and exclusively in the production of business income.</p>
+      <p class="mt-3" data-i18n="guide_s2_p2">Personal tax relief is deducted second — from net business profit, not from gross income — to arrive at chargeable income, the figure to which LHDN's progressive tax bands are actually applied. Personal relief entitlements are granted under Schedule 6 and related gazette orders to every resident individual taxpayer, irrespective of whether that income derives from employment or self-employment. Misclassifying a personal cost as a business expense, or the reverse, is among the most common triggers for an LHDN audit query — making this distinction the single most valuable piece of tax planning knowledge available to a Malaysian freelancer.</p>
+    </div>
+
+    <div id="guide-expenses">
+      <h3 data-i18n="guide_s3" class="font-display text-xl text-ink mb-3">Allowable Business Expenses for Freelancers, Content Creators, Dropshippers and Gig Workers</h3>
+      <p data-i18n="guide_s3_p1">The specific freelance business expenses that qualify for deduction vary by profession, but all must satisfy the "wholly and exclusively" test under Section 33. Freelance consultants and remote professionals typically deduct software subscriptions, domain and web-hosting fees, professional indemnity insurance, and the business-use portion of home-office rental, electricity, internet and water bills. Content creators commonly deduct production equipment such as cameras, microphones and lighting, editing software licences, and marketing costs including paid social media promotion, subject to capital allowance rules for any single item exceeding RM2,000.</p>
+      <p class="mt-3" data-i18n="guide_s3_p2">For dropshippers and e-commerce sellers, cost of goods sold (COGS), e-commerce platform commissions, payment gateway transaction charges, and fulfilment costs form the bulk of deductible business expenses, since these are direct costs of producing sales income. For gig economy workers, including ride-hailing and delivery drivers, toll charges, petrol, and the business-use proportion of vehicle insurance and maintenance are typically allowable, provided records clearly separate business and private use. Across all categories, devices and equipment costing RM2,000 or less per item may be written off fully in the year of purchase; items exceeding RM2,000 must instead be claimed as capital allowance over subsequent years. Supporting invoices and digital receipts should be retained for a minimum of seven years.</p>
+    </div>
+
+    <div id="guide-reliefs">
+      <h3 data-i18n="guide_s4" class="font-display text-xl text-ink mb-3">LHDN YA2026 Tax Relief for Self-Employed Individuals</h3>
+      <p data-i18n="guide_s4_p1">Once net business profit is established, LHDN YA2026 tax relief entitlements are deducted to arrive at chargeable income. Every resident taxpayer receives an automatic RM9,000 individual relief. Additional entitlements include disabled taxpayer relief, spouse relief where the spouse has no income of their own, parent relief capped at RM3,000 combined, child relief, and a personal medical relief ceiling of RM10,000 that also covers full medical check-ups. Self-employed individuals should pay particular attention to the i-Saraan voluntary EPF relief, capped at RM4,000, and the combined Insurance and Private Retirement Scheme (PRS) relief, capped at RM3,000, since neither is deducted automatically the way employer-administered EPF contributions are for salaried employees.</p>
+    </div>
+
+    <div id="guide-penalty">
+      <h3 data-i18n="guide_s5" class="font-display text-xl text-ink mb-3">CP500 Late Payment Penalty and Form B Filing Obligations</h3>
+      <p data-i18n="guide_s5_p1">Failure to pay a CP500 instalment by its due date results in an automatic 10% penalty on the outstanding amount, which may increase to as much as 20% where non-payment persists, in addition to any penalty arising from late Form B filing itself. CP500 instalments remain an estimate; the definitive tax liability is only established when Form B is filed, due 30 June each year and extended to mid-July for e-Filing. Where total CP500 payments fall short of the final assessed tax, the shortfall — known as baki cukai — must be settled by the Form B filing deadline. Where CP500 payments exceed the final assessment, LHDN refunds the difference. Freelancers with fluctuating income are advised to review their CP500 estimate throughout the year rather than waiting for the Form B reconciliation to reveal a large outstanding balance.</p>
+    </div>
+
+    <div id="guide-saving">
+      <h3 data-i18n="guide_s6" class="font-display text-xl text-ink mb-3">Tax Saving Strategies for Malaysia Self-Employed Individuals</h3>
+      <p data-i18n="guide_s6_p1">The only lawful means of reducing both a CP500 instalment and a final Form B liability is the disciplined application of allowable business expenses and personal tax relief as described above. Freelancers should maintain contemporaneous expense records throughout the year rather than reconstructing them at filing time, and should review every available relief category annually, since entitlements such as i-Saraan and Insurance and PRS relief are frequently under-claimed. A practical habit adopted by many self-employed Malaysians is setting aside a fixed percentage of every invoice — typically between 15% and 25%, depending on income level — into a dedicated savings account earmarked solely for tax obligations. This converts CP500 from a source of year-end financial stress into a routine, predictable bi-monthly transfer. Recalculating chargeable income whenever business circumstances change — using a CP500 calculator such as the one on this page — allows Malaysian freelancers to anticipate their tax position with confidence, rather than being caught unprepared by either a CP500 notice or a Form B balance payable.</p>
+    </div>
+
+  </article>
+
+  <!-- ============ RELATED ARTICLES / INTERNAL LINKING ============ -->
+  <div class="mt-14 pt-10 border-t border-slate/10">
+    <p data-i18n="related_heading" class="font-display text-lg text-ink mb-5">Related Reading</p>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <a href="#guide-expenses" class="group block bg-panel border border-slate/10 rounded-2xl p-5 hover:border-brass/40 hover:shadow-md transition-all">
+        <p data-i18n="related_tag" class="text-[10px] uppercase tracking-[0.15em] text-brass mb-2">3 min read</p>
+        <p data-i18n="related1_title" class="font-display text-base text-ink mb-1.5 leading-snug">5 Business Expenses Freelancers Commonly Forget to Claim</p>
+        <p data-i18n="related1_desc" class="text-[13px] text-slatesoft leading-snug">A quick self-check list of deductible costs that quietly reduce your chargeable income.</p>
+        <span class="inline-flex items-center gap-1 text-xs text-teal mt-3 font-medium">
+          <span data-i18n="related_cta">Read more</span>
+          <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+        </span>
+      </a>
+      <a href="#guide-cp500" class="group block bg-panel border border-slate/10 rounded-2xl p-5 hover:border-brass/40 hover:shadow-md transition-all">
+        <p data-i18n="related_tag" class="text-[10px] uppercase tracking-[0.15em] text-brass mb-2">3 min read</p>
+        <p data-i18n="related2_title" class="font-display text-base text-ink mb-1.5 leading-snug">CP500 Estimate Doesn't Match Reality? Here's How CP502 Fixes It</p>
+        <p data-i18n="related2_desc" class="text-[13px] text-slatesoft leading-snug">Your income changed — learn how and when you can formally revise your instalments.</p>
+        <span class="inline-flex items-center gap-1 text-xs text-teal mt-3 font-medium">
+          <span data-i18n="related_cta">Read more</span>
+          <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+        </span>
+      </a>
+      <a href="#guide-penalty" class="group block bg-panel border border-slate/10 rounded-2xl p-5 hover:border-brass/40 hover:shadow-md transition-all">
+        <p data-i18n="related_tag" class="text-[10px] uppercase tracking-[0.15em] text-brass mb-2">2 min read</p>
+        <p data-i18n="related3_title" class="font-display text-base text-ink mb-1.5 leading-snug">What Happens If You Pay CP500 Late?</p>
+        <p data-i18n="related3_desc" class="text-[13px] text-slatesoft leading-snug">Penalties can reach 20% — here's exactly how the escalation works and how to avoid it.</p>
+        <span class="inline-flex items-center gap-1 text-xs text-teal mt-3 font-medium">
+          <span data-i18n="related_cta">Read more</span>
+          <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-slate/10">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col gap-5">
+    <nav class="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-slate/70">
+      <a href="index.html" data-i18n="nav_home" class="hover:text-ink transition-colors">Home</a>
+      <a href="#guide" data-i18n="nav_guide" class="hover:text-ink transition-colors">Guide</a>
+      <a href="about.html" data-i18n="nav_about" class="hover:text-ink transition-colors">About Us</a>
+      <a href="privacy.html" data-i18n="nav_privacy" class="hover:text-ink transition-colors">Privacy Policy</a>
+      <a href="contact.html" data-i18n="nav_contact" class="hover:text-ink transition-colors">Contact Us</a>
+    </nav>
+    <div class="flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-slatesoft border-t border-slate/10 pt-5">
+      <p data-i18n="footer_copyright">&copy; 2026 Freelancer CP500 Calculator. Estimates only — not affiliated with LHDN.</p>
+      <p data-i18n="footer_built">Built for Malaysian freelancers, consultants &amp; sole proprietors.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- One-time toast shown the first time a result appears, nudging toward
+     the relevant guide section. Dismissible; never shown again once seen
+     (tracked via localStorage), and never blocks calculator interaction. -->
+<div id="firstResultToast" class="hidden fixed bottom-5 right-5 left-5 sm:left-auto sm:w-96 z-50 bg-ink text-paper rounded-2xl shadow-2xl border border-brass/40 p-4">
+  <div class="flex items-start gap-3">
+    <span class="text-brass text-base leading-none">✨</span>
+    <div class="flex-1 min-w-0">
+      <p id="firstResultToastText" class="text-[13px] leading-snug text-paper/90"></p>
+      <a id="firstResultToastLink" href="#guide-reliefs" class="inline-block text-xs font-semibold text-brasssoft hover:text-brass mt-1.5" data-i18n="toast_cta">See details →</a>
+    </div>
+    <button id="firstResultToastClose" type="button" class="text-paper/50 hover:text-paper text-sm leading-none shrink-0" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  "use strict";
+  var menuBtn = document.getElementById('mobileMenuBtn');
+  var menu = document.getElementById('mobileMenu');
+  if (menuBtn && menu){
+    menuBtn.addEventListener('click', function(){
+      var isHidden = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  // ================= I18N =================
+  var I18N = {
+    en: {
+      nav_home:"Home", nav_about:"About Us", nav_privacy:"Privacy Policy", nav_contact:"Contact Us", nav_cta:"Start Estimate ↓", nav_guide:"Guide",
+      expenses_guide_link:"What counts? →", reliefs_guide_link:"What qualifies? →",
+      tip_detail_label:"Details →",
+      print_report_btn:"🖨️ Print / Save as PDF", ics_download_btn:"📅 Add Payment Reminders",
+      guidance_banner_text:"Your numbers are calculated. Want to legally reduce your tax further? See which reliefs and expenses freelancers commonly miss.",
+      guidance_banner_cta:"Read the saving strategies guide →",
+      toast_cta:"See details →",
+      persona_default:"I am a...", persona_designer:"Freelance Designer/Consultant", persona_creator:"Content Creator",
+      persona_ecommerce:"E-commerce/Dropshipper", persona_gig:"Gig/Ride-hailing Driver",
+      tips_progress_label:"Reliefs optimised",
+      scenario_title:"Save &amp; Compare Scenarios",
+      scenario_desc:"Snapshot your current numbers to compare \"what if\" situations later — stored only in this browser.",
+      scenario_name_placeholder:"Scenario name (e.g. New laptop bought)",
+      scenario_save_btn:"Save",
+      scenario_empty:"No saved scenarios yet — save your current numbers above to start comparing.",
+      scenario_max_reached:"You can compare up to 4 scenarios. Delete one to save another.",
+      related_heading:"Related Reading", related_tag:"min read", related_cta:"Read more",
+      related1_title:"5 Business Expenses Freelancers Commonly Forget to Claim",
+      related1_desc:"A quick self-check list of deductible costs that quietly reduce your chargeable income.",
+      related2_title:"CP500 Estimate Doesn't Match Reality? Here's How CP502 Fixes It",
+      related2_desc:"Your income changed — learn how and when you can formally revise your instalments.",
+      related3_title:"What Happens If You Pay CP500 Late?",
+      related3_desc:"Penalties can reach 20% — here's exactly how the escalation works and how to avoid it.",
+      hero_eyebrow:"CP500 &middot; Form B &middot; Section 33 Business Deductions",
+      hero_title:"Itemise every deduction. Know your CP500 bill before LHDN does.",
+      hero_desc:"Built for Malaysian freelancers, consultants, and sole proprietors. Tick off your real business expenses and personal reliefs, and watch your net profit, chargeable income, total YA2026 tax, and 6-instalment CP500 schedule update live.",
+      hero_cta1:"Calculate my tax →", hero_cta2:"Read the full guide",
+      section1_tag:"Section 1", section2_tag:"Section 2", section3_tag:"Section 3",
+      step1_title:"Business Income &amp; Deductible Expenses",
+      step1_desc:"Net profit = total freelance income − allowable business expenses (Section 33, Income Tax Act 1967).",
+      income_label:"Total annual freelance income",
+      expenses_heading:"Deductible Business Expenses",
+      exp_cogs_label:"Cost of Goods Sold (COGS)",
+      exp_cogs_caption:"Raw materials, stock or components used directly to deliver your service.",
+      exp_platform_label:"Platform &amp; Transaction Fees",
+      exp_platform_caption:"E-commerce platform commissions, PayPal and payment gateway charges.",
+      exp_homeoffice_label:"Home-Office Expenses",
+      exp_homeoffice_caption:"Rent, electricity, internet and water — enter only the business-use portion.",
+      exp_devices_label:"Devices &amp; Equipment Depreciation",
+      exp_devices_caption:"Laptop, mobile, monitor, printer. Items ≤ RM2,000 are written off fully this year; items over RM2,000 follow capital allowance rules.",
+      exp_devices_small_label:"Items ≤ RM2,000 (full deduction)",
+      exp_devices_large_label:"Items &gt; RM2,000 (total cost)",
+      exp_devices_first:"First year of use (60% allowance)",
+      exp_devices_subsequent:"Subsequent year (20% allowance)",
+      exp_software_label:"Software &amp; Subscriptions",
+      exp_software_caption:"Adobe, Microsoft 365, domain &amp; hosting, accounting tools.",
+      exp_marketing_label:"Marketing Costs",
+      exp_marketing_caption:"Facebook Ads, Google Ads, flyers and promotional material.",
+      exp_travel_label:"Travel-Related Costs",
+      exp_travel_caption:"Toll, petrol, and the business-use share of vehicle insurance.",
+      exp_proffees_label:"Professional Fees",
+      exp_proffees_caption:"Accountant charges and short-term vocational training fees.",
+      exp_comm_label:"Business Communication Fees",
+      exp_comm_caption:"Mobile phone plan, business line, or dedicated communication costs used for client work.",
+      step2_title:"Personal Tax Reliefs (YA2026)",
+      step2_desc:"Reliefs reduce chargeable income after net business profit — separate from business expenses above.",
+      individual_relief_label:"Individual Self-Relief",
+      individual_relief_caption:"Automatic for every resident taxpayer",
+      rel_disabled_label:"Disabled Taxpayer Relief",
+      rel_disabled_caption:"Registered with the Department of Social Welfare (JKM)",
+      rel_spouse_label:"Spouse Relief",
+      rel_spouse_caption:"Only if spouse has no income and is not separately assessed",
+      rel_parent_father_label:"Parent Relief — Father",
+      rel_parent_mother_label:"Parent Relief — Mother",
+      rel_parent_caption:"Combined cap RM3,000 for both parents (each must meet LHDN's age &amp; income conditions).",
+      rel_child_label:"Number of Children (max 4)",
+      rel_child_caption:"RM2,000 per child under this basic category, capped at 4 children.",
+      rel_medical_general_label:"Medical Relief (Serious Illness / Fertility / Parental Care)",
+      rel_medical_screening_label:"Full Medical Check-Up &amp; Vaccination",
+      rel_medical_caption:"Overall medical ceiling RM10,000; the RM1,000 check-up sub-limit sits inside this ceiling, not on top of it.",
+      rel_isaraan_label:"i-Saraan (Voluntary EPF for Self-Employed)",
+      rel_isaraan_caption:"Capped at RM4,000 — a relief many freelancers miss without an employer's automatic EPF deduction.",
+      rel_insurance_label:"Insurance &amp; PRS Relief",
+      rel_insurance_caption:"Capped at RM3,000 — life insurance/takaful premiums combined with Private Retirement Scheme (PRS) contributions.",
+      lifestyle_label:"Lifestyle Relief",
+      lifestyle_caption:"Capped at RM2,500 — books, smartphone/laptop, gym membership, online courses.",
+      education_label:"Education Fees (Self)",
+      education_caption:"Capped at RM7,000 — professional certificate courses and approved qualifications.",
+      reset_btn:"Reset to default example", clear_data_btn:"Clear saved data",
+      save_note:"✓ Your inputs are saved automatically in this browser",
+      results_eyebrow:"Your Real-Time Results",
+      total_income_label:"Total freelance income",
+      total_expenses_label:"Total business expenses",
+      net_profit_label:"Net business profit",
+      total_reliefs_label:"Total reliefs claimed",
+      chargeable_income_label:"Chargeable income",
+      ladder_caption:"Progressive LHDN bands",
+      marginal_band_label:"Marginal band:",
+      annual_tax_label:"Estimated annual tax payable",
+      rebate_note:"After RM400 rebate where chargeable income ≤ RM35,000.",
+      effective_rate_label:"Effective rate:",
+      cp500_title:"CP500 instalment schedule",
+      cp500_badge:"6 payments/yr",
+      cp500_desc:'LHDN issues CP500 in 6 bi-monthly instalments — often called "quarterly" colloquially, but paid every two months: Jan, Mar, May, Jul, Sep, Nov.',
+      cp500_total_label:"Total (6 instalments)",
+      penalty_warning:"Late or short CP500 instalments may incur penalties ranging from 10% to 20% under LHDN rules, depending on how long the payment is overdue.",
+      chart_title:"Where Your Income Goes",
+      chart_expenses_legend:"Business Expenses", chart_tax_legend:"Tax Payable", chart_takehome_legend:"Net Take-Home",
+      tips_title:"Saving tips for you",
+      trust_rates_label:"Rates used:",
+      trust_rates_text:"YA2025 resident individual progressive bands (unchanged for YA2026 filing), per LHDN.",
+      trust_notfiling_label:"Not a filing tool:",
+      trust_notfiling_text:"this is an estimator for planning purposes — always confirm final figures via MyTax e-Filing.",
+      trust_notadvice_label:"Not tax advice:",
+      trust_notadvice_text:"for complex situations (multiple income sources, partnerships), consult a licensed tax agent.",
+      guide_eyebrow:"Malaysia Self-Employed Tax Guide",
+      guide_title:"CP500 Instalments, LHDN YA2026 Tax Relief, and Allowable Business Expenses: A Complete Guide for Malaysian Freelancers",
+      guide_intro:"A CP500 calculator only produces a figure. This guide explains the LHDN rules behind that figure — the difference between allowable business expenses and personal tax relief, Form B filing obligations, and CP500 late payment penalties under YA2026.",
+      guide_opening:"This Malaysia self-employed tax guide is written for freelancers, consultants, content creators, dropshippers, and gig economy workers who report income through Form B rather than Form BE. Accurately calculating chargeable income — and understanding how the CP500 instalment scheme operates under YA2026 rules — is central to compliant and efficient tax planning. Use the CP500 calculator above to model your own figures, then refer to this guide for the LHDN reasoning behind every result it produces.",
+      guide_s1:"Understanding CP500 Under LHDN YA2026",
+      guide_s1_p1:"CP500 is the statutory tax instalment scheme issued by Lembaga Hasil Dalam Negeri Malaysia (LHDN) to individuals with business, rental, or other non-employment income under Section 4(a) of the Income Tax Act 1967. Because self-employed Malaysians have no employer to withhold Potongan Cukai Bulanan (PCB) at source, LHDN instead estimates the current Year of Assessment's tax liability from the taxpayer's most recent Form B assessment and issues a CP500 notice, typically in February or March.",
+      guide_s1_p2:"Under YA2026 rules, that estimate is divided into six bi-monthly instalments — commonly referred to in everyday terms as a quarterly tax instalment schedule, although payments are in fact due every two months: January, March, May, July, September and November. A taxpayer who determines that the CP500 estimate no longer reflects actual business income may apply to revise it using Form CP502.",
+      guide_s2:"Allowable Business Expenses vs Personal Tax Relief: The Core Distinction",
+      guide_s2_p1:"Malaysian freelancers frequently conflate allowable business expenses with personal tax relief, yet LHDN treats these as two distinct deductions applied in a strict sequence. Allowable business expenses are deducted first, directly against gross freelance income, to arrive at net business profit. This category of deduction falls under Section 33 of the Income Tax Act 1967, which permits any outgoing or expense incurred wholly and exclusively in the production of business income.",
+      guide_s2_p2:"Personal tax relief is deducted second — from net business profit, not from gross income — to arrive at chargeable income, the figure to which LHDN's progressive tax bands are actually applied. Personal relief entitlements are granted under Schedule 6 and related gazette orders to every resident individual taxpayer, irrespective of whether that income derives from employment or self-employment. Misclassifying a personal cost as a business expense, or the reverse, is among the most common triggers for an LHDN audit query — making this distinction the single most valuable piece of tax planning knowledge available to a Malaysian freelancer.",
+      guide_s3:"Allowable Business Expenses for Freelancers, Content Creators, Dropshippers and Gig Workers",
+      guide_s3_p1:"The specific freelance business expenses that qualify for deduction vary by profession, but all must satisfy the \"wholly and exclusively\" test under Section 33. Freelance consultants and remote professionals typically deduct software subscriptions, domain and web-hosting fees, professional indemnity insurance, and the business-use portion of home-office rental, electricity, internet and water bills. Content creators commonly deduct production equipment such as cameras, microphones and lighting, editing software licences, and marketing costs including paid social media promotion, subject to capital allowance rules for any single item exceeding RM2,000.",
+      guide_s3_p2:"For dropshippers and e-commerce sellers, cost of goods sold (COGS), e-commerce platform commissions, payment gateway transaction charges, and fulfilment costs form the bulk of deductible business expenses, since these are direct costs of producing sales income. For gig economy workers, including ride-hailing and delivery drivers, toll charges, petrol, and the business-use proportion of vehicle insurance and maintenance are typically allowable, provided records clearly separate business and private use. Across all categories, devices and equipment costing RM2,000 or less per item may be written off fully in the year of purchase; items exceeding RM2,000 must instead be claimed as capital allowance over subsequent years. Supporting invoices and digital receipts should be retained for a minimum of seven years.",
+      guide_s4:"LHDN YA2026 Tax Relief for Self-Employed Individuals",
+      guide_s4_p1:"Once net business profit is established, LHDN YA2026 tax relief entitlements are deducted to arrive at chargeable income. Every resident taxpayer receives an automatic RM9,000 individual relief. Additional entitlements include disabled taxpayer relief, spouse relief where the spouse has no income of their own, parent relief capped at RM3,000 combined, child relief, and a personal medical relief ceiling of RM10,000 that also covers full medical check-ups. Self-employed individuals should pay particular attention to the i-Saraan voluntary EPF relief, capped at RM4,000, and the combined Insurance and Private Retirement Scheme (PRS) relief, capped at RM3,000, since neither is deducted automatically the way employer-administered EPF contributions are for salaried employees.",
+      guide_s5:"CP500 Late Payment Penalty and Form B Filing Obligations",
+      guide_s5_p1:"Failure to pay a CP500 instalment by its due date results in an automatic 10% penalty on the outstanding amount, which may increase to as much as 20% where non-payment persists, in addition to any penalty arising from late Form B filing itself. CP500 instalments remain an estimate; the definitive tax liability is only established when Form B is filed, due 30 June each year and extended to mid-July for e-Filing. Where total CP500 payments fall short of the final assessed tax, the shortfall — known as baki cukai — must be settled by the Form B filing deadline. Where CP500 payments exceed the final assessment, LHDN refunds the difference. Freelancers with fluctuating income are advised to review their CP500 estimate throughout the year rather than waiting for the Form B reconciliation to reveal a large outstanding balance.",
+      guide_s6:"Tax Saving Strategies for Malaysia Self-Employed Individuals",
+      guide_s6_p1:"The only lawful means of reducing both a CP500 instalment and a final Form B liability is the disciplined application of allowable business expenses and personal tax relief as described above. Freelancers should maintain contemporaneous expense records throughout the year rather than reconstructing them at filing time, and should review every available relief category annually, since entitlements such as i-Saraan and Insurance and PRS relief are frequently under-claimed. A practical habit adopted by many self-employed Malaysians is setting aside a fixed percentage of every invoice — typically between 15% and 25%, depending on income level — into a dedicated savings account earmarked solely for tax obligations. This converts CP500 from a source of year-end financial stress into a routine, predictable bi-monthly transfer. Recalculating chargeable income whenever business circumstances change — using a CP500 calculator such as the one on this page — allows Malaysian freelancers to anticipate their tax position with confidence, rather than being caught unprepared by either a CP500 notice or a Form B balance payable.",
+      footer_copyright:"&copy; 2026 Freelancer CP500 Calculator. Estimates only — not affiliated with LHDN.",
+      footer_built:"Built for Malaysian freelancers, consultants &amp; sole proprietors."
+    },
+    zh: {
+      nav_home:"首页", nav_about:"关于我们", nav_privacy:"隐私政策", nav_contact:"联系我们", nav_cta:"开始计算 ↓", nav_guide:"税务指南",
+      expenses_guide_link:"哪些可申报？→", reliefs_guide_link:"哪些符合资格？→",
+      tip_detail_label:"了解详情 →",
+      print_report_btn:"🖨️ 打印 / 另存为 PDF", ics_download_btn:"📅 添加缴款提醒",
+      guidance_banner_text:"你的税款已算出。想合法再省一些税吗？看看自由职业者最常漏报的减免与费用。",
+      guidance_banner_cta:"阅读省税策略指南 →",
+      toast_cta:"查看详情 →",
+      persona_default:"我的身份是...", persona_designer:"自由设计师/顾问", persona_creator:"内容创作者",
+      persona_ecommerce:"电商卖家/一件代发", persona_gig:"网约车/送餐司机",
+      tips_progress_label:"减免优化进度",
+      scenario_title:"保存与比较方案",
+      scenario_desc:"将当前数据保存为快照，方便日后比较不同情景——仅保存在此浏览器中。",
+      scenario_name_placeholder:"方案名称（例如：购入新笔记本电脑）",
+      scenario_save_btn:"保存",
+      scenario_empty:"尚无已保存的方案——保存以上当前数据即可开始比较。",
+      scenario_max_reached:"最多可比较4个方案，请先删除一个再保存新方案。",
+      related_heading:"相关阅读", related_tag:"分钟阅读", related_cta:"阅读更多",
+      related1_title:"自由职业者最容易漏报的5项支出",
+      related1_desc:"一分钟自查清单，帮你找出悄悄降低应课税收入的可扣除费用。",
+      related2_title:"CP500估算和实际不符？教你用CP502调整",
+      related2_desc:"收入变化了怎么办，30天内可申请正式修改你的分期金额。",
+      related3_title:"逾期没缴CP500会怎样？",
+      related3_desc:"罚款最高可达20%——了解具体的罚款累加方式以及如何避免。",
+      hero_eyebrow:"CP500 · B表格 · 第33条营业扣除",
+      hero_title:"逐项列明每笔扣除，在 LHDN 通知之前先算清你的 CP500 账单。",
+      hero_desc:"专为马来西亚自由职业者、顾问和个体经营者打造。勾选你的真实营业费用与个人减免，即时查看净利润、应课税收入、YA2026 总税款，以及6期CP500分期计划。",
+      hero_cta1:"计算我的税款 →", hero_cta2:"阅读完整指南",
+      section1_tag:"第一部分", section2_tag:"第二部分", section3_tag:"第三部分",
+      step1_title:"营业收入与可扣除费用",
+      step1_desc:"净利润 = 自由职业总收入 − 可扣除的营业费用（依据《1967年所得税法》第33条）。",
+      income_label:"年度自由职业总收入",
+      expenses_heading:"可扣除的营业费用",
+      exp_cogs_label:"销货成本（COGS）",
+      exp_cogs_caption:"直接用于提供服务的原材料、库存或零部件。",
+      exp_platform_label:"平台与交易费用",
+      exp_platform_caption:"电商平台佣金、PayPal 及支付网关手续费。",
+      exp_homeoffice_label:"居家办公费用",
+      exp_homeoffice_caption:"租金、电费、网络费及水费——只填写业务使用部分。",
+      exp_devices_label:"设备折旧",
+      exp_devices_caption:"笔记本电脑、手机、显示器、打印机。单价 ≤ RM2,000 可当年全额扣除；超过 RM2,000 须按资本津贴规则处理。",
+      exp_devices_small_label:"单价 ≤ RM2,000（全额扣除）",
+      exp_devices_large_label:"单价 &gt; RM2,000（总成本）",
+      exp_devices_first:"购买首年（60% 津贴）",
+      exp_devices_subsequent:"后续年度（20% 津贴）",
+      exp_software_label:"软件订阅",
+      exp_software_caption:"Adobe、Microsoft 365、域名与主机托管、记账工具。",
+      exp_marketing_label:"营销支出",
+      exp_marketing_caption:"Facebook 广告、Google 广告、传单及宣传品。",
+      exp_travel_label:"差旅相关费用",
+      exp_travel_caption:"过路费、油费，以及车辆保险的业务使用比例。",
+      exp_proffees_label:"专业服务费",
+      exp_proffees_caption:"会计师费用及短期职业培训费用。",
+      exp_comm_label:"业务通讯费用",
+      exp_comm_caption:"用于客户工作的手机月费、业务专线或专用通讯费用。",
+      step2_title:"个人税务减免（YA2026）",
+      step2_desc:"减免在净营业利润之后扣除——与上方的营业费用属于不同步骤。",
+      individual_relief_label:"个人自我减免",
+      individual_relief_caption:"每位居民纳税人自动获得",
+      rel_disabled_label:"残疾纳税人减免",
+      rel_disabled_caption:"已在社会福利部（JKM）登记",
+      rel_spouse_label:"配偶减免",
+      rel_spouse_caption:"仅适用于配偶无收入且未单独评税的情况",
+      rel_parent_father_label:"父母减免——父亲",
+      rel_parent_mother_label:"父母减免——母亲",
+      rel_parent_caption:"父母合计上限 RM3,000（每位父母须符合 LHDN 的年龄及收入条件）。",
+      rel_child_label:"子女人数（最多4名）",
+      rel_child_caption:"基本类别下每名子女 RM2,000，最多4名子女。",
+      rel_medical_general_label:"医疗减免（重病 / 生育治疗 / 父母照护）",
+      rel_medical_screening_label:"全面体检与疫苗接种",
+      rel_medical_caption:"医疗整体上限 RM10,000；RM1,000 体检子限额包含在此上限内，而非额外增加。",
+      rel_isaraan_label:"i-Saraan（自雇人士自愿公积金供款）",
+      rel_isaraan_caption:"上限 RM4,000——没有雇主提醒自动供款，许多自由职业者常忽略此项。",
+      rel_insurance_label:"保险与 PRS 减免",
+      rel_insurance_caption:"上限 RM3,000——人寿保险/伊斯兰保险保费与私人退休金计划（PRS）供款合并计算。",
+      lifestyle_label:"生活方式减免",
+      lifestyle_caption:"上限 RM2,500——书籍、智能手机/笔记本电脑、健身会籍、网络课程。",
+      education_label:"教育费用（本人）",
+      education_caption:"上限 RM7,000——专业证书课程及经批准的资格课程。",
+      reset_btn:"重置为默认示例", clear_data_btn:"清除已保存的数据",
+      save_note:"✓ 你的输入内容已自动保存在此浏览器中",
+      results_eyebrow:"你的实时计算结果",
+      total_income_label:"自由职业总收入",
+      total_expenses_label:"营业费用总额",
+      net_profit_label:"净营业利润",
+      total_reliefs_label:"已申请减免总额",
+      chargeable_income_label:"应课税收入",
+      ladder_caption:"LHDN 累进税率级距",
+      marginal_band_label:"边际税率级距：",
+      annual_tax_label:"预估年度应缴税款",
+      rebate_note:"已扣除 RM400 回扣（适用于应课税收入 ≤ RM35,000）。",
+      effective_rate_label:"有效税率：",
+      cp500_title:"CP500 分期缴税计划",
+      cp500_badge:"每年6期",
+      cp500_desc:"LHDN 将 CP500 分为6期，每两个月缴纳一次——民间常称为\u201c季度\u201d分期，但实际是双月缴纳：1月、3月、5月、7月、9月、11月。",
+      cp500_total_label:"合计（6期）",
+      penalty_warning:"逾期或缴纳不足的 CP500 分期，根据 LHDN 规定可能产生10%至20%的罚款，具体视逾期时长而定。",
+      chart_title:"你的收入去向",
+      chart_expenses_legend:"营业支出", chart_tax_legend:"应缴税款", chart_takehome_legend:"净到手收入",
+      tips_title:"为你推荐的省税建议",
+      trust_rates_label:"所用税率：",
+      trust_rates_text:"YA2025 居民个人累进税率级距（YA2026 申报沿用不变），依据 LHDN 官方数据。",
+      trust_notfiling_label:"非申报工具：",
+      trust_notfiling_text:"本工具仅供规划参考——最终数字请务必通过 MyTax 电子报税系统确认。",
+      trust_notadvice_label:"非税务建议：",
+      trust_notadvice_text:"如涉及复杂情况（多重收入来源、合伙经营），请咨询持牌税务代理。",
+      guide_eyebrow:"自由职业者税务指南",
+      guide_title:"马来西亚自由职业者 CP500 与税务完整指南（YA2025/2026）",
+      guide_intro:"马来西亚自由职业者、顾问和个体经营者需要了解的营业费用扣除、LHDN 个人减免、CP500分期，以及合法减税方法，都在这里。",
+      guide_opening:"马来西亚的自由职业和零工经济近年来快速增长，从远程顾问、内容创作者到 Grab 司机和电商卖家皆在其中。与每月由雇主自动扣缴 PCB（月度预扣税）的受薪人士不同，自雇人士必须通过 CP500 制度自行估算并预缴所得税。理解这一制度如何运作，以及它与每年 B 表格申报之间的关系，是避免罚款并合法降低税负的关键。",
+      guide_h8:"营业费用扣除与个人税务减免的区别",
+      guide_h8_p1:"许多马来西亚自由职业者常常混淆营业费用扣除与个人税务减免，但根据 LHDN 规定，这是按严格顺序进行的两个独立步骤。营业费用首先从你的自由职业总收入中扣除，得出净营业利润；个人税务减免则在第二步从净利润中扣除，才得出最终的应课税收入——也就是真正套用累进税率级距的数字。",
+      guide_h8_p2:"两者的法律依据也不同。营业费用受《1967年所得税法》第33条约束，该条款允许扣除一切为产生营业收入而完全且专门发生的支出。个人减免则属于附表6及各项宪报法令的范畴，是授予每位居民纳税人的个人权利，与收入来源无关。混淆这两个类别，或试图将个人开支申报为营业费用，是引发 LHDN 审查最常见的原因之一。",
+      guide_h9:"自由职业者的 LHDN 可扣除费用指南",
+      guide_h9_p1:"销货成本（COGS）涵盖你转售或直接用于提供服务的原材料、库存或零部件，可全额从相关收入中扣除。电商平台费用、PayPal 手续费及支付网关交易费同样可全额扣除，因为这是赚取该收入的直接成本。",
+      guide_h9_p2:"居家办公费用（租金、电费、网络费、水费）只有真正用于业务的部分才可扣除——例如在三房住宅中仅用一间房办公的自由职业者，通常只能按约三分之一比例申报，而非全额。设备购置则适用资本津贴规则，而非直接扣除：单件价格低于 RM2,000 的物品属于小额资产，可在购买当年全额注销；超过 RM2,000 的物品须资本化——第一年60%（初期津贴20%加常年津贴40%），此后每年20%，直至全额申报完毕。",
+      guide_h9_p3:"软件订阅、营销支出、因客户工作产生的差旅费用、会计师费用或与本行业直接相关的短期职业培训等专业服务费，以及业务通讯费用（专用业务电话线或手机月费中的业务使用部分），是最常见的可申报类别。与所有营业费用一样，请至少保留发票和电子收据7年。",
+      guide_h10:"自由职业者的 LHDN 个人减免指南（YA2026）",
+      guide_h10_p1:"每位居民纳税人自动获得 RM9,000 个人减免。在社会福利部登记为残疾人士的纳税人，可再获得 RM6,000 减免。配偶减免 RM4,000 仅适用于配偶本身没有收入且未单独评税的情况。父母减免每位父母最高 RM1,500，合计上限 RM3,000，前提是父母符合 LHDN 的年龄及收入条件。",
+      guide_h10_p2:"子女减免为每名子女 RM2,000，基本类别下最多可申报四名子女。医疗减免整体上限为 RM10,000，涵盖重病治疗、生育治疗及父母照护费用，其中包含一个 RM1,000 的专项子限额，用于全面体检及疫苗接种——该子限额包含在 RM10,000 上限之内，而非额外增加。",
+      guide_h10_p3:"对自雇的马来西亚人而言，i-Saraan 自愿公积金供款计划每年最多可享 RM4,000 减免——由于没有雇主自动提醒供款，许多自由职业者常常忽略这项减免。合并的保险与 PRS 减免上限为 RM3,000，涵盖人寿保险/伊斯兰保险保费及私人退休金计划（PRS）供款。生活方式减免（RM2,500）涵盖书籍、智能手机或笔记本电脑、健身会籍及经批准的网络课程；教育费减免（RM7,000）适用于专业证书课程及其他经批准的资格课程。由于减免须在申报 B 表格时申请，而非全年自动追踪，建议每年重新检视以上每一类别，而非假设去年的申报依然适用。",
+      guide_h1:"什么是 CP500？",
+      guide_h1_p1:"CP500 是马来西亚内陆税收局（LHDN）针对有营业、租赁或其他非受雇收入人士设立的分期缴税制度——这正是绝大多数马来西亚自由职业者、顾问和个体经营者所属的类别。由于自由职业收入没有雇主在源头代扣税款，LHDN 会在每年2月或3月发出 CP500 通知，根据你最近一次的 B 表格评估结果，估算当年应缴税款。",
+      guide_h1_p2:"该估算金额会被拆分为6期，每两个月缴纳一次：1月、3月、5月、7月、9月、11月。如果你的收入确实下降，可在通知日期起30天内，通过 CP502 表格申请下调估算额；若收入增长，你也可以主动申请上调，以减少日后需要一次性补缴的余额。",
+      guide_h2:"谁必须缴纳 CP500？",
+      guide_h2_p1:"CP500 适用于根据《1967年所得税法》第4(a)条赚取营业收入的个人——涵盖自由职业、顾问费、独资经营及合伙企业，需通过 B 表格（而非 BE 表格）申报。租赁收入及某些其他非受雇收入来源，同样可能触发 CP500 通知。",
+      guide_h2_p2:"第一年从事自由职业的人士通常不会立即收到 CP500 通知，因为 LHDN 是根据上一年度已申报的报税记录来估算的。但一旦你的首份 B 表格评估完成，次年的通知通常随之而来。这并不代表首年自由职业者可以免税——申报 B 表格时仍须缴纳全额税款，因此从第一天起就应预留一定比例的每笔收入作为税款储备。若你同时拥有受薪工作，须在 B 表格中合并两项收入申报，只要营业收入达到一定规模，同样须缴纳 CP500。",
+      guide_h3:"CP500 与 B 表格最终税款的区别",
+      guide_h3_p1:"务必理解，CP500 分期只是一个估算值——并非你的最终税单。真正的税务责任要等到你申报 B 表格时才会确定（每年截止日为6月30日，电子报税可延至7月中），届时会将你的实际净利润、已申请减免及总收入，与 LHDN 此前的估算进行核对。",
+      guide_h3_p2:"报税处理完成后可能出现三种结果：若你已缴纳的 CP500 超过实际评估税款，LHDN 会退还差额；若分期金额不足——这在自由职业收入年中增长时很常见——你须在申报截止日前补缴差额（即\u201cbaki cukai\u201d）；若两者相近，则无需额外处理。由于 B 表格申报日期在最后一期 CP500 之后数月才到来，收入不稳定的自由职业者应在全年内定期使用类似本页的计算器重新核实估算，而非等到6月才发现巨额补缴。",
+      guide_h4:"逾期缴款的罚款",
+      guide_h4_p1:"CP500 分期若逾期未缴或缴纳不足，一旦超过缴款期限且未获批准调整，将自动产生相当于欠缴金额10%的罚款。若长期未处理，该罚款还可能进一步累加——连同相关附加费，长期未缴的实际罚款比例最高可达20%。此项罚款与 B 表格本身的罚款是分开计算、可同时叠加的。",
+      guide_h4_p2:"B 表格逾期申报会对应缴税款处以10%的罚款，若超过12个月仍未申报，罚款比例还会进一步提高。最终评估后若发现有未缴余额，且未在评估通知发出30天内结清，通常还须缴纳额外5%的逾期罚款。由于分期罚款、申报罚款与余额罚款可各自独立生效，最稳妥的做法是即使估算并不精确，也按时缴纳每一期 CP500，再于 B 表格申报时更正差额，而不是干脆跳过某一期分期。",
+      guide_h5:"自由职业者的合法节税策略",
+      guide_h5_p1:"马来西亚自由职业者可以通过两种合法方式，同时降低 CP500 估算额与最终 B 表格税款：一是通过可扣除费用降低净营业利润，二是通过个人税务减免降低应课税收入。",
+      guide_h5_p2:"在费用方面，LHDN 允许扣除一切为产生自由职业收入而完全且专门发生的支出。请至少保留电子收据7年，因为费用记录通常是税务稽查中首先被要求提供的文件。",
+      guide_h5_p3:"在减免方面，自雇人士常常未充分利用 i-Saraan、生活方式减免、教育费减免，以及符合条件父母的医疗与照护减免——这些减免常因缺乏雇主年末提醒而被忽略。",
+      guide_h5_p4:"严谨记录费用，并充分利用每一项可用减免，是合法降低 CP500 估算与 B 表格税款的唯一途径——每当你的收入或情况发生变化时，都值得重新检视一遍。",
+      guide_h6:"全年规划你的 CP500 缴款",
+      guide_h6_p1:"由于 CP500 是根据上一年度数据计算的，它很少能完全贴合本年度的实际情况——尤其对于收入随客户量、季节性项目或新合约波动的马来西亚自由职业者而言。与其把每一期双月分期视为固定不变的义务，不如在收入出现明显变化时重新估算年度税款，并与 LHDN 已排定的金额进行比较。",
+      guide_h6_p2:"许多自雇的马来西亚人会养成一个简单习惯：将每笔发票收入的固定比例（通常为15%至25%，视收入水平而定）另存入一个专门用于缴税的储蓄账户。这能把 CP500 从年终的压力来源，转变为例行的双月转账，也能确保 B 表格申报时若需补缴，也不会是一个意外。",
+      guide_h7:"开始行动",
+      guide_h7_p1:"无论你是正在等待第一份 CP500 通知的新晋自由职业者，还是正在核对多年分期记录的资深顾问，基本原则都是一致的：准确记录营业收入与可扣除费用、充分申请你有权享有的每一项减免，并按时缴纳每一期分期以避免罚款叠加。使用上方的计算器模拟不同的收入与支出情境，查看你的应课税收入落在 LHDN 累进税率的哪一级距，并预估你在 YA2025/2026 年度的每一期 CP500 分期金额——抢先一步，在 LHDN 通知送达之前。",
+      footer_copyright:"&copy; 2026 自由职业者 CP500 计算器。仅供估算参考——与 LHDN 无关联。",
+      footer_built:"为马来西亚自由职业者、顾问及个体经营者而设计。"
+    },
+    ms: {
+      nav_home:"Laman Utama", nav_about:"Tentang Kami", nav_privacy:"Dasar Privasi", nav_contact:"Hubungi Kami", nav_cta:"Mula Anggaran ↓",
+      hero_eyebrow:"CP500 &middot; Borang B &middot; Potongan Perniagaan Seksyen 33",
+      hero_title:"Senaraikan setiap potongan. Ketahui bil CP500 anda sebelum LHDN.",
+      hero_desc:"Direka untuk pekerja bebas, perunding, dan pemilik tunggal di Malaysia. Tandakan perbelanjaan perniagaan sebenar dan pelepasan peribadi anda, dan lihat untung bersih, pendapatan bercukai, jumlah cukai YA2026, serta jadual ansuran CP500 (6 kali) dikemas kini secara langsung.",
+      hero_cta1:"Kira Cukai Saya →", hero_cta2:"Baca Panduan Penuh",
+      section1_tag:"Bahagian 1", section2_tag:"Bahagian 2", section3_tag:"Bahagian 3",
+      step1_title:"Pendapatan Perniagaan &amp; Perbelanjaan Boleh Ditolak",
+      step1_desc:"Untung bersih = jumlah pendapatan freelance − perbelanjaan perniagaan yang dibenarkan (Seksyen 33, Akta Cukai Pendapatan 1967).",
+      income_label:"Jumlah Pendapatan Freelance Tahunan",
+      expenses_heading:"Perbelanjaan Perniagaan Yang Boleh Ditolak",
+      exp_cogs_label:"Kos Barang Dijual (COGS)",
+      exp_cogs_caption:"Bahan mentah, stok atau komponen yang digunakan terus untuk menyampaikan perkhidmatan anda.",
+      exp_platform_label:"Yuran Platform &amp; Transaksi",
+      exp_platform_caption:"Komisen platform e-dagang, caj PayPal dan yuran get bayaran.",
+      exp_homeoffice_label:"Perbelanjaan Pejabat Rumah",
+      exp_homeoffice_caption:"Sewa, elektrik, internet dan air — masukkan hanya bahagian penggunaan perniagaan.",
+      exp_devices_label:"Susut Nilai Peranti &amp; Peralatan",
+      exp_devices_caption:"Komputer riba, telefon, monitor, pencetak. Item ≤ RM2,000 dihapus kira sepenuhnya tahun ini; item melebihi RM2,000 tertakluk kepada peraturan elaun modal.",
+      exp_devices_small_label:"Item ≤ RM2,000 (potongan penuh)",
+      exp_devices_large_label:"Item &gt; RM2,000 (jumlah kos)",
+      exp_devices_first:"Tahun pertama penggunaan (elaun 60%)",
+      exp_devices_subsequent:"Tahun berikutnya (elaun 20%)",
+      exp_software_label:"Langganan Perisian",
+      exp_software_caption:"Adobe, Microsoft 365, domain &amp; hosting, alat perakaunan.",
+      exp_marketing_label:"Kos Pemasaran",
+      exp_marketing_caption:"Iklan Facebook, Iklan Google, risalah dan bahan promosi.",
+      exp_travel_label:"Kos Berkaitan Perjalanan",
+      exp_travel_caption:"Tol, petrol, dan bahagian penggunaan perniagaan insurans kenderaan.",
+      exp_proffees_label:"Yuran Profesional",
+      exp_proffees_caption:"Caj akauntan dan yuran latihan vokasional jangka pendek.",
+      exp_comm_label:"Kos Komunikasi Perniagaan",
+      exp_comm_caption:"Pelan telefon bimbit, talian perniagaan, atau kos komunikasi khusus untuk kerja klien.",
+      step2_title:"Pelepasan Cukai Peribadi (YA2026)",
+      step2_desc:"Pelepasan mengurangkan pendapatan bercukai selepas untung bersih perniagaan — berasingan daripada perbelanjaan perniagaan di atas.",
+      individual_relief_label:"Pelepasan Diri Individu",
+      individual_relief_caption:"Automatik untuk setiap pembayar cukai pemastautin",
+      rel_disabled_label:"Pelepasan Pembayar Cukai OKU",
+      rel_disabled_caption:"Berdaftar dengan Jabatan Kebajikan Masyarakat (JKM)",
+      rel_spouse_label:"Pelepasan Suami/Isteri",
+      rel_spouse_caption:"Hanya jika pasangan tiada pendapatan dan tidak ditaksir berasingan",
+      rel_parent_father_label:"Pelepasan Ibu Bapa — Bapa",
+      rel_parent_mother_label:"Pelepasan Ibu Bapa — Ibu",
+      rel_parent_caption:"Had gabungan RM3,000 untuk kedua-dua ibu bapa (setiap seorang mesti memenuhi syarat umur &amp; pendapatan LHDN).",
+      rel_child_label:"Bilangan Anak (maksimum 4)",
+      rel_child_caption:"RM2,000 setiap anak di bawah kategori asas ini, dihadkan kepada 4 orang anak.",
+      rel_medical_general_label:"Pelepasan Perubatan (Penyakit Serius / Kesuburan / Penjagaan Ibu Bapa)",
+      rel_medical_screening_label:"Pemeriksaan Kesihatan Penuh &amp; Vaksinasi",
+      rel_medical_caption:"Had keseluruhan perubatan RM10,000; sub-had RM1,000 pemeriksaan kesihatan terkandung dalam had ini, bukan tambahan.",
+      rel_isaraan_label:"i-Saraan (KWSP Sukarela Untuk Bekerja Sendiri)",
+      rel_isaraan_caption:"Dihadkan RM4,000 — pelepasan yang sering terlepas pandang tanpa peringatan caruman KWSP automatik daripada majikan.",
+      rel_insurance_label:"Pelepasan Insurans &amp; PRS",
+      rel_insurance_caption:"Dihadkan RM3,000 — premium insurans hayat/takaful digabungkan dengan caruman Skim Persaraan Swasta (PRS).",
+      lifestyle_label:"Pelepasan Gaya Hidup",
+      lifestyle_caption:"Had RM2,500 — buku, telefon pintar/komputer riba, keahlian gim, kursus dalam talian.",
+      education_label:"Yuran Pendidikan (Diri Sendiri)",
+      education_caption:"Had RM7,000 — kursus sijil profesional dan kelayakan yang diluluskan.",
+      reset_btn:"Set Semula ke Contoh Lalai", clear_data_btn:"Padam Data Tersimpan",
+      save_note:"✓ Input anda disimpan secara automatik dalam pelayar ini",
+      results_eyebrow:"Keputusan Masa Nyata Anda",
+      total_income_label:"Jumlah pendapatan freelance",
+      total_expenses_label:"Jumlah perbelanjaan perniagaan",
+      net_profit_label:"Untung Bersih Perniagaan",
+      total_reliefs_label:"Jumlah Pelepasan Dituntut",
+      chargeable_income_label:"Pendapatan Bercukai",
+      ladder_caption:"Jadual Progresif LHDN",
+      marginal_band_label:"Kadar Marginal:",
+      annual_tax_label:"Anggaran Cukai Tahunan Kena Bayar",
+      rebate_note:"Selepas rebat RM400 untuk pendapatan bercukai ≤ RM35,000.",
+      effective_rate_label:"Kadar Efektif:",
+      cp500_title:"Jadual Ansuran CP500",
+      cp500_badge:"6 bayaran/tahun",
+      cp500_desc:'LHDN mengeluarkan CP500 dalam 6 ansuran dwibulanan — sering dipanggil "suku tahun" secara umum, tetapi sebenarnya dibayar setiap dua bulan: Jan, Mac, Mei, Jul, Sep, Nov.',
+      cp500_total_label:"Jumlah (6 Ansuran)",
+      penalty_warning:"Ansuran CP500 yang lewat atau tidak mencukupi boleh dikenakan penalti antara 10% hingga 20% mengikut peraturan LHDN, bergantung kepada tempoh kelewatan.",
+      chart_title:"Ke Mana Perginya Pendapatan Anda",
+      chart_expenses_legend:"Perbelanjaan Perniagaan", chart_tax_legend:"Cukai Kena Bayar", chart_takehome_legend:"Bawa Pulang Bersih",
+      tips_title:"Tip Penjimatan Untuk Anda",
+      trust_rates_label:"Kadar digunakan:",
+      trust_rates_text:"Jadual progresif individu pemastautin YA2025 (tidak berubah untuk penfailan YA2026), mengikut LHDN.",
+      trust_notfiling_label:"Bukan alat penfailan:",
+      trust_notfiling_text:"ini adalah anggaran untuk tujuan perancangan — sentiasa sahkan angka akhir melalui e-Filing MyTax.",
+      trust_notadvice_label:"Bukan nasihat cukai:",
+      trust_notadvice_text:"untuk situasi kompleks (pelbagai sumber pendapatan, perkongsian), rujuk ejen cukai bertauliah.",
+      guide_eyebrow:"Panduan Cukai Freelancer",
+      guide_title:"Panduan Lengkap CP500 &amp; Cukai Freelance di Malaysia (YA2025/2026)",
+      guide_intro:"Semua yang perlu diketahui oleh freelancer, perunding, dan pemilik tunggal Malaysia tentang potongan perbelanjaan perniagaan, pelepasan peribadi LHDN, ansuran CP500, dan cara sah untuk mengurangkan bil cukai anda.",
+      guide_opening:"Kerja freelance dan gig telah berkembang pesat di Malaysia, daripada perunding jarak jauh dan pencipta kandungan kepada pemandu Grab dan penjual e-dagang. Berbeza dengan pekerja bergaji yang majikannya memotong Potongan Cukai Bulanan (PCB) setiap bulan, individu bekerja sendiri bertanggungjawab menganggar dan membayar pendahuluan cukai pendapatan mereka sendiri melalui skim CP500. Memahami cara ia berfungsi — dan bagaimana ia berkait dengan penfailan Borang B tahunan anda — adalah penting untuk mengelakkan penalti dan mengurangkan cukai secara sah.",
+      guide_h8:"Perbezaan Antara Potongan Perbelanjaan Perniagaan dan Pelepasan Cukai Peribadi",
+      guide_h8_p1:"Ramai freelancer Malaysia keliru antara potongan perbelanjaan perniagaan dengan pelepasan cukai peribadi, tetapi mengikut peraturan LHDN, ini adalah dua langkah berasingan yang berlaku mengikut susunan yang ketat. Perbelanjaan perniagaan ditolak dahulu, terus daripada pendapatan kasar freelance anda, untuk mendapatkan untung bersih perniagaan. Pelepasan cukai peribadi ditolak kemudian, daripada untung bersih tersebut, untuk mendapatkan pendapatan bercukai akhir — angka yang sebenarnya dikenakan jadual cukai progresif.",
+      guide_h8_p2:"Asas undang-undang juga berbeza. Perbelanjaan perniagaan tertakluk kepada Seksyen 33 Akta Cukai Pendapatan 1967, yang membenarkan potongan untuk apa-apa yang dibelanjakan sepenuhnya dan semata-mata untuk menghasilkan pendapatan perniagaan anda. Pelepasan peribadi pula terletak di bawah Jadual 6 dan pelbagai perintah warta berasingan, dan diberikan kepada anda sebagai pembayar cukai pemastautin individu tanpa mengira bagaimana pendapatan anda diperoleh. Mengelirukan kedua-dua kategori ini, atau menuntut perbelanjaan peribadi sebagai perbelanjaan perniagaan, adalah salah satu punca paling lazim bagi pertanyaan audit LHDN.",
+      guide_h9:"Panduan Freelancer Untuk Setiap Perbelanjaan Boleh Ditolak LHDN",
+      guide_h9_p1:"Kos barang dijual (COGS) merangkumi bahan mentah, stok, atau komponen yang anda jual semula atau gunakan terus untuk menyampaikan perkhidmatan, dan boleh ditolak sepenuhnya daripada pendapatan berkaitan. Yuran platform e-dagang, caj PayPal, dan yuran transaksi get bayaran dilayan sama, kerana ia merupakan kos langsung untuk memperoleh pendapatan tersebut.",
+      guide_h9_p2:"Perbelanjaan pejabat rumah (sewa, elektrik, internet, air) hanya boleh ditolak untuk bahagian yang benar-benar digunakan untuk perniagaan — freelancer yang bekerja dari satu bilik dalam rumah tiga bilik biasanya hanya boleh menuntut kira-kira satu pertiga daripada bil ini, bukan jumlah penuh. Pembelian peranti pula tertakluk kepada peraturan elaun modal dan bukan potongan terus: item berharga di bawah RM2,000 setiap satu layak sebagai aset bernilai kecil dan boleh dihapus kira sepenuhnya pada tahun pembelian, manakala item melebihi RM2,000 perlu dimodalkan — 60% pada tahun pertama (elaun permulaan 20% ditambah elaun tahunan 40%), kemudian 20% setiap tahun selepas itu sehingga tuntutan penuh.",
+      guide_h9_p3:"Langganan perisian, perbelanjaan pemasaran, kos perjalanan untuk kerja klien, yuran profesional seperti caj akauntan atau latihan vokasional jangka pendek yang berkait terus dengan bidang anda, dan kos komunikasi perniagaan (talian perniagaan khusus atau bahagian penggunaan perniagaan pelan telefon bimbit anda) melengkapkan kategori yang paling lazim dituntut. Seperti semua perbelanjaan perniagaan, simpan invois dan resit digital sekurang-kurangnya tujuh tahun.",
+      guide_h10:"Panduan Freelancer Untuk Setiap Pelepasan Peribadi LHDN (YA2026)",
+      guide_h10_p1:"Setiap pembayar cukai pemastautin menerima pelepasan individu RM9,000 secara automatik. Pembayar cukai yang berdaftar sebagai OKU dengan Jabatan Kebajikan Masyarakat menerima tambahan RM6,000. Pelepasan pasangan RM4,000 hanya terpakai jika pasangan anda tiada pendapatan sendiri dan tidak ditaksir secara berasingan. Pelepasan ibu bapa membenarkan sehingga RM1,500 setiap ibu bapa, dihadkan RM3,000 gabungan, bagi ibu bapa yang memenuhi syarat umur dan pendapatan LHDN.",
+      guide_h10_p2:"Pelepasan anak menyediakan RM2,000 setiap anak, sehingga empat orang anak di bawah kategori asas ini. Pelepasan perubatan mempunyai had keseluruhan RM10,000 merangkumi rawatan penyakit serius, rawatan kesuburan, dan penjagaan ibu bapa, dengan sub-had RM1,000 khusus untuk pemeriksaan kesihatan penuh dan vaksinasi, yang terkandung di dalam — bukan tambahan kepada — had RM10,000 tersebut.",
+      guide_h10_p3:"Khusus untuk individu bekerja sendiri di Malaysia, skim caruman KWSP sukarela i-Saraan membenarkan sehingga RM4,000 pelepasan setiap tahun — pelepasan yang sering diabaikan ramai freelancer kerana tiada majikan yang mengingatkan caruman KWSP secara automatik. Pelepasan Insurans &amp; PRS gabungan sehingga RM3,000 merangkumi premium insurans hayat/takaful bersama caruman Skim Persaraan Swasta (PRS). Pelepasan gaya hidup (RM2,500) merangkumi buku, telefon pintar atau komputer riba, keahlian gimnasium, dan kursus dalam talian yang diluluskan, manakala pelepasan pendidikan (RM7,000) terpakai untuk kursus sijil profesional dan kelayakan lain yang diluluskan. Oleh sebab pelepasan dituntut semasa penfailan Borang B dan bukan dijejaki sepanjang tahun, semak semula setiap kategori di atas setiap tahun, bukannya menganggap tuntutan tahun lepas masih terpakai.",
+      guide_h1:"Apakah CP500?",
+      guide_h1_p1:"CP500 ialah skim ansuran Lembaga Hasil Dalam Negeri Malaysia (LHDN) untuk individu yang mempunyai pendapatan perniagaan, sewa, atau pendapatan bukan penggajian lain — kategori yang meliputi kebanyakan freelancer, perunding, dan pemilik tunggal di Malaysia. Oleh sebab pendapatan freelance tiada majikan untuk memotong cukai pada sumber, LHDN sebaliknya mengeluarkan notis CP500, biasanya pada Februari atau Mac, menganggar cukai anda untuk tahun semasa berdasarkan taksiran Borang B terkini anda.",
+      guide_h1_p2:"Anggaran itu kemudian dipecahkan kepada enam ansuran dwibulanan yang perlu dibayar pada Januari, Mac, Mei, Julai, September, dan November. Jika pendapatan anda benar-benar menurun, anda boleh memohon untuk menyemak semula anggaran tersebut ke bawah menggunakan Borang CP502 dalam tempoh 30 hari dari tarikh notis. Anda juga boleh menyemak semula ke atas secara sukarela jika pendapatan freelance anda meningkat, yang akan mengurangkan baki sekaligus yang perlu dibayar kemudian.",
+      guide_h2:"Siapa Perlu Membayar CP500?",
+      guide_h2_p1:"CP500 terpakai kepada individu yang memperoleh pendapatan perniagaan di bawah Seksyen 4(a) Akta Cukai Pendapatan 1967 — ini merangkumi kerja freelance, yuran perundingan, pemilikan tunggal, dan perkongsian yang dilaporkan melalui Borang B dan bukan Borang BE. Pendapatan sewa dan sumber bukan penggajian tertentu yang lain juga boleh mencetuskan notis.",
+      guide_h2_p2:"Freelancer tahun pertama biasanya tidak akan menerima notis CP500 dengan segera, kerana LHDN mengasaskan anggaran berdasarkan pulangan yang difailkan pada tahun sebelumnya. Namun, sebaik sahaja taksiran Borang B pertama anda diproses, notis untuk tahun berikutnya biasanya menyusul. Ini tidak bermakna freelancer tahun pertama bebas cukai: jumlah penuh masih perlu dibayar semasa Borang B difailkan, jadi adalah bijak untuk menyisihkan peratusan setiap invois dari hari pertama. Freelancer yang turut memegang pekerjaan bergaji perlu menggabungkan kedua-dua aliran pendapatan pada Borang B dan tetap bertanggungjawab terhadap CP500 jika pendapatan perniagaan mereka ketara.",
+      guide_h3:"CP500 Berbanding Cukai Muktamad Borang B",
+      guide_h3_p1:"Penting untuk memahami bahawa ansuran CP500 hanyalah anggaran — bukan bil cukai muktamad anda. Liabiliti sebenar anda dikira apabila anda memfailkan Borang B, yang perlu dibayar sebelum 30 Jun setiap tahun (dilanjutkan hingga pertengahan Julai untuk e-Filing), yang menyesuaikan untung bersih sebenar, pelepasan yang dituntut, dan jumlah pendapatan anda berbanding anggaran LHDN sebelum ini.",
+      guide_h3_p2:"Tiga hasil mungkin berlaku sebaik sahaja pulangan anda diproses. Jika bayaran CP500 anda melebihi cukai yang ditaksir, LHDN akan memulangkan lebihan tersebut. Jika ansuran anda tidak mencukupi — lazim apabila pendapatan freelance meningkat pada pertengahan tahun — anda perlu menjelaskan baki (baki cukai) sebelum tarikh akhir penfailan. Jika kedua-dua angka hampir sama, tiada tindakan lanjut diperlukan. Oleh sebab Borang B tiba beberapa bulan selepas ansuran CP500 terakhir, freelancer dengan pendapatan tidak menentu harus menyemak semula anggaran mereka secara berkala sepanjang tahun, menggunakan kalkulator seperti di atas, dan bukannya menunggu sehingga Jun untuk mendapati baki yang besar.",
+      guide_h4:"Penalti Bayaran Lewat",
+      guide_h4_p1:"Kegagalan atau kekurangan membayar ansuran CP500 mencetuskan penalti automatik sebanyak 10% ke atas jumlah ansuran tertunggak sebaik sahaja tarikh akhir berlalu tanpa bayaran atau semakan yang diluluskan. Jika jumlah ini terus tidak diselesaikan, penalti boleh meningkat — digabungkan dengan caj berkaitan, penalti efektif bagi ketidakbayaran berpanjangan boleh mencecah sehingga 20%. Penalti ini berasingan daripada — dan boleh berhimpun dengan — penalti yang berkaitan dengan Borang B itu sendiri.",
+      guide_h4_p2:"Penfailan Borang B secara lewat dikenakan penalti 10% ke atas cukai kena bayar, yang meningkat lagi jika pulangan masih tidak difailkan selepas 12 bulan. Sebarang baki tidak berbayar yang dikenal pasti selepas taksiran akhir anda juga tertakluk kepada caj bayaran lewat tambahan, biasanya 5%, jika tidak diselesaikan dalam tempoh 30 hari dari notis taksiran. Oleh sebab penalti ansuran, penalti penfailan, dan penalti baki masing-masing boleh terpakai secara berasingan, pendekatan paling selamat adalah membayar setiap ansuran CP500 tepat pada masanya walaupun anggaran terasa tidak tepat, dan membetulkan sebarang perbezaan kemudian semasa penfailan Borang B, bukannya melangkau ansuran sepenuhnya.",
+      guide_h5:"Strategi Pelepasan Cukai Sah Untuk Freelancer",
+      guide_h5_p1:"Freelancer Malaysia boleh mengurangkan secara sah kedua-dua anggaran CP500 dan liabiliti muktamad Borang B mereka dengan dua cara: menurunkan untung bersih perniagaan melalui perbelanjaan yang dibenarkan, dan menurunkan pendapatan bercukai melalui pelepasan cukai peribadi.",
+      guide_h5_p2:"Dari segi perbelanjaan, LHDN membenarkan potongan untuk apa-apa yang dibelanjakan sepenuhnya dan semata-mata untuk menghasilkan pendapatan freelance anda. Simpan resit digital sekurang-kurangnya tujuh tahun, kerana rekod perbelanjaan biasanya dokumen pertama yang diminta semasa audit.",
+      guide_h5_p3:"Dari segi pelepasan, individu bekerja sendiri sering kurang menuntut i-Saraan, pelepasan gaya hidup, yuran pendidikan, dan pelepasan ibu bapa untuk rawatan perubatan dan penjagaan ibu bapa yang layak — pelepasan yang sering diabaikan kerana tiada majikan yang mengingatkan pada penghujung tahun.",
+      guide_h5_p4:"Menggabungkan penjejakan perbelanjaan yang disiplin dengan penggunaan penuh setiap pelepasan yang tersedia adalah satu-satunya cara sah untuk menurunkan anggaran CP500 dan bil Borang B anda — dan ia berbaloi disemak semula setiap kali pendapatan atau keadaan anda berubah sepanjang tahun.",
+      guide_h6:"Merancang Bayaran CP500 Anda Sepanjang Tahun",
+      guide_h6_p1:"Oleh sebab CP500 berdasarkan angka tahun lepas, ia jarang sepadan sepenuhnya dengan realiti tahun ini — terutamanya bagi freelancer di Malaysia yang pendapatannya berubah mengikut jumlah klien, projek bermusim, atau kontrak baharu. Daripada menganggap setiap ansuran dwibulanan sebagai kewajipan tetap, adalah lebih baik untuk menganggar semula cukai tahunan anda apabila pendapatan anda berubah dengan ketara, dan membandingkan angka itu dengan apa yang telah dijadualkan oleh LHDN.",
+      guide_h6_p2:"Satu tabiat mudah yang diamalkan oleh ramai individu bekerja sendiri di Malaysia ialah menyisihkan peratusan tetap daripada setiap invois — lazimnya 15% hingga 25% bergantung pada tahap pendapatan — ke dalam akaun simpanan berasingan yang dikhususkan semata-mata untuk cukai. Ini menukar CP500 daripada punca tekanan akhir tahun kepada pemindahan dwibulanan rutin, dan memastikan sebarang tambahan yang perlu dibayar semasa penfailan Borang B tidak lagi menjadi kejutan.",
+      guide_h7:"Bermula",
+      guide_h7_p1:"Sama ada anda seorang freelancer tahun pertama yang menunggu notis CP500 pertama anda, atau perunding berpengalaman yang menyesuaikan beberapa tahun ansuran, asasnya kekal sama: jejaki pendapatan perniagaan dan perbelanjaan yang dibenarkan dengan tepat, tuntut setiap pelepasan yang anda layak terima, dan bayar setiap ansuran tepat pada masanya untuk mengelakkan penalti berhimpun. Gunakan kalkulator di atas untuk memodelkan senario pendapatan dan perbelanjaan yang berbeza, lihat di mana pendapatan bercukai anda berada pada jadual progresif LHDN, dan anggarkan bagaimana rupa setiap satu daripada enam ansuran CP500 anda untuk YA2025/2026 — sebelum notis rasmi LHDN tiba.",
+      footer_copyright:"&copy; 2026 Kalkulator CP500 Freelancer. Anggaran sahaja — tiada kaitan dengan LHDN.",
+      footer_built:"Direka untuk freelancer, perunding &amp; pemilik tunggal Malaysia."
+    }
+  };
+
+  var MONTHS = {
+    en: ['January','March','May','July','September','November'],
+    zh: ['1月','3月','5月','7月','9月','11月'],
+    ms: ['Januari','Mac','Mei','Julai','September','November']
+  };
+
+  var TIPS = {
+    en: {
+      lifestyle: function(r){ return 'You have RM' + r.toLocaleString('en-MY') + ' of unused lifestyle relief — eligible spend on books, gadgets or online courses reduces tax directly.'; },
+      education: function(r){ return 'Upskilling course or certification fees this year could unlock up to RM' + r.toLocaleString('en-MY') + ' more in education relief.'; },
+      isaraan: function(r){ return 'You have RM' + r.toLocaleString('en-MY') + ' of unused i-Saraan relief — voluntary EPF contributions build retirement savings and cut tax at the same time.'; },
+      insurance: function(r){ return 'You have RM' + r.toLocaleString('en-MY') + ' of unused Insurance &amp; PRS relief — life insurance/takaful premiums or PRS contributions both count toward this cap.'; },
+      expenseRatio: 'Your claimed expenses are under 15% of income — double-check for missed deductibles like software, home-office costs, or business travel.',
+      rebateThreshold: 'You are just above the RM35,000 rebate threshold — a small increase in reliefs could unlock the RM400 rebate.',
+      setAside: function(a){ return 'Set aside RM' + a.toLocaleString('en-MY') + ' every 2 months so each CP500 instalment is already covered when it is due.'; },
+      wellOptimised: 'Your reliefs are well optimised for the inputs provided. Revisit this estimate whenever income or expenses change.'
+    },
+    zh: {
+      lifestyle: function(r){ return '你还有 RM' + r.toLocaleString('en-MY') + ' 的生活方式减免额度未使用——购买书籍、电子产品或网络课程都能直接减税。'; },
+      education: function(r){ return '今年报读进修课程或考取专业认证，最多可再获得 RM' + r.toLocaleString('en-MY') + ' 的教育费减免。'; },
+      isaraan: function(r){ return '你还有 RM' + r.toLocaleString('en-MY') + ' 的 i-Saraan 减免额度未使用——自愿公积金供款既能储蓄养老金，又能同时减税。'; },
+      insurance: function(r){ return '你还有 RM' + r.toLocaleString('en-MY') + ' 的保险与 PRS 减免额度未使用——人寿保险/伊斯兰保险保费或 PRS 供款均计入此上限。'; },
+      expenseRatio: '你申报的支出低于收入的15%——请检查是否遗漏了软件、居家办公费用或商务差旅等可扣除项目。',
+      rebateThreshold: '你的收入刚超过 RM35,000 回扣门槛——稍微增加减免额度即可获得 RM400 回扣。',
+      setAside: function(a){ return '建议每两个月预留 RM' + a.toLocaleString('en-MY') + '，这样每期 CP500 到期时都已经准备妥当。'; },
+      wellOptimised: '根据目前输入的数据，你的减免已充分利用。收入或支出变动时，记得重新查看此估算。'
+    },
+    ms: {
+      lifestyle: function(r){ return 'Anda mempunyai RM' + r.toLocaleString('en-MY') + ' pelepasan gaya hidup yang belum digunakan — perbelanjaan layak seperti buku, gajet atau kursus dalam talian mengurangkan cukai secara langsung.'; },
+      education: function(r){ return 'Yuran kursus peningkatan kemahiran atau sijil tahun ini boleh membuka sehingga RM' + r.toLocaleString('en-MY') + ' lagi pelepasan pendidikan.'; },
+      isaraan: function(r){ return 'Anda mempunyai RM' + r.toLocaleString('en-MY') + ' pelepasan i-Saraan yang belum digunakan — caruman KWSP sukarela membina simpanan persaraan sambil mengurangkan cukai.'; },
+      insurance: function(r){ return 'Anda mempunyai RM' + r.toLocaleString('en-MY') + ' pelepasan Insurans &amp; PRS yang belum digunakan — premium insurans hayat/takaful atau caruman PRS kedua-duanya dikira dalam had ini.'; },
+      expenseRatio: 'Perbelanjaan yang anda tuntut kurang daripada 15% pendapatan — semak semula sekiranya ada perbelanjaan seperti perisian, kos pejabat rumah, atau perjalanan perniagaan yang tertinggal.',
+      rebateThreshold: 'Anda sedikit melebihi ambang rebat RM35,000 — peningkatan kecil dalam pelepasan boleh membuka rebat RM400.',
+      setAside: function(a){ return 'Sisihkan RM' + a.toLocaleString('en-MY') + ' setiap 2 bulan supaya setiap ansuran CP500 sudah tersedia apabila tiba masanya.'; },
+      wellOptimised: 'Pelepasan anda sudah dioptimumkan dengan baik berdasarkan input yang diberikan. Semak semula anggaran ini apabila pendapatan atau perbelanjaan berubah.'
+    }
+  };
+
+  var currentLang = 'en';
+  try {
+    var savedLang = localStorage.getItem('cp500_lang');
+    if (savedLang && I18N[savedLang]) currentLang = savedLang;
+  } catch(e){}
+
+  // ---------- LHDN YA2025/2026 resident progressive bands ----------
+  var BANDS = [
+    { limit: 5000,      rate: 0.00 },
+    { limit: 20000,     rate: 0.01 },
+    { limit: 35000,     rate: 0.03 },
+    { limit: 50000,     rate: 0.06 },
+    { limit: 70000,     rate: 0.11 },
+    { limit: 100000,    rate: 0.19 },
+    { limit: 400000,    rate: 0.25 },
+    { limit: 600000,    rate: 0.26 },
+    { limit: 2000000,   rate: 0.28 },
+    { limit: Infinity,  rate: 0.30 }
+  ];
+  var INDIVIDUAL_RELIEF = 9000;
+  var LADDER_SCALE = 250000;
+
+  function fmt(n){ n = Math.round(n); return 'RM' + n.toLocaleString('en-MY'); }
+  function num(elm){ var v = parseFloat(elm.value); return isNaN(v) ? 0 : v; }
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function calcTax(chargeable){
+    var prev = 0, tax = 0, marginalRate = 0;
+    for (var i = 0; i < BANDS.length; i++){
+      var band = BANDS[i];
+      if (chargeable > prev){
+        var upper = Math.min(chargeable, band.limit);
+        tax += (upper - prev) * band.rate;
+        marginalRate = band.rate;
+        prev = band.limit;
+      } else { break; }
+    }
+    var rebate = (chargeable <= 35000 && chargeable > 0) ? 400 : 0;
+    var netTax = Math.max(0, tax - rebate);
+    return { grossTax: tax, rebate: rebate, netTax: netTax, marginalRate: marginalRate };
+  }
+
+  // ---------- element refs ----------
+  var byId = document.getElementById.bind(document);
+  var income = byId('income'), incomeNum = byId('incomeNum');
+
+  var expChecks = ['cogs','platform','homeoffice','software','marketing','travel','proffees','comm'];
+  var expEls = {};
+  expChecks.forEach(function(k){
+    expEls[k] = { chk: byId('exp_'+k+'_chk'), num: byId('exp_'+k+'_num') };
+  });
+  var devicesChk = byId('exp_devices_chk');
+  var devicesSmallNum = byId('exp_devices_small_num');
+  var devicesLargeNum = byId('exp_devices_large_num');
+
+  var relDisabledChk = byId('rel_disabled_chk');
+  var relSpouseChk = byId('rel_spouse_chk');
+  var parentFather = byId('rel_parent_father'), parentFatherNum = byId('rel_parent_fatherNum');
+  var parentMother = byId('rel_parent_mother'), parentMotherNum = byId('rel_parent_motherNum');
+  var childNum = byId('rel_child_num');
+  var medGeneral = byId('rel_medical_general'), medGeneralNum = byId('rel_medical_generalNum');
+  var medScreening = byId('rel_medical_screening'), medScreeningNum = byId('rel_medical_screeningNum');
+  var isaraan = byId('rel_isaraan'), isaraanNum = byId('rel_isaraanNum');
+  var insurance = byId('rel_insurance'), insuranceNum = byId('rel_insuranceNum');
+  var lifestyle = byId('rel_lifestyle'), lifestyleNum = byId('rel_lifestyleNum');
+  var education = byId('rel_education'), educationNum = byId('rel_educationNum');
+
+  function updateFill(rangeEl){
+    var min = parseFloat(rangeEl.min), max = parseFloat(rangeEl.max), v = parseFloat(rangeEl.value);
+    rangeEl.style.setProperty('--fill', (((v - min) / (max - min)) * 100) + '%');
+  }
+  function syncPair(rangeEl, numEl, min, max){
+    function fromRange(){ numEl.value = rangeEl.value; updateFill(rangeEl); recalc(); }
+    function fromNum(){
+      var v = clamp(num(numEl), min, max);
+      numEl.value = v; rangeEl.value = Math.min(v, parseFloat(rangeEl.max)); updateFill(rangeEl); recalc();
+    }
+    rangeEl.addEventListener('input', fromRange);
+    numEl.addEventListener('input', fromNum);
+    numEl.addEventListener('blur', fromNum);
+  }
+
+  syncPair(income, incomeNum, 0, 2000000);
+  syncPair(parentFather, parentFatherNum, 0, 1500);
+  syncPair(parentMother, parentMotherNum, 0, 1500);
+  syncPair(medGeneral, medGeneralNum, 0, 10000);
+  syncPair(medScreening, medScreeningNum, 0, 1000);
+  syncPair(isaraan, isaraanNum, 0, 4000);
+  syncPair(insurance, insuranceNum, 0, 3000);
+  syncPair(lifestyle, lifestyleNum, 0, 2500);
+  syncPair(education, educationNum, 0, 7000);
+
+  function bindPlainExpense(k){
+    var e = expEls[k];
+    function apply(){ e.num.disabled = !e.chk.checked; recalc(); }
+    e.chk.addEventListener('change', apply);
+    e.num.addEventListener('input', recalc);
+    e.num.addEventListener('blur', function(){ if (num(e.num) < 0) e.num.value = 0; recalc(); });
+    apply();
+  }
+  expChecks.forEach(bindPlainExpense);
+
+  function applyDevicesToggle(){
+    devicesSmallNum.disabled = !devicesChk.checked;
+    devicesLargeNum.disabled = !devicesChk.checked;
+    recalc();
+  }
+  devicesChk.addEventListener('change', applyDevicesToggle);
+  devicesSmallNum.addEventListener('input', recalc);
+  devicesLargeNum.addEventListener('input', recalc);
+  document.querySelectorAll('input[name="devicesYear"]').forEach(function(r){ r.addEventListener('change', recalc); });
+  applyDevicesToggle();
+
+  relDisabledChk.addEventListener('change', recalc);
+  relSpouseChk.addEventListener('change', recalc);
+  childNum.addEventListener('input', function(){
+    var v = clamp(Math.round(num(childNum)), 0, 4);
+    childNum.value = v; recalc();
+  });
+
+  // ---------- ladder build (once) ----------
+  var ladderEl = byId('ladder');
+  var ladderColors = ['#1F6F63','#2C7A6C','#3F8577','#5C9482','#8FA478','#C2A25E','#D2914B','#C97A44','#BC5C3C','#B0442F'];
+  BANDS.forEach(function(band, i){
+    var prevLimit = i === 0 ? 0 : BANDS[i-1].limit;
+    var span = Math.min(band.limit, LADDER_SCALE) - Math.min(prevLimit, LADDER_SCALE);
+    if (span <= 0) return;
+    var seg = document.createElement('div');
+    seg.className = 'ladder-seg h-full';
+    seg.style.background = ladderColors[i];
+    seg.style.flex = '0 0 ' + ((span / LADDER_SCALE) * 100) + '%';
+    seg.title = (band.rate*100) + '% band';
+    ladderEl.appendChild(seg);
+  });
+
+  // ---------- instalment table (rebuilt on language change) ----------
+  var instalEl = byId('instalmentTable');
+  function buildInstalmentTable(lang){
+    instalEl.innerHTML = '';
+    MONTHS[lang].forEach(function(m, i){
+      var row = document.createElement('div');
+      row.className = 'flex justify-between items-center text-[13px] py-1';
+      row.innerHTML = '<span class="text-slatesoft">' + (i+1) + '. ' + m + '</span><span class="font-mono font-medium text-ink instalment-amt">RM0</span>';
+      instalEl.appendChild(row);
+    });
+  }
+
+  var tipsListEl = byId('tipsList');
+  var personaSelectEl = byId('personaSelect');
+  var tipsProgressBarEl = byId('tipsProgressBar');
+  var tipsProgressLabelEl = byId('tipsProgressLabel');
+
+  var TIPS_CHECKED_KEY = 'cp500_tips_checked';
+  var CHECKABLE_TIP_IDS = ['lifestyle','education','isaraan','insurance'];
+  function getCheckedTips(){
+    try { return JSON.parse(Common_lsGet(TIPS_CHECKED_KEY)) || {}; } catch(e){ return {}; }
+  }
+  function Common_lsGet(key){ try { return localStorage.getItem(key); } catch(e){ return null; } }
+  function Common_lsSet(key, val){ try { localStorage.setItem(key, val); } catch(e){} }
+  function setTipChecked(id, val){
+    var state = getCheckedTips();
+    state[id] = val;
+    Common_lsSet(TIPS_CHECKED_KEY, JSON.stringify(state));
+    updateTipsProgress();
+  }
+  function updateTipsProgress(){
+    var state = getCheckedTips();
+    var done = CHECKABLE_TIP_IDS.filter(function(id){ return !!state[id]; }).length;
+    var total = CHECKABLE_TIP_IDS.length;
+    if (tipsProgressBarEl) tipsProgressBarEl.style.width = (total ? (done/total*100) : 0) + '%';
+    if (tipsProgressLabelEl) tipsProgressLabelEl.textContent = done + '/' + total;
+  }
+
+  // Persona-specific tip content — a lightweight "who are you" filter that
+  // surfaces the deduction category that persona most commonly under-claims.
+  var PERSONA_TIPS = {
+    en: {
+      designer:  'As a freelance designer/consultant, double-check you have claimed software subscriptions, domain/hosting fees, and the business-use share of your home-office bills.',
+      creator:   'As a content creator, make sure production equipment (camera, mic, lighting) and editing software are logged under Devices & Software — these are commonly under-claimed.',
+      ecommerce: 'As an e-commerce seller/dropshipper, verify your COGS and platform/payment gateway fees are fully entered — these are usually your largest deductible expense.',
+      gig:       'As a gig/ride-hailing driver, make sure toll, petrol, and the business-use share of your vehicle insurance are captured under Travel-Related Costs.'
+    },
+    zh: {
+      designer:  '作为自由设计师/顾问，请确认你已申报软件订阅费、域名/主机托管费，以及居家办公账单中的业务使用部分。',
+      creator:   '作为内容创作者，请确保拍摄设备（相机、麦克风、灯光）及剪辑软件已计入"设备与软件"——这类费用最容易被漏报。',
+      ecommerce: '作为电商卖家/一件代发商家，请核实销货成本（COGS）及平台/支付网关手续费已完整填写——这通常是你最大的一项可扣除费用。',
+      gig:       '作为网约车/送餐司机，请确认过路费、油费，以及车辆保险的业务使用比例已计入"差旅相关费用"。'
+    },
+    ms: {
+      designer:  'Sebagai pereka bentuk/perunding bebas, sahkan anda telah menuntut langganan perisian, yuran domain/hosting, dan bahagian penggunaan perniagaan bil pejabat rumah anda.',
+      creator:   'Sebagai pencipta kandungan, pastikan peralatan produksi (kamera, mik, lampu) dan perisian penyuntingan direkodkan di bawah Peranti & Perisian — ini sering kurang dituntut.',
+      ecommerce: 'Sebagai penjual e-dagang/dropshipper, sahkan COGS dan yuran platform/get bayaran anda dimasukkan sepenuhnya — ini biasanya perbelanjaan boleh tolak terbesar anda.',
+      gig:       'Sebagai pemandu gig/e-hailing, pastikan tol, petrol, dan bahagian penggunaan perniagaan insurans kenderaan anda direkodkan di bawah Kos Berkaitan Perjalanan.'
+    }
+  };
+
+  function bullet(rule){
+    var li = document.createElement('li');
+    li.className = 'flex items-start gap-2';
+    var checkedState = getCheckedTips();
+    var isChecked = !!checkedState[rule.id];
+    var savingsBadge = '';
+    if (rule.savings && rule.savings > 0){
+      savingsBadge = '<span class="inline-block text-[10px] font-semibold text-ink bg-brass/70 rounded-full px-1.5 py-0.5 ml-1.5 align-middle">' + fmt(rule.savings) + '</span>';
+    }
+    var checkboxHtml = rule.checkable
+      ? '<input type="checkbox" class="tip-check mt-0.5 w-3.5 h-3.5 accent-teal shrink-0" ' + (isChecked ? 'checked' : '') + ' data-tip-id="' + rule.id + '">'
+      : '<span class="text-teal mt-0.5 shrink-0">&#9656;</span>';
+    li.innerHTML = checkboxHtml +
+      '<span class="' + (isChecked && rule.checkable ? 'line-through opacity-60' : '') + '">' + rule.text + savingsBadge +
+      (rule.anchor ? ' <a href="' + rule.anchor + '" class="text-teal underline underline-offset-2 whitespace-nowrap">' + (window.TIP_DETAIL_LABEL || 'Details →') + '</a>' : '') +
+      '</span>';
+    if (rule.checkable){
+      li.querySelector('.tip-check').addEventListener('change', function(e){
+        setTipChecked(rule.id, e.target.checked);
+        recalc();
+      });
+    }
+    return li;
+  }
+
+  // ---------- Progressive guidance banner ----------
+  // Shown once the visitor has entered a meaningful amount of data (income
+  // + at least one expense + at least one relief beyond the automatic
+  // individual relief), nudging them to the guide instead of leaving right
+  // after seeing their number. Permanently dismissible.
+  var guidanceBannerEl = byId('guidanceBanner');
+  var GUIDANCE_DISMISSED_KEY = 'cp500_guidance_dismissed';
+  if (byId('guidanceBannerClose')) {
+    byId('guidanceBannerClose').addEventListener('click', function(){
+      Common_lsSet(GUIDANCE_DISMISSED_KEY, '1');
+      guidanceBannerEl.classList.add('hidden');
+    });
+  }
+  function updateGuidanceBanner(incomeVal, expTotal, extraReliefs, netTax){
+    if (!guidanceBannerEl) return;
+    if (Common_lsGet(GUIDANCE_DISMISSED_KEY) === '1') { guidanceBannerEl.classList.add('hidden'); return; }
+    var qualifies = incomeVal > 0 && expTotal > 0 && extraReliefs > 0 && netTax >= 0;
+    guidanceBannerEl.classList.toggle('hidden', !qualifies);
+  }
+
+  // ---------- First-result toast (shown once, ever) ----------
+  var FIRST_TOAST_KEY = 'cp500_first_toast_shown';
+  var firstToastEl = byId('firstResultToast');
+  if (byId('firstResultToastClose')) {
+    byId('firstResultToastClose').addEventListener('click', function(){
+      firstToastEl.classList.add('hidden');
+      Common_lsSet(FIRST_TOAST_KEY, '1');
+    });
+  }
+  function maybeShowFirstResultToast(netTax, topRule){
+    if (!firstToastEl || Common_lsGet(FIRST_TOAST_KEY) === '1') return;
+    if (netTax <= 0 || !topRule) return;
+    byId('firstResultToastText').textContent = topRule.text;
+    byId('firstResultToastLink').setAttribute('href', topRule.anchor || '#guide-reliefs');
+    firstToastEl.classList.remove('hidden');
+  }
+
+  // ---------- CP500 payment reminder (.ics calendar export) ----------
+  // Pure client-side .ics file generation — no backend, no external
+  // calendar API. Places each of the 6 bi-monthly instalments on the 15th
+  // of its month (a safe mid-month reminder date ahead of typical due
+  // dates), rolling into next year for any month already passed.
+  function downloadIcs(monthIndexes, perInstalmentAmount){
+    var now = new Date();
+    var year = now.getFullYear();
+    var lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//CP500 Calculator//EN'];
+    monthIndexes.forEach(function(monthIdx, i){
+      var due = new Date(year, monthIdx, 15);
+      if (due < now) due = new Date(year + 1, monthIdx, 15);
+      var dateStr = due.getFullYear() + String(due.getMonth()+1).padStart(2,'0') + String(due.getDate()).padStart(2,'0');
+      lines.push('BEGIN:VEVENT');
+      lines.push('UID:cp500-' + i + '-' + dateStr + '@mytaxmalaysia.com');
+      lines.push('DTSTART;VALUE=DATE:' + dateStr);
+      lines.push('SUMMARY:CP500 Instalment ' + (i+1) + '/6 — approx. ' + fmt(perInstalmentAmount));
+      lines.push('DESCRIPTION:Estimated CP500 instalment from your Malaysia Freelancer Tax Calculator. Confirm the exact amount on your official LHDN notice.');
+      lines.push('END:VEVENT');
+    });
+    lines.push('END:VCALENDAR');
+    var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'CP500-reminders.ics';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ---------- Scenario save & compare ----------
+  var SCENARIOS_KEY = 'cp500_scenarios';
+  var MAX_SCENARIOS = 4;
+  function getScenarios(){ try { return JSON.parse(Common_lsGet(SCENARIOS_KEY)) || []; } catch(e){ return []; } }
+  function saveScenarios(list){ Common_lsSet(SCENARIOS_KEY, JSON.stringify(list)); }
+  function renderScenarios(){
+    var list = getScenarios();
+    var listEl = byId('scenarioList');
+    var emptyEl = byId('scenarioEmpty');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    emptyEl.classList.toggle('hidden', list.length > 0);
+    list.forEach(function(sc){
+      var row = document.createElement('div');
+      row.className = 'scenario-row flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg';
+      row.innerHTML =
+        '<div class="min-w-0 flex-1">' +
+          '<p class="font-medium text-ink truncate">' + sc.name + '</p>' +
+          '<p class="text-slatesoft">' + fmt(sc.netProfit) + ' → ' + fmt(sc.chargeable) + ' → <span class="text-brass font-medium">' + fmt(sc.tax) + '</span> (' + fmt(sc.perInstalment) + '/instalment)</p>' +
+        '</div>' +
+        '<button class="scenario-delete text-rust/70 hover:text-rust text-xs shrink-0" data-id="' + sc.id + '">✕</button>';
+      row.querySelector('.scenario-delete').addEventListener('click', function(){
+        saveScenarios(getScenarios().filter(function(s){ return s.id !== sc.id; }));
+        renderScenarios();
+      });
+      listEl.appendChild(row);
+    });
+  }
+
+  // ---------- localStorage ----------
+  var STORAGE_KEY = 'cp500_inputs_v2';
+  var PERSIST_CHECKS = ['exp_cogs_chk','exp_platform_chk','exp_homeoffice_chk','exp_software_chk','exp_marketing_chk','exp_travel_chk','exp_proffees_chk','exp_comm_chk','exp_devices_chk','rel_disabled_chk','rel_spouse_chk'];
+  var PERSIST_NUMS = ['incomeNum','exp_cogs_num','exp_platform_num','exp_homeoffice_num','exp_software_num','exp_marketing_num','exp_travel_num','exp_proffees_num','exp_comm_num','exp_devices_small_num','exp_devices_large_num','rel_child_num','rel_parent_fatherNum','rel_parent_motherNum','rel_medical_generalNum','rel_medical_screeningNum','rel_isaraanNum','rel_insuranceNum','rel_lifestyleNum','rel_educationNum'];
+
+  function saveInputs(){
+    try {
+      var state = { checks: {}, nums: {}, devicesYear: (document.querySelector('input[name="devicesYear"]:checked')||{}).value || 'first' };
+      PERSIST_CHECKS.forEach(function(id){ state.checks[id] = byId(id).checked; });
+      PERSIST_NUMS.forEach(function(id){ state.nums[id] = byId(id).value; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch(e){}
+  }
+  function loadSavedInputs(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      var state = JSON.parse(raw);
+      PERSIST_CHECKS.forEach(function(id){ if (state.checks && state.checks[id] !== undefined) byId(id).checked = state.checks[id]; });
+      PERSIST_NUMS.forEach(function(id){
+        if (state.nums && state.nums[id] !== undefined){
+          byId(id).value = state.nums[id];
+          var rangeId = id.replace(/Num$/,'').replace(/_num$/,'');
+          var rangeEl = byId(rangeId);
+          if (rangeEl && rangeEl.type === 'range') rangeEl.value = state.nums[id];
+        }
+      });
+      if (state.devicesYear === 'subsequent') byId('devicesYearSubsequent').checked = true;
+      else byId('devicesYearFirst').checked = true;
+      return true;
+    } catch(e){ return false; }
+  }
+
+  function resetToDefaults(){
+    incomeNum.value = 72000; income.value = 72000;
+    expChecks.forEach(function(k){ expEls[k].chk.checked = true; expEls[k].num.value = 0; expEls[k].num.disabled = false; });
+    devicesChk.checked = true; devicesSmallNum.value = 0; devicesLargeNum.value = 0; devicesSmallNum.disabled = false; devicesLargeNum.disabled = false;
+    byId('devicesYearFirst').checked = true;
+    relDisabledChk.checked = false; relSpouseChk.checked = false;
+    parentFather.value = 0; parentFatherNum.value = 0;
+    parentMother.value = 0; parentMotherNum.value = 0;
+    childNum.value = 0;
+    medGeneral.value = 0; medGeneralNum.value = 0;
+    medScreening.value = 0; medScreeningNum.value = 0;
+    isaraan.value = 0; isaraanNum.value = 0;
+    insurance.value = 0; insuranceNum.value = 0;
+    lifestyle.value = 1500; lifestyleNum.value = 1500;
+    education.value = 2000; educationNum.value = 2000;
+    [income, parentFather, parentMother, medGeneral, medScreening, isaraan, insurance, lifestyle, education].forEach(updateFill);
+    recalc();
+  }
+
+  function recalc(){
+    var incomeVal = num(incomeNum);
+
+    var expTotal = 0;
+    expChecks.forEach(function(k){
+      if (expEls[k].chk.checked) expTotal += Math.max(0, num(expEls[k].num));
+    });
+    if (devicesChk.checked){
+      var small = Math.max(0, num(devicesSmallNum));
+      var largeCost = Math.max(0, num(devicesLargeNum));
+      var yearFirst = byId('devicesYearFirst').checked;
+      var allowance = largeCost * (yearFirst ? 0.6 : 0.2);
+      expTotal += small + allowance;
+    }
+    if (expTotal > incomeVal) expTotal = incomeVal;
+
+    var netProfit = Math.max(0, incomeVal - expTotal);
+
+    var disabled = relDisabledChk.checked ? 6000 : 0;
+    var spouse = relSpouseChk.checked ? 4000 : 0;
+    var parentsTotal = Math.min(clamp(num(parentFatherNum),0,1500) + clamp(num(parentMotherNum),0,1500), 3000);
+    var childCount = clamp(Math.round(num(childNum)), 0, 4);
+    var childRelief = childCount * 2000;
+    var medicalTotal = Math.min(clamp(num(medGeneralNum),0,10000) + clamp(num(medScreeningNum),0,1000), 10000);
+    var isaraanVal = clamp(num(isaraanNum), 0, 4000);
+    var insuranceVal = clamp(num(insuranceNum), 0, 3000);
+    var lifestyleVal = clamp(num(lifestyleNum), 0, 2500);
+    var educationVal = clamp(num(educationNum), 0, 7000);
+
+    var totalReliefs = INDIVIDUAL_RELIEF + disabled + spouse + parentsTotal + childRelief + medicalTotal + isaraanVal + insuranceVal + lifestyleVal + educationVal;
+    var chargeable = Math.max(0, netProfit - totalReliefs);
+
+    var result = calcTax(chargeable);
+    var effectiveRate = netProfit > 0 ? (result.netTax / netProfit) * 100 : 0;
+    var perInstalment = result.netTax / 6;
+
+    byId('outIncome').textContent = fmt(incomeVal);
+    byId('outExpenses').textContent = fmt(expTotal);
+    byId('outNetProfit').textContent = fmt(netProfit);
+    byId('outReliefs').textContent = fmt(totalReliefs);
+    byId('outChargeable').textContent = fmt(chargeable);
+    byId('outAnnualTax').textContent = fmt(result.netTax);
+    byId('outEffectiveRate').textContent = effectiveRate.toFixed(1) + '%';
+    byId('outMarginalRate').textContent = (result.marginalRate*100).toFixed(0) + '%';
+    byId('outTotalInstalment').textContent = fmt(result.netTax);
+
+    document.querySelectorAll('.instalment-amt').forEach(function(node){ node.textContent = fmt(perInstalment); });
+
+    var markerPct = clamp((chargeable / LADDER_SCALE) * 100, 0, 100);
+    byId('ladderMarker').style.left = markerPct + '%';
+
+    var expPct = incomeVal > 0 ? Math.min(100, (expTotal / incomeVal) * 100) : 0;
+    var taxPct = incomeVal > 0 ? Math.min(100 - expPct, (result.netTax / incomeVal) * 100) : 0;
+    var takePct = Math.max(0, 100 - expPct - taxPct);
+    var b1 = expPct, b2 = expPct + taxPct;
+    byId('donutChart').style.background = 'conic-gradient(#B8863B 0% ' + b1.toFixed(2) + '%, #B0442F ' + b1.toFixed(2) + '% ' + b2.toFixed(2) + '%, #1F6F63 ' + b2.toFixed(2) + '% 100%)';
+    byId('donutCenter').textContent = takePct.toFixed(0) + '%';
+    byId('chartExpensesPct').textContent = expPct.toFixed(1) + '%';
+    byId('chartTaxPct').textContent = taxPct.toFixed(1) + '%';
+    byId('chartTakehomePct').textContent = takePct.toFixed(1) + '%';
+
+    var T = TIPS[currentLang];
+    tipsListEl.innerHTML = '';
+    var marginalRate = result.marginalRate;
+    var tipRules = [];
+    if (lifestyleVal < 2500) tipRules.push({ id:'lifestyle', anchor:'#guide-reliefs', checkable:true, text:T.lifestyle(2500 - lifestyleVal), savings: Math.round((2500 - lifestyleVal) * marginalRate) });
+    if (educationVal < 7000) tipRules.push({ id:'education', anchor:'#guide-reliefs', checkable:true, text:T.education(7000 - educationVal), savings: Math.round((7000 - educationVal) * marginalRate) });
+    if (isaraanVal < 4000) tipRules.push({ id:'isaraan', anchor:'#guide-reliefs', checkable:true, text:T.isaraan(4000 - isaraanVal), savings: Math.round((4000 - isaraanVal) * marginalRate) });
+    if (insuranceVal < 3000) tipRules.push({ id:'insurance', anchor:'#guide-reliefs', checkable:true, text:T.insurance(3000 - insuranceVal), savings: Math.round((3000 - insuranceVal) * marginalRate) });
+    if (expTotal < incomeVal * 0.15) tipRules.push({ id:'expenseRatio', anchor:'#guide-expenses', checkable:false, text:T.expenseRatio, savings:0 });
+    if (chargeable > 35000 && chargeable - totalReliefs < 40000) tipRules.push({ id:'rebateThreshold', anchor:'#guide-reliefs', checkable:false, text:T.rebateThreshold, savings:0 });
+    if (result.netTax > 0) tipRules.push({ id:'setAside', anchor:'#guide-saving', checkable:false, text:T.setAside(Math.ceil(perInstalment)), savings:0 });
+    if (personaSelectEl && personaSelectEl.value && PERSONA_TIPS[currentLang][personaSelectEl.value]){
+      tipRules.push({ id:'persona', anchor:'#guide-expenses', checkable:false, text: PERSONA_TIPS[currentLang][personaSelectEl.value], savings:0 });
+    }
+    if (tipRules.length === 0) tipRules.push({ id:'wellOptimised', anchor:null, checkable:false, text:T.wellOptimised, savings:0 });
+
+    tipRules.forEach(function(rule){ tipsListEl.appendChild(bullet(rule)); });
+    updateTipsProgress();
+
+    // Highest-value unclaimed relief (by estimated ringgit saving) drives
+    // both the one-time first-result toast and general prioritisation.
+    var topRule = tipRules.filter(function(r){ return r.savings > 0; }).sort(function(a,b){ return b.savings - a.savings; })[0];
+    maybeShowFirstResultToast(result.netTax, topRule);
+    updateGuidanceBanner(incomeVal, expTotal, totalReliefs - INDIVIDUAL_RELIEF, result.netTax);
+
+    // Expose the latest computed breakdown for the scenario-save feature.
+    window.__cp500LastResult = {
+      netProfit: netProfit, chargeable: chargeable, tax: result.netTax, perInstalment: perInstalment,
+      cp500Months: [0,2,4,6,8,10] // Jan, Mar, May, Jul, Sep, Nov (0-indexed)
+    };
+
+    saveInputs();
+  }
+
+  // ---------- language switching ----------
+  function updateLangButtons(lang){
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+  function applyLanguage(lang){
+    if (!I18N[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(node){
+      var key = node.getAttribute('data-i18n');
+      if (I18N[lang][key] !== undefined) node.innerHTML = I18N[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(node){
+      var key = node.getAttribute('data-i18n-placeholder');
+      if (I18N[lang][key] !== undefined) node.setAttribute('placeholder', I18N[lang][key]);
+    });
+    window.TIP_DETAIL_LABEL = I18N[lang].tip_detail_label || 'Details \u2192';
+    try { localStorage.setItem('cp500_lang', lang); } catch(e){}
+    updateLangButtons(lang);
+    buildInstalmentTable(lang);
+    recalc();
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ applyLanguage(btn.getAttribute('data-lang')); });
+  });
+
+  byId('resetBtn').addEventListener('click', resetToDefaults);
+  byId('clearDataBtn').addEventListener('click', function(){
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+    resetToDefaults();
+  });
+
+  // ---------- New engagement features: wiring ----------
+  if (byId('printReportBtn')) byId('printReportBtn').addEventListener('click', function(){ window.print(); });
+  if (byId('downloadIcsBtn')) byId('downloadIcsBtn').addEventListener('click', function(){
+    var r = window.__cp500LastResult;
+    if (r) downloadIcs(r.cp500Months, r.perInstalment);
+  });
+  if (personaSelectEl) personaSelectEl.addEventListener('change', recalc);
+  if (byId('scenarioSaveBtn')) byId('scenarioSaveBtn').addEventListener('click', function(){
+    var nameInput = byId('scenarioNameInput');
+    var name = (nameInput.value || '').trim();
+    var r = window.__cp500LastResult;
+    if (!name || !r) return;
+    var list = getScenarios();
+    if (list.length >= MAX_SCENARIOS){
+      alert(I18N[currentLang].scenario_max_reached || 'You can compare up to 4 scenarios. Delete one to save another.');
+      return;
+    }
+    list.push({ id: 'sc_' + Date.now(), name: name, netProfit: r.netProfit, chargeable: r.chargeable, tax: r.tax, perInstalment: r.perInstalment });
+    saveScenarios(list);
+    nameInput.value = '';
+    renderScenarios();
+  });
+
+  // ---------- init ----------
+  loadSavedInputs();
+  [income, parentFather, parentMother, medGeneral, medScreening, isaraan, insurance, lifestyle, education].forEach(updateFill);
+  expChecks.forEach(function(k){ expEls[k].num.disabled = !expEls[k].chk.checked; });
+  devicesSmallNum.disabled = !devicesChk.checked; devicesLargeNum.disabled = !devicesChk.checked;
+  buildInstalmentTable(currentLang);
+  renderScenarios();
+  updateTipsProgress();
+  applyLanguage(currentLang);
+
+})();
+</script>
+</body>
+</html>
