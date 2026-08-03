@@ -807,7 +807,7 @@
 </script>
 
 <script>
-(function(){
+function initCP500Calculator(){
   "use strict";
 
   // ================= I18N =================
@@ -1365,6 +1365,25 @@
   syncPair(lifestyle, lifestyleNum, 0, 2500);
   syncPair(education, educationNum, 0, 7000);
 
+  // ---------------------------------------------------------------------
+  // IMPORTANT: these DOM references must exist BEFORE bindPlainExpense()
+  // runs below, because bindPlainExpense() calls apply() -> recalc()
+  // synchronously during setup, and recalc() reads tipsListEl. Declaring
+  // them here (instead of further down, after the first recalc() fires)
+  // prevents a "Cannot set properties of undefined" crash that used to
+  // abort the whole script before the language-switcher listeners at the
+  // bottom of the file ever got attached.
+  // ---------------------------------------------------------------------
+  var tipsListEl = byId('tipsList');
+  var personaSelectEl = byId('personaSelect');
+  var tipsProgressBarEl = byId('tipsProgressBar');
+  var tipsProgressLabelEl = byId('tipsProgressLabel');
+  var TIPS_CHECKED_KEY = 'cp500_tips_checked';
+  var CHECKABLE_TIP_IDS = ['lifestyle','education','isaraan','insurance'];
+  var STORAGE_KEY = 'cp500_inputs_v2';
+  var PERSIST_CHECKS = ['exp_cogs_chk','exp_platform_chk','exp_homeoffice_chk','exp_software_chk','exp_marketing_chk','exp_travel_chk','exp_proffees_chk','exp_comm_chk','exp_devices_chk','rel_disabled_chk','rel_spouse_chk'];
+  var PERSIST_NUMS = ['incomeNum','exp_cogs_num','exp_platform_num','exp_homeoffice_num','exp_software_num','exp_marketing_num','exp_travel_num','exp_proffees_num','exp_comm_num','exp_devices_small_num','exp_devices_large_num','rel_child_num','rel_parent_fatherNum','rel_parent_motherNum','rel_medical_generalNum','rel_medical_screeningNum','rel_isaraanNum','rel_insuranceNum','rel_lifestyleNum','rel_educationNum'];
+
   function bindPlainExpense(k){
     var e = expEls[k];
     function apply(){ e.num.disabled = !e.chk.checked; recalc(); }
@@ -1420,13 +1439,6 @@
     });
   }
 
-  var tipsListEl = byId('tipsList');
-  var personaSelectEl = byId('personaSelect');
-  var tipsProgressBarEl = byId('tipsProgressBar');
-  var tipsProgressLabelEl = byId('tipsProgressLabel');
-
-  var TIPS_CHECKED_KEY = 'cp500_tips_checked';
-  var CHECKABLE_TIP_IDS = ['lifestyle','education','isaraan','insurance'];
   function getCheckedTips(){
     try { return JSON.parse(Common_lsGet(TIPS_CHECKED_KEY)) || {}; } catch(e){ return {}; }
   }
@@ -1590,10 +1602,6 @@
   }
 
   // ---------- localStorage ----------
-  var STORAGE_KEY = 'cp500_inputs_v2';
-  var PERSIST_CHECKS = ['exp_cogs_chk','exp_platform_chk','exp_homeoffice_chk','exp_software_chk','exp_marketing_chk','exp_travel_chk','exp_proffees_chk','exp_comm_chk','exp_devices_chk','rel_disabled_chk','rel_spouse_chk'];
-  var PERSIST_NUMS = ['incomeNum','exp_cogs_num','exp_platform_num','exp_homeoffice_num','exp_software_num','exp_marketing_num','exp_travel_num','exp_proffees_num','exp_comm_num','exp_devices_small_num','exp_devices_large_num','rel_child_num','rel_parent_fatherNum','rel_parent_motherNum','rel_medical_generalNum','rel_medical_screeningNum','rel_isaraanNum','rel_insuranceNum','rel_lifestyleNum','rel_educationNum'];
-
   function saveInputs(){
     try {
       var state = { checks: {}, nums: {}, devicesYear: (document.querySelector('input[name="devicesYear"]:checked')||{}).value || 'first' };
@@ -1804,7 +1812,19 @@
   updateTipsProgress();
   applyLanguage(currentLang);
 
-})();
+}
+
+// Run after the DOM is fully parsed. The readyState check covers both
+// cases: if this script executes before DOMContentLoaded has fired
+// (normal case), we wait for it; if it somehow executes after (e.g. the
+// script tag was injected dynamically), readyState is already past
+// 'loading' and we run immediately instead of waiting for an event that
+// already happened and would otherwise never re-fire.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCP500Calculator);
+} else {
+  initCP500Calculator();
+}
 </script>
 </body>
 </html>
