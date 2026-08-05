@@ -206,6 +206,17 @@
 
 <!-- ============ ESTIMATOR ============ -->
 <section id="estimator" class="max-w-6xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
+
+  <!-- Welcome-back banner: shown only to returning visitors who already
+       have saved tax history. This is the core "reason to come back"
+       moment — greets them by name of their saved data instead of making
+       them start from a blank calculator every time. -->
+  <div id="welcomeBackBanner" class="hidden mb-8 bg-ink text-paper rounded-2xl px-5 py-4 sm:px-6 sm:py-5 flex items-start sm:items-center gap-3 flex-col sm:flex-row">
+    <span class="text-brass text-xl leading-none shrink-0">👋</span>
+    <p class="flex-1 text-[13px] sm:text-sm text-paper/90 leading-snug" id="welcomeBackText"></p>
+    <a href="#history" class="shrink-0 text-xs font-semibold text-ink bg-brass hover:bg-brasssoft px-4 py-2 rounded-full transition-colors" data-i18n="welcome_back_cta">View my tax history →</a>
+  </div>
+
   <div class="grid lg:grid-cols-5 gap-8">
 
     <!-- ---------- LEFT: SECTION 1 + 2 ---------- -->
@@ -639,6 +650,18 @@
           <p data-i18n="penalty_warning" class="text-[12px] text-rust/90 leading-relaxed">Late or short CP500 instalments may incur penalties ranging from 10% to 20% under LHDN rules, depending on how long the payment is overdue.</p>
         </div>
 
+        <!-- Lightweight bookmark reminder: shown once, ever, non-blocking,
+             dismissible. Sits contextually right after the 6-instalment
+             schedule — the exact moment a visitor realises this isn't a
+             one-time check. -->
+        <div id="bookmarkReminder" class="hidden bg-tealsoft border border-teal/20 rounded-2xl p-4 flex gap-3 items-start">
+          <span class="text-teal text-lg leading-none">📌</span>
+          <div class="flex-1 min-w-0">
+            <p data-i18n="bookmark_reminder_text" class="text-[12px] text-teal/90 leading-relaxed">Tip: bookmark this page (Ctrl+D / Cmd+D) — you'll want to recheck your numbers before each CP500 due date, and again next tax season.</p>
+          </div>
+          <button id="bookmarkReminderClose" type="button" class="text-teal/50 hover:text-teal text-sm leading-none shrink-0" aria-label="Dismiss" data-i18n-title="bookmark_reminder_dismiss">✕</button>
+        </div>
+
         <!-- Data visualization: income allocation donut chart -->
         <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
           <h3 data-i18n="chart_title" class="font-display text-lg text-ink mb-4">Where Your Income Goes</h3>
@@ -690,16 +713,25 @@
           <ul id="tipsList" class="space-y-2.5 text-[13px] text-teal/90 leading-snug"></ul>
         </div>
 
-        <!-- Scenario snapshots: save & compare -->
-        <div class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
-          <h3 data-i18n="scenario_title" class="font-display text-lg text-ink mb-1">Save &amp; Compare Scenarios</h3>
-          <p data-i18n="scenario_desc" class="text-[11px] text-slatesoft mb-3">Snapshot your current numbers to compare "what if" situations later — stored only in this browser.</p>
-          <div class="flex gap-2 mb-3">
-            <input id="scenarioNameInput" type="text" maxlength="40" data-i18n-placeholder="scenario_name_placeholder" placeholder="Scenario name (e.g. New laptop bought)" class="flex-1 min-w-0 text-xs bg-paper border border-slate/15 rounded-lg px-3 py-2 outline-none">
-            <button id="scenarioSaveBtn" type="button" class="text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-3 py-2 rounded-lg shrink-0" data-i18n="scenario_save_btn">Save</button>
+        <!-- Multi-year tax history vault: the core retention mechanic —
+             tagging saved records by Year of Assessment gives users a real
+             reason to come back every tax season instead of using the
+             calculator once and never returning. -->
+        <div id="history" class="bg-panel border border-slate/10 rounded-2xl p-6 shadow-sm">
+          <h3 data-i18n="scenario_title" class="font-display text-lg text-ink mb-1">📁 My Tax History</h3>
+          <p data-i18n="scenario_desc" class="text-[11px] text-slatesoft mb-3">Save this year's numbers, tagged by Year of Assessment. Next tax season, come back and compare — everything stays in this browser, year after year.</p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <select id="scenarioYearSelect" class="text-xs bg-paper border border-slate/15 rounded-lg px-2 py-2 outline-none shrink-0">
+              <option value="YA2026">YA2026</option>
+              <option value="YA2025">YA2025</option>
+              <option value="YA2024">YA2024</option>
+              <option value="Earlier" data-i18n="scenario_year_earlier">Earlier</option>
+            </select>
+            <input id="scenarioNameInput" type="text" maxlength="40" data-i18n-placeholder="scenario_name_placeholder" placeholder="Note (e.g. New laptop bought)" class="flex-1 min-w-[120px] text-xs bg-paper border border-slate/15 rounded-lg px-3 py-2 outline-none">
+            <button id="scenarioSaveBtn" type="button" class="text-xs font-medium text-ink bg-brass hover:bg-brasssoft px-3 py-2 rounded-lg shrink-0" data-i18n="scenario_save_btn">Save to History</button>
           </div>
           <div id="scenarioList" class="space-y-2"></div>
-          <p id="scenarioEmpty" data-i18n="scenario_empty" class="text-[11px] text-slatesoft">No saved scenarios yet — save your current numbers above to start comparing.</p>
+          <p id="scenarioEmpty" data-i18n="scenario_empty" class="text-[11px] text-slatesoft">No saved tax years yet — save this year's numbers above so you have something to compare against next season.</p>
         </div>
 
       </div>
@@ -1032,12 +1064,16 @@ function initCP500Calculator(){
       persona_default:"I am a...", persona_designer:"Freelance Designer/Consultant", persona_creator:"Content Creator",
       persona_ecommerce:"E-commerce/Dropshipper", persona_gig:"Gig/Ride-hailing Driver",
       tips_progress_label:"Reliefs optimised",
-      scenario_title:"Save &amp; Compare Scenarios",
-      scenario_desc:"Snapshot your current numbers to compare \"what if\" situations later — stored only in this browser.",
-      scenario_name_placeholder:"Scenario name (e.g. New laptop bought)",
-      scenario_save_btn:"Save",
-      scenario_empty:"No saved scenarios yet — save your current numbers above to start comparing.",
-      scenario_max_reached:"You can compare up to 4 scenarios. Delete one to save another.",
+      scenario_title:"📁 My Tax History",
+      scenario_desc:"Save this year's numbers, tagged by Year of Assessment. Next tax season, come back and compare — everything stays in this browser, year after year.",
+      scenario_year_earlier:"Earlier",
+      scenario_save_btn:"Save to History",
+      scenario_empty:"No saved tax years yet — save this year's numbers above so you have something to compare against next season.",
+      scenario_max_reached:"You can save up to 8 tax years/notes. Delete one to save another.",
+      welcome_back_cta:"View my tax history →",
+      bookmark_reminder_text:"Tip: bookmark this page (Ctrl+D / Cmd+D) — you'll want to recheck your numbers before each CP500 due date, and again next tax season.",
+      bookmark_reminder_dismiss:"Dismiss",
+      scenario_name_placeholder:"Note (e.g. New laptop bought)",
       related_heading:"Related Reading", related_tag:"min read", related_cta:"Read more",
       related1_title:"5 Business Expenses Freelancers Commonly Forget to Claim",
       related1_desc:"A quick self-check list of deductible costs that quietly reduce your chargeable income.",
@@ -1160,12 +1196,16 @@ function initCP500Calculator(){
       persona_default:"我的身份是...", persona_designer:"自由设计师/顾问", persona_creator:"内容创作者",
       persona_ecommerce:"电商卖家/一件代发", persona_gig:"网约车/送餐司机",
       tips_progress_label:"减免优化进度",
-      scenario_title:"保存与比较方案",
-      scenario_desc:"将当前数据保存为快照，方便日后比较不同情景——仅保存在此浏览器中。",
-      scenario_name_placeholder:"方案名称（例如：购入新笔记本电脑）",
-      scenario_save_btn:"保存",
-      scenario_empty:"尚无已保存的方案——保存以上当前数据即可开始比较。",
-      scenario_max_reached:"最多可比较4个方案，请先删除一个再保存新方案。",
+      scenario_title:"📁 我的报税历史",
+      scenario_desc:"保存这一年度的数据，并标注课税年度（YA）。到了下一个报税季，回来对比一下——所有数据都只存在这个浏览器里，年复一年。",
+      scenario_year_earlier:"更早年度",
+      scenario_name_placeholder:"备注（例如：购入新笔记本电脑）",
+      scenario_save_btn:"保存到历史记录",
+      scenario_empty:"尚无已保存的年度记录——保存以上这一年度的数据，下个报税季就有得比较了。",
+      scenario_max_reached:"最多可保存8个年度/备注，请先删除一个再保存新的。",
+      welcome_back_cta:"查看我的报税历史 →",
+      bookmark_reminder_text:"小贴士：收藏此页面（Ctrl+D / Cmd+D）——每期CP500到期前，以及下个报税季，你都会想回来核对一下数字。",
+      bookmark_reminder_dismiss:"关闭",
       related_heading:"相关阅读", related_tag:"分钟阅读", related_cta:"阅读更多",
       related1_title:"自由职业者最容易漏报的5项支出",
       related1_desc:"一分钟自查清单，帮你找出悄悄降低应课税收入的可扣除费用。",
@@ -1306,12 +1346,16 @@ function initCP500Calculator(){
       persona_default:"Saya seorang...", persona_designer:"Pereka Bentuk/Perunding Bebas", persona_creator:"Pencipta Kandungan",
       persona_ecommerce:"Penjual E-dagang/Dropshipper", persona_gig:"Pemandu Gig/E-hailing",
       tips_progress_label:"Pelepasan dioptimumkan",
-      scenario_title:"Simpan &amp; Bandingkan Senario",
-      scenario_desc:"Simpan angka semasa anda untuk membandingkan senario \"bagaimana jika\" kemudian — disimpan hanya dalam pelayar ini.",
-      scenario_name_placeholder:"Nama senario (cth. Komputer riba baharu dibeli)",
-      scenario_save_btn:"Simpan",
-      scenario_empty:"Belum ada senario tersimpan — simpan angka semasa anda di atas untuk mula membandingkan.",
-      scenario_max_reached:"Anda boleh membandingkan sehingga 4 senario. Padam satu untuk menyimpan yang lain.",
+      scenario_title:"📁 Sejarah Cukai Saya",
+      scenario_desc:"Simpan angka tahun ini, ditanda dengan Tahun Taksiran. Musim cukai depan, kembali dan bandingkan — semuanya kekal dalam pelayar ini, tahun demi tahun.",
+      scenario_year_earlier:"Lebih Awal",
+      scenario_name_placeholder:"Nota (cth. Komputer riba baharu dibeli)",
+      scenario_save_btn:"Simpan ke Sejarah",
+      scenario_empty:"Belum ada tahun cukai tersimpan — simpan angka tahun ini di atas supaya ada sesuatu untuk dibandingkan musim depan.",
+      scenario_max_reached:"Anda boleh menyimpan sehingga 8 tahun cukai/nota. Padam satu untuk menyimpan yang lain.",
+      welcome_back_cta:"Lihat sejarah cukai saya →",
+      bookmark_reminder_text:"Tip: tanda halaman ini (Ctrl+D / Cmd+D) — anda pasti mahu menyemak semula angka anda sebelum setiap tarikh akhir CP500, dan sekali lagi musim cukai depan.",
+      bookmark_reminder_dismiss:"Tutup",
       related_heading:"Bacaan Berkaitan", related_tag:"minit bacaan", related_cta:"Baca lagi",
       related1_title:"5 Perbelanjaan Perniagaan yang Sering Terlepas Pandang Freelancer",
       related1_desc:"Senarai semak pantas kos boleh ditolak yang senyap-senyap mengurangkan pendapatan bercukai anda.",
@@ -1752,6 +1796,54 @@ function initCP500Calculator(){
     firstToastEl.classList.remove('hidden');
   }
 
+  // ---------- Welcome-back banner (returning-visitor retention hook) ----------
+  // Only shown when the visitor already has at least one saved tax-year
+  // record — this is a genuine "welcome back", not a generic greeting, and
+  // is the single biggest lever for turning a one-time calculation into a
+  // recurring habit tied to real data the visitor cares about.
+  var WELCOME_BACK_TEXT = {
+    en: function(count, lastYear){
+      return count === 1
+        ? 'Welcome back! You have 1 saved tax year (' + lastYear + ') in your history. Ready to log ' + 'YA2026' + '?'
+        : 'Welcome back! You have ' + count + ' saved tax years in your history, most recently ' + lastYear + '. Ready to log this year\u2019s numbers?';
+    },
+    zh: function(count, lastYear){
+      return '欢迎回来！你已保存 ' + count + ' 个年度的报税记录，最近一次是 ' + lastYear + '。现在就来记录这一年度的数据吧？';
+    },
+    ms: function(count, lastYear){
+      return 'Selamat kembali! Anda mempunyai ' + count + ' tahun taksiran tersimpan, terkini ' + lastYear + '. Sedia untuk catat angka tahun ini?';
+    }
+  };
+  function maybeShowWelcomeBackBanner(){
+    var banner = byId('welcomeBackBanner');
+    var textEl = byId('welcomeBackText');
+    if (!banner || !textEl) return;
+    var list = getScenarios();
+    if (list.length === 0) { banner.classList.add('hidden'); return; }
+    var last = list[list.length - 1];
+    var fn = (WELCOME_BACK_TEXT[currentLang] || WELCOME_BACK_TEXT.en);
+    textEl.textContent = fn(list.length, last.year || last.name || '');
+    banner.classList.remove('hidden');
+  }
+
+  // ---------- Lightweight bookmark reminder (shown once, ever) ----------
+  var BOOKMARK_REMINDER_KEY = 'cp500_bookmark_reminder_shown';
+  var bookmarkReminderEl = byId('bookmarkReminder');
+  if (byId('bookmarkReminderClose')) {
+    byId('bookmarkReminderClose').addEventListener('click', function(){
+      bookmarkReminderEl.classList.add('hidden');
+      Common_lsSet(BOOKMARK_REMINDER_KEY, '1');
+    });
+  }
+  function maybeShowBookmarkReminder(){
+    if (!bookmarkReminderEl || Common_lsGet(BOOKMARK_REMINDER_KEY) === '1') return;
+    // Small delay so it never competes for attention with the guidance
+    // banner or first-result toast, which appear immediately on calculation.
+    setTimeout(function(){
+      if (Common_lsGet(BOOKMARK_REMINDER_KEY) !== '1') bookmarkReminderEl.classList.remove('hidden');
+    }, 4000);
+  }
+
   // ---------- CP500 payment reminder (.ics calendar export) ----------
   // Pure client-side .ics file generation — no backend, no external
   // calendar API. Places each of the 6 bi-monthly instalments on the 15th
@@ -1781,9 +1873,9 @@ function initCP500Calculator(){
     URL.revokeObjectURL(url);
   }
 
-  // ---------- Scenario save & compare ----------
+  // ---------- Multi-year tax history (formerly single-session "scenarios") ----------
   var SCENARIOS_KEY = 'cp500_scenarios';
-  var MAX_SCENARIOS = 4;
+  var MAX_SCENARIOS = 8;
   function getScenarios(){ try { return JSON.parse(Common_lsGet(SCENARIOS_KEY)) || []; } catch(e){ return []; } }
   function saveScenarios(list){ Common_lsSet(SCENARIOS_KEY, JSON.stringify(list)); }
   function renderScenarios(){
@@ -1796,9 +1888,10 @@ function initCP500Calculator(){
     list.forEach(function(sc){
       var row = document.createElement('div');
       row.className = 'scenario-row flex items-center justify-between gap-2 text-[11px] p-2 rounded-lg';
+      var yearBadge = sc.year ? '<span class="inline-block text-[10px] font-semibold text-ink bg-brasssoft rounded-full px-2 py-0.5 mr-1.5 shrink-0">' + sc.year + '</span>' : '';
       row.innerHTML =
         '<div class="min-w-0 flex-1">' +
-          '<p class="font-medium text-ink truncate">' + sc.name + '</p>' +
+          '<p class="font-medium text-ink truncate">' + yearBadge + (sc.name || '') + '</p>' +
           '<p class="text-slatesoft">' + fmt(sc.netProfit) + ' → ' + fmt(sc.chargeable) + ' → <span class="text-brass font-medium">' + fmt(sc.tax) + '</span> (' + fmt(sc.perInstalment) + '/instalment)</p>' +
         '</div>' +
         '<button class="scenario-delete text-rust/70 hover:text-rust text-xs shrink-0" data-id="' + sc.id + '">✕</button>';
@@ -1976,6 +2069,7 @@ function initCP500Calculator(){
     try { localStorage.setItem('cp500_lang', lang); } catch(e){}
     updateLangButtons(lang);
     buildInstalmentTable(lang);
+    maybeShowWelcomeBackBanner();
     recalc();
   }
   document.querySelectorAll('.lang-btn').forEach(function(btn){
@@ -1997,15 +2091,17 @@ function initCP500Calculator(){
   if (personaSelectEl) personaSelectEl.addEventListener('change', recalc);
   if (byId('scenarioSaveBtn')) byId('scenarioSaveBtn').addEventListener('click', function(){
     var nameInput = byId('scenarioNameInput');
+    var yearSelect = byId('scenarioYearSelect');
     var name = (nameInput.value || '').trim();
+    var year = yearSelect ? yearSelect.value : '';
     var r = window.__cp500LastResult;
-    if (!name || !r) return;
+    if (!r) return;
     var list = getScenarios();
     if (list.length >= MAX_SCENARIOS){
-      alert(I18N[currentLang].scenario_max_reached || 'You can compare up to 4 scenarios. Delete one to save another.');
+      alert(I18N[currentLang].scenario_max_reached || 'You can save up to 8 tax years/notes. Delete one to save another.');
       return;
     }
-    list.push({ id: 'sc_' + Date.now(), name: name, netProfit: r.netProfit, chargeable: r.chargeable, tax: r.tax, perInstalment: r.perInstalment });
+    list.push({ id: 'sc_' + Date.now(), year: year, name: name, netProfit: r.netProfit, chargeable: r.chargeable, tax: r.tax, perInstalment: r.perInstalment });
     saveScenarios(list);
     nameInput.value = '';
     renderScenarios();
@@ -2019,6 +2115,8 @@ function initCP500Calculator(){
   buildInstalmentTable(currentLang);
   renderScenarios();
   updateTipsProgress();
+  maybeShowWelcomeBackBanner();
+  maybeShowBookmarkReminder();
   applyLanguage(currentLang);
 
 }
